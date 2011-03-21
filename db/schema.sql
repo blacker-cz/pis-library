@@ -56,6 +56,8 @@ CREATE  TABLE IF NOT EXISTS `pislibrary`.`books` (
   `place` VARCHAR(255) NULL ,
   `idgenre` INT NOT NULL ,
   `idpublisher` INT NOT NULL ,
+  `type` ENUM('isbn', 'issn') NOT NULL DEFAULT 'isbn' ,
+  `code` VARCHAR(255) NULL ,
   PRIMARY KEY (`idbooks`) ,
   INDEX `fk_books_genre1` (`idgenre` ASC) ,
   INDEX `fk_books_publisher1` (`idpublisher` ASC) ,
@@ -134,40 +136,6 @@ CREATE  TABLE IF NOT EXISTS `pislibrary`.`booking` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_booking_books1`
-    FOREIGN KEY (`idbooks` )
-    REFERENCES `pislibrary`.`books` (`idbooks` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pislibrary`.`book`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pislibrary`.`book` (
-  `idbook` INT NOT NULL AUTO_INCREMENT ,
-  `isbn` VARCHAR(255) NOT NULL ,
-  `idbooks` INT NOT NULL ,
-  PRIMARY KEY (`idbook`) ,
-  INDEX `fk_book_books1` (`idbooks` ASC) ,
-  CONSTRAINT `fk_book_books1`
-    FOREIGN KEY (`idbooks` )
-    REFERENCES `pislibrary`.`books` (`idbooks` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pislibrary`.`magazine`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pislibrary`.`magazine` (
-  `idmagazine` INT NOT NULL AUTO_INCREMENT ,
-  `issn` VARCHAR(255) NOT NULL ,
-  `idbooks` INT NOT NULL ,
-  PRIMARY KEY (`idmagazine`) ,
-  INDEX `fk_magazine_books1` (`idbooks` ASC) ,
-  CONSTRAINT `fk_magazine_books1`
     FOREIGN KEY (`idbooks` )
     REFERENCES `pislibrary`.`books` (`idbooks` )
     ON DELETE NO ACTION
