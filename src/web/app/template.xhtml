@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html">
+	<head>
+		<title><ui:insert name="title">Library</ui:insert></title>
+		<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/style/default.css" />
+	</head>
+
+	<body>
+
+		<div id="header">
+			<ui:insert name="header">
+				<h1>Library</h1>
+			</ui:insert>
+		</div>
+
+
+		<div id="content">
+			<h:form>
+				<h:commandLink action="#{authenticationBean.actionLogout}">
+					<h:outputText value="Logout"></h:outputText>
+				</h:commandLink>
+			</h:form>
+			<ui:insert name="content">
+				Content area.  See comments below this line in the source.
+				<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
+				<!-- <div> -->
+				<!-- <ui:include src="content.xhtml"/> -->  
+				<!-- </div> -->
+			</ui:insert>
+		</div>
+
+		<div id="footer">
+			<ui:insert name="footer">
+  	(c) 2011
+			</ui:insert>
+		</div>
+
+	</body>
+
+</html>
