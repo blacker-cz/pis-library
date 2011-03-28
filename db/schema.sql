@@ -10,6 +10,8 @@ USE `pislibrary` ;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `pislibrary`.`user` (
   `iduser` INT NOT NULL AUTO_INCREMENT ,
+  `forename` VARCHAR(128) NOT NULL ,
+  `surname` VARCHAR(128) NOT NULL ,
   `permitNumber` VARCHAR(20) NOT NULL ,
   `address` VARCHAR(255) NOT NULL ,
   `phone` VARCHAR(20) NULL ,

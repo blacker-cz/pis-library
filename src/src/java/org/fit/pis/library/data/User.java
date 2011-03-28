@@ -49,6 +49,16 @@ public class User implements Serializable {
 	private Integer iduser;
 	@Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "forename")
+	private String forename;
+	@Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "surname")
+	private String surname;
+	@Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "permitNumber")
 	private String permitNumber;
@@ -99,8 +109,10 @@ public class User implements Serializable {
 		this.iduser = iduser;
 	}
 
-	public User(Integer iduser, String permitNumber, String address, String email, Date registered, Date expire, String password, String level) {
+	public User(Integer iduser, String forename, String surname, String permitNumber, String address, String email, Date registered, Date expire, String password, String level) {
 		this.iduser = iduser;
+		this.forename = forename;
+		this.surname = surname;
 		this.permitNumber = permitNumber;
 		this.address = address;
 		this.email = email;
@@ -116,6 +128,22 @@ public class User implements Serializable {
 
 	public void setIduser(Integer iduser) {
 		this.iduser = iduser;
+	}
+
+	public String getForename() {
+		return forename;
+	}
+
+	public void setForename(String forename) {
+		this.forename = forename;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getPermitNumber() {
