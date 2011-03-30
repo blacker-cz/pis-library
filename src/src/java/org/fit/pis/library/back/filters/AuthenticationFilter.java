@@ -1,6 +1,6 @@
 /*
  */
-package org.fit.pis.library.back;
+package org.fit.pis.library.back.filters;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.fit.pis.library.back.AuthenticationBean;
 
 /**
  *
@@ -52,7 +53,7 @@ public class AuthenticationFilter implements Filter {
             PrintWriter out = response.getWriter();
             out.println("<html><head><title>Access denied</title></head><body>");
             out.println("<h1>Access denied</h1>");
-			// @todo: change adress
+			// @todo: change address
             out.println("Access denied. <a href=\"/pis-library/\">Try again</a>.");
             out.println("</body></html>");
         }
