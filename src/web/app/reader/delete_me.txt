@@ -1,0 +1,2 @@
+Content of this folder is protected and is accesible only by roles: admin, librarian, reader
+-- delete this file after this folder is not empty
