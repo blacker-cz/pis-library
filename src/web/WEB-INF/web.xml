@@ -8,10 +8,46 @@
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>org.fit.pis.library.back.filters.AuthenticationFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>ReaderScopeFilter</filter-name>
+        <filter-class>org.fit.pis.library.back.filters.ReaderScopeFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>LibrarianScopeFilter</filter-name>
+        <filter-class>org.fit.pis.library.back.filters.LibrarianScopeFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AdminScopeFilter</filter-name>
+        <filter-class>org.fit.pis.library.back.filters.AdminScopeFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/app/*</url-pattern>
         <url-pattern>/faces/app/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ReaderScopeFilter</filter-name>
+        <url-pattern>/app/reader/*</url-pattern>
+        <url-pattern>/faces/app/reader/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LibrarianScopeFilter</filter-name>
+        <url-pattern>/app/librarian/*</url-pattern>
+        <url-pattern>/faces/app/librarian/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminScopeFilter</filter-name>
+        <url-pattern>/app/admin/*</url-pattern>
+        <url-pattern>/faces/app/admin/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
