@@ -140,7 +140,7 @@ public class AuthenticationBean implements Serializable {
 	public String actionLogIn() {
 
 		// guest user login
-		if (permitNumber.compareToIgnoreCase("guest") == 0 && password.compareToIgnoreCase("guest") == 0) {
+		if (permitNumber.compareToIgnoreCase("guest") == 0) {
 			this.authorized = true;
 			this.iduser = 0;
 			this.forename = "";
