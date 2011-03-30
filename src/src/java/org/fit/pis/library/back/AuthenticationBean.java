@@ -5,6 +5,8 @@ package org.fit.pis.library.back;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.fit.pis.library.data.User;
 import org.fit.pis.library.data.UserManager;
@@ -13,6 +15,8 @@ import org.fit.pis.library.data.UserManager;
  * Authentication (identity) bean
  * @author Lukáš Černý <cerny.l@gmail.com>
  */
+@ManagedBean
+@SessionScoped
 public class AuthenticationBean implements Serializable {
 
 	private boolean authorized;
