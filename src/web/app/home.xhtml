@@ -13,12 +13,12 @@
 		<h:link value="Go for test" outcome="test" />
 
 		<h:form>
-                    <h:dataTable value="#{bookBean.books}" var="person" binding="#{bookBean.listTable}">
+                    <h:dataTable value="#{bookBean.books}" var="book" binding="#{bookBean.listTable}">
 				<h:column>
 					<f:facet name="header">
 	                    <h:outputText value="ID"/>
 	                </f:facet>
-					<h:outputText value="#{book.idBook}"></h:outputText>
+					<h:outputText value="#{book.idbook}"></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">

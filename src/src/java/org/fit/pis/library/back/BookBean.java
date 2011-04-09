@@ -6,6 +6,7 @@ package org.fit.pis.library.back;
 
 import java.util.List;
 
+// import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -19,7 +20,7 @@ import org.fit.pis.library.data.*;
  */
 @ManagedBean
 @SessionScoped
-public class BookBean {
+public class BookBean /*implements Serializable*/ {
     @EJB
     private BookManager bookMgr;
     private Book book;
