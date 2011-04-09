@@ -51,9 +51,9 @@ public class Booking implements Serializable {
 	@JoinColumn(name = "iduser", referencedColumnName = "iduser")
     @ManyToOne(optional = false)
 	private User iduser;
-	@JoinColumn(name = "idbooks", referencedColumnName = "idbooks")
+	@JoinColumn(name = "idbook", referencedColumnName = "idbook")
     @ManyToOne(optional = false)
-	private Books idbooks;
+	private Book idbook;
 
 	public Booking() {
 	}
@@ -100,12 +100,12 @@ public class Booking implements Serializable {
 		this.iduser = iduser;
 	}
 
-	public Books getIdbooks() {
-		return idbooks;
+	public Book getIdbook() {
+		return idbook;
 	}
 
-	public void setIdbooks(Books idbooks) {
-		this.idbooks = idbooks;
+	public void setIdbook(Book idbook) {
+		this.idbook = idbook;
 	}
 
 	@Override

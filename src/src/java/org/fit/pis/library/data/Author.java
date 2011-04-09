@@ -43,11 +43,11 @@ public class Author implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
 	private String name;
-	@JoinTable(name = "books_has_author", joinColumns = {
+	@JoinTable(name = "book_has_author", joinColumns = {
     	@JoinColumn(name = "author_idauthor", referencedColumnName = "idauthor")}, inverseJoinColumns = {
-    	@JoinColumn(name = "books_idbooks", referencedColumnName = "idbooks")})
+    	@JoinColumn(name = "book_idbook", referencedColumnName = "idbook")})
     @ManyToMany
-	private Collection<Books> booksCollection;
+	private Collection<Book> booksCollection;
 
 	public Author() {
 	}
@@ -77,11 +77,11 @@ public class Author implements Serializable {
 		this.name = name;
 	}
 
-	public Collection<Books> getBooksCollection() {
+	public Collection<Book> getBooksCollection() {
 		return booksCollection;
 	}
 
-	public void setBooksCollection(Collection<Books> booksCollection) {
+	public void setBooksCollection(Collection<Book> booksCollection) {
 		this.booksCollection = booksCollection;
 	}
 

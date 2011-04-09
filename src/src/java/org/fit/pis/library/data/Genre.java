@@ -43,7 +43,7 @@ public class Genre implements Serializable {
     @Column(name = "name")
 	private String name;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idgenre")
-	private Collection<Books> booksCollection;
+	private Collection<Book> booksCollection;
 
 	public Genre() {
 	}
@@ -73,11 +73,11 @@ public class Genre implements Serializable {
 		this.name = name;
 	}
 
-	public Collection<Books> getBooksCollection() {
+	public Collection<Book> getBooksCollection() {
 		return booksCollection;
 	}
 
-	public void setBooksCollection(Collection<Books> booksCollection) {
+	public void setBooksCollection(Collection<Book> booksCollection) {
 		this.booksCollection = booksCollection;
 	}
 

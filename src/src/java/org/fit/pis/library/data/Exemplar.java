@@ -51,9 +51,9 @@ public class Exemplar implements Serializable {
     @NotNull
     @Column(name = "state")
 	private int state;
-	@JoinColumn(name = "idbooks", referencedColumnName = "idbooks")
+	@JoinColumn(name = "idbook", referencedColumnName = "idbook")
     @ManyToOne(optional = false)
-	private Books idbooks;
+	private Book idbook;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idexemplar")
 	private Collection<Borrow> borrowCollection;
 
@@ -94,12 +94,12 @@ public class Exemplar implements Serializable {
 		this.state = state;
 	}
 
-	public Books getIdbooks() {
-		return idbooks;
+	public Book getIdbook() {
+		return idbook;
 	}
 
-	public void setIdbooks(Books idbooks) {
-		this.idbooks = idbooks;
+	public void setIdbook(Book idbook) {
+		this.idbook = idbook;
 	}
 
 	public Collection<Borrow> getBorrowCollection() {

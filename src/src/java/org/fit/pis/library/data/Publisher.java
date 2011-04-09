@@ -49,7 +49,7 @@ public class Publisher implements Serializable {
     @Column(name = "address")
 	private String address;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idpublisher")
-	private Collection<Books> booksCollection;
+	private Collection<Book> booksCollection;
 
 	public Publisher() {
 	}
@@ -88,11 +88,11 @@ public class Publisher implements Serializable {
 		this.address = address;
 	}
 
-	public Collection<Books> getBooksCollection() {
+	public Collection<Book> getBooksCollection() {
 		return booksCollection;
 	}
 
-	public void setBooksCollection(Collection<Books> booksCollection) {
+	public void setBooksCollection(Collection<Book> booksCollection) {
 		this.booksCollection = booksCollection;
 	}
 

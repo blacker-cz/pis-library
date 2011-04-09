@@ -30,25 +30,25 @@ import javax.validation.constraints.Size;
  * @author Lukáš Černý <cerny.l@gmail.com>
  */
 @Entity
-@Table(name = "books")
+@Table(name = "book")
 @NamedQueries({
-	@NamedQuery(name = "Books.findAll", query = "SELECT b FROM Books b"),
-	@NamedQuery(name = "Books.findByIdbooks", query = "SELECT b FROM Books b WHERE b.idbooks = :idbooks"),
-	@NamedQuery(name = "Books.findByName", query = "SELECT b FROM Books b WHERE b.name = :name"),
-	@NamedQuery(name = "Books.findByYear", query = "SELECT b FROM Books b WHERE b.year = :year"),
-	@NamedQuery(name = "Books.findByPages", query = "SELECT b FROM Books b WHERE b.pages = :pages"),
-	@NamedQuery(name = "Books.findByEdition", query = "SELECT b FROM Books b WHERE b.edition = :edition"),
-	@NamedQuery(name = "Books.findByPlace", query = "SELECT b FROM Books b WHERE b.place = :place"),
-	@NamedQuery(name = "Books.findByType", query = "SELECT b FROM Books b WHERE b.type = :type"),
-	@NamedQuery(name = "Books.findByCode", query = "SELECT b FROM Books b WHERE b.code = :code")})
-public class Books implements Serializable {
+	@NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b"),
+	@NamedQuery(name = "Book.findByIdbook", query = "SELECT b FROM Book b WHERE b.idbook = :idbook"),
+	@NamedQuery(name = "Book.findByName", query = "SELECT b FROM Book b WHERE b.name = :name"),
+	@NamedQuery(name = "Book.findByYear", query = "SELECT b FROM Book b WHERE b.year = :year"),
+	@NamedQuery(name = "Book.findByPages", query = "SELECT b FROM Book b WHERE b.pages = :pages"),
+	@NamedQuery(name = "Book.findByEdition", query = "SELECT b FROM Book b WHERE b.edition = :edition"),
+	@NamedQuery(name = "Book.findByPlace", query = "SELECT b FROM Book b WHERE b.place = :place"),
+	@NamedQuery(name = "Book.findByType", query = "SELECT b FROM Book b WHERE b.type = :type"),
+	@NamedQuery(name = "Book.findByCode", query = "SELECT b FROM Book b WHERE b.code = :code")})
+public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idbooks")
-	private Integer idbooks;
+    @Column(name = "idbook")
+	private Integer idbook;
 	@Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -62,8 +62,7 @@ public class Books implements Serializable {
 	@Column(name = "pages")
 	private Integer pages;
 	@Column(name = "edition")
-    @Temporal(TemporalType.DATE)
-	private Date edition;
+	private Integer edition;
 	@Size(max = 255)
     @Column(name = "place")
 	private String place;
@@ -83,31 +82,31 @@ public class Books implements Serializable {
 	@JoinColumn(name = "idgenre", referencedColumnName = "idgenre")
     @ManyToOne(optional = false)
 	private Genre idgenre;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idbooks")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idbook")
 	private Collection<Booking> bookingCollection;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idbooks")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idbook")
 	private Collection<Exemplar> exemplarCollection;
 
-	public Books() {
+	public Book() {
 	}
 
-	public Books(Integer idbooks) {
-		this.idbooks = idbooks;
+	public Book(Integer idbook) {
+		this.idbook = idbook;
 	}
 
-	public Books(Integer idbooks, String name, Date year, String type) {
-		this.idbooks = idbooks;
+	public Book(Integer idbook, String name, Date year, String type) {
+		this.idbook = idbook;
 		this.name = name;
 		this.year = year;
 		this.type = type;
 	}
 
-	public Integer getIdbooks() {
-		return idbooks;
+	public Integer getIdbook() {
+		return idbook;
 	}
 
-	public void setIdbooks(Integer idbooks) {
-		this.idbooks = idbooks;
+	public void setIdbook(Integer idbook) {
+		this.idbook = idbook;
 	}
 
 	public String getName() {
@@ -134,11 +133,11 @@ public class Books implements Serializable {
 		this.pages = pages;
 	}
 
-	public Date getEdition() {
+	public Integer getEdition() {
 		return edition;
 	}
 
-	public void setEdition(Date edition) {
+	public void setEdition(Integer edition) {
 		this.edition = edition;
 	}
 
@@ -209,18 +208,18 @@ public class Books implements Serializable {
 	@Override
 	public int hashCode() {
 		int hash = 0;
-		hash += (idbooks != null ? idbooks.hashCode() : 0);
+		hash += (idbook != null ? idbook.hashCode() : 0);
 		return hash;
 	}
 
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Books)) {
+		if (!(object instanceof Book)) {
 			return false;
 		}
-		Books other = (Books) object;
-		if ((this.idbooks == null && other.idbooks != null) || (this.idbooks != null && !this.idbooks.equals(other.idbooks))) {
+		Book other = (Book) object;
+		if ((this.idbook == null && other.idbook != null) || (this.idbook != null && !this.idbook.equals(other.idbook))) {
 			return false;
 		}
 		return true;
@@ -228,7 +227,7 @@ public class Books implements Serializable {
 
 	@Override
 	public String toString() {
-		return "org.fit.pis.library.data.Books[ idbooks=" + idbooks + " ]";
+		return "org.fit.pis.library.data.Book[ idbook=" + idbook + " ]";
 	}
 
 }
