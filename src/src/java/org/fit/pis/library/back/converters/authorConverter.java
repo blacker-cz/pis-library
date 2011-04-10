@@ -35,10 +35,10 @@ public class authorConverter implements Converter {
                 Collection<Author> authors = (Collection<Author>) value;
                 StringBuilder sb = new StringBuilder();
                 
-                int i = 0;
+                int i = 0, size = authors.size() - 1;
                 for (Author a : authors) {
                     sb.append(a.getName());
-                    if (i++ > 1) {
+                    if (i++ < size) {
                         sb.append(AUTHOR_SEPARATOR);
                     }
                 }

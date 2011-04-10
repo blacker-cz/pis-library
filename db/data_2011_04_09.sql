@@ -58,7 +58,7 @@ DELETE FROM `booking`;
 # Dumping data for table pislibrary.book_has_author: ~19 rows (approximately)
 DELETE FROM `book_has_author`;
 /*!40000 ALTER TABLE `book_has_author` DISABLE KEYS */;
-INSERT INTO `book_has_author` (`books_idbook`, `author_idauthor`) VALUES
+INSERT INTO `book_has_author` (`book_idbook`, `author_idauthor`) VALUES
 	(6, 1),
 	(5, 2),
 	(5, 3),

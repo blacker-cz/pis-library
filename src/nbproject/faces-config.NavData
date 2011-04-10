@@ -2,7 +2,7 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="app/*" x="726" y="463" zoom="true"/>
+        <Node id="app/*" x="812" y="374" zoom="true"/>
         <Node id="index.xhtml" x="719" y="190" zoom="true"/>
         <Node id="template.xhtml" x="150" y="150" zoom="true"/>
         <Node id="app/home.xhtml" x="444" y="374" zoom="true"/>

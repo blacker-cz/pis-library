@@ -48,7 +48,7 @@ public class Publisher implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "address")
 	private String address;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idpublisher")
+		@OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher")
 	private Collection<Book> booksCollection;
 
 	public Publisher() {
@@ -118,7 +118,7 @@ public class Publisher implements Serializable {
 
 	@Override
 	public String toString() {
-		return "org.fit.pis.library.data.Publisher[ idpublisher=" + idpublisher + " ]";
+		return name;
 	}
 
 }

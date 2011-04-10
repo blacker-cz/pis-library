@@ -14,40 +14,59 @@
 
 		<h:form>
                     <h:dataTable value="#{bookBean.books}" var="book" binding="#{bookBean.listTable}">
-				<h:column>
-					<f:facet name="header">
-	                    <h:outputText value="ID"/>
-	                </f:facet>
-					<h:outputText value="#{book.idbook}"></h:outputText>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-	                    <h:outputText value="Jméno"/>
-	                </f:facet>
-					<h:outputText value="#{book.name}"></h:outputText>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-	                    <h:outputText value="Rok vydání"/>
-	                </f:facet>
-					<h:outputText value="#{book.year}"></h:outputText>
-				</h:column>
-				<h:column>
-					<h:commandLink action="#{bookBean.actionEdit}">
-						<h:outputText value="Edit"></h:outputText>
-					</h:commandLink>
-
-                                        <h:outputText value=" "></h:outputText>
-                                    
-					<h:commandLink action="#{bookBean.actionDelete}">
-						<h:outputText value="Delete"></h:outputText>
-					</h:commandLink>
-				</h:column>
-			</h:dataTable>
-			<h:commandLink action="new">
-				<h:outputText value="Insert new"></h:outputText>
-			</h:commandLink>
-	
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID"/>
+                            </f:facet>
+                            <h:outputText value="#{book.idbook}"></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Název"/>
+                            </f:facet>
+                            <h:outputText value="#{book.name}"></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Autor"/>
+                            </f:facet>
+                            <h:outputText value="#{book.authorCollection}">
+                                <f:converter converterId="authorConverter"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rok vydání"/>
+                            </f:facet>
+                            <h:outputText value="#{book.year}">
+                                <f:convertDateTime dateStyle="long" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Žánr"/>
+                            </f:facet>
+                            <h:outputText value="#{book.genre}"></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Vydavatel"/>
+                            </f:facet>
+                            <h:outputText value="#{book.publisher}"></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <h:commandLink action="#{bookBean.actionEdit}">
+                                <h:outputText value="Edit"></h:outputText>
+                            </h:commandLink>
+                            <h:outputText value=" "></h:outputText>
+                            <h:commandLink action="#{bookBean.actionDelete}">
+                                <h:outputText value="Delete"></h:outputText>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                    <h:commandLink action="new">
+                        <h:outputText value="Insert new"></h:outputText>
+                    </h:commandLink>
 		</h:form>
                 
 	</ui:define>

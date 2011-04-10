@@ -44,46 +44,58 @@ import javax.validation.constraints.Size;
 public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "idbook")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Basic(optional = false)
+        @NotNull
+        @Column(name = "idbook")
 	private Integer idbook;
+        
 	@Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "name")
+        @NotNull
+        @Size(min = 1, max = 255)
+        @Column(name = "name")
 	private String name;
+        
 	@Basic(optional = false)
-    @NotNull
-    @Column(name = "year")
-    @Temporal(TemporalType.DATE)
+        @NotNull
+        @Column(name = "year")
+        @Temporal(TemporalType.DATE)
 	private Date year;
+        
 	@Column(name = "pages")
 	private Integer pages;
+        
 	@Column(name = "edition")
 	private Integer edition;
+        
 	@Size(max = 255)
-    @Column(name = "place")
+        @Column(name = "place")
 	private String place;
+        
 	@Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 5)
-    @Column(name = "type")
+        @NotNull
+        @Size(min = 1, max = 5)
+        @Column(name = "type")
 	private String type;
+        
 	@Size(max = 255)
-    @Column(name = "code")
+        @Column(name = "code")
 	private String code;
+        
 	@ManyToMany(mappedBy = "booksCollection")
 	private Collection<Author> authorCollection;
+        
 	@JoinColumn(name = "idpublisher", referencedColumnName = "idpublisher")
-    @ManyToOne(optional = false)
-	private Publisher idpublisher;
+        @ManyToOne(optional = false)
+	private Publisher publisher;
+        
 	@JoinColumn(name = "idgenre", referencedColumnName = "idgenre")
-    @ManyToOne(optional = false)
-	private Genre idgenre;
+        @ManyToOne(optional = false)
+	private Genre genre;
+        
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idbook")
 	private Collection<Booking> bookingCollection;
+        
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idbook")
 	private Collection<Exemplar> exemplarCollection;
 
@@ -173,21 +185,29 @@ public class Book implements Serializable {
 		this.authorCollection = authorCollection;
 	}
 
-	public Publisher getIdpublisher() {
-		return idpublisher;
+	public Publisher getPublisher() {
+		return publisher;
 	}
 
-	public void setIdpublisher(Publisher idpublisher) {
-		this.idpublisher = idpublisher;
+	public void setPublisher(Publisher idpublisher) {
+		this.publisher = idpublisher;
 	}
 
-	public Genre getIdgenre() {
-		return idgenre;
+	public Genre getGenre() {
+		return genre;
 	}
 
-	public void setIdgenre(Genre idgenre) {
-		this.idgenre = idgenre;
+	public void setGenre(Genre genre) {
+		this.genre = genre;
 	}
+        
+        public Integer getIdGenre() {
+            return genre.getIdgenre();
+        }
+        
+        public void setIdGenre(Integer idGenre) {
+            genre.setIdgenre(idGenre);
+        }
 
 	public Collection<Booking> getBookingCollection() {
 		return bookingCollection;

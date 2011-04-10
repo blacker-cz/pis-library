@@ -42,7 +42,7 @@ public class Genre implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
 	private String name;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idgenre")
+		@OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
 	private Collection<Book> booksCollection;
 
 	public Genre() {
@@ -103,7 +103,7 @@ public class Genre implements Serializable {
 
 	@Override
 	public String toString() {
-		return "org.fit.pis.library.data.Genre[ idgenre=" + idgenre + " ]";
+		return name;
 	}
 
 }

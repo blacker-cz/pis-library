@@ -34,10 +34,10 @@ CREATE TABLE IF NOT EXISTS `book` (
   `type` enum('isbn','issn') COLLATE utf8_czech_ci NOT NULL DEFAULT 'isbn',
   `code` varchar(255) COLLATE utf8_czech_ci DEFAULT NULL,
   PRIMARY KEY (`idbook`),
-  KEY `fk_books_genre1` (`idgenre`),
-  KEY `fk_books_publisher1` (`idpublisher`),
-  CONSTRAINT `fk_books_genre1` FOREIGN KEY (`idgenre`) REFERENCES `genre` (`idgenre`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_books_publisher1` FOREIGN KEY (`idpublisher`) REFERENCES `publisher` (`idpublisher`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_book_genre1` (`idgenre`),
+  KEY `fk_book_publisher1` (`idpublisher`),
+  CONSTRAINT `fk_book_genre1` FOREIGN KEY (`idgenre`) REFERENCES `genre` (`idgenre`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_book_publisher1` FOREIGN KEY (`idpublisher`) REFERENCES `publisher` (`idpublisher`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 # Data exporting was unselected.
@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `idbook` int(11) NOT NULL,
   PRIMARY KEY (`idbooking`),
   KEY `fk_booking_user1` (`iduser`),
-  KEY `fk_booking_books1` (`idbook`),
-  CONSTRAINT `fk_booking_books1` FOREIGN KEY (`idbook`) REFERENCES `book` (`idbook`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_booking_book1` (`idbook`),
+  CONSTRAINT `fk_booking_book1` FOREIGN KEY (`idbook`) REFERENCES `book` (`idbook`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_booking_user1` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
@@ -62,12 +62,12 @@ CREATE TABLE IF NOT EXISTS `booking` (
 
 # Dumping structure for table pislibrary.book_has_author
 CREATE TABLE IF NOT EXISTS `book_has_author` (
-  `books_idbook` int(11) NOT NULL,
+  `book_idbook` int(11) NOT NULL,
   `author_idauthor` int(11) NOT NULL,
-  PRIMARY KEY (`books_idbook`,`author_idauthor`),
-  KEY `fk_books_has_author_author1` (`author_idauthor`),
-  CONSTRAINT `fk_books_has_author_author1` FOREIGN KEY (`author_idauthor`) REFERENCES `author` (`idauthor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_books_has_author_books1` FOREIGN KEY (`books_idbook`) REFERENCES `book` (`idbook`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`book_idbook`,`author_idauthor`),
+  KEY `fk_book_has_author_author1` (`author_idauthor`),
+  CONSTRAINT `fk_book_has_author_author1` FOREIGN KEY (`author_idauthor`) REFERENCES `author` (`idauthor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_book_has_author_book1` FOREIGN KEY (`book_idbook`) REFERENCES `book` (`idbook`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 # Data exporting was unselected.
@@ -98,8 +98,8 @@ CREATE TABLE IF NOT EXISTS `exemplar` (
   `state` int(11) NOT NULL,
   `idbook` int(11) NOT NULL,
   PRIMARY KEY (`idexemplar`),
-  KEY `fk_exemplar_books1` (`idbook`),
-  CONSTRAINT `fk_exemplar_books1` FOREIGN KEY (`idbook`) REFERENCES `book` (`idbook`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_exemplar_book1` (`idbook`),
+  CONSTRAINT `fk_exemplar_book1` FOREIGN KEY (`idbook`) REFERENCES `book` (`idbook`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 # Data exporting was unselected.

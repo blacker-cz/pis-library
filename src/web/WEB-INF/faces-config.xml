@@ -43,4 +43,12 @@
 			<to-view-id>/app/test.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+        <converter>
+            <converter-id>authorConverter</converter-id>
+            <converter-class>org.fit.pis.library.back.converters.authorConverter</converter-class>
+        </converter>
+        <converter>
+            <converter-id>dateConverter</converter-id>
+            <converter-class>org.fit.pis.library.back.converters.dateConverter</converter-class>
+        </converter>
 </faces-config>
