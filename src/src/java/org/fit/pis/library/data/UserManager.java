@@ -71,4 +71,23 @@ public class UserManager {
 			return null;
 		}
 	}
+	
+	/**
+	 * Filter user list by some parameters
+	 * @param permitNumber
+	 * @param forename
+	 * @param surname
+	 * @param email
+	 * @param level
+	 * @return 
+	 */
+	public List<User> find(String permitNumber, String forename, String surname, String email, String level) {
+		Query query = em.createQuery("SELECT u FROM User u WHERE u.permitNumber LIKE :permitNumber AND u.forename LIKE :forename AND u.surname LIKE :surname AND u.email LIKE :email AND u.level LIKE :level");
+		query.setParameter("permitNumber", "%" + permitNumber + "%");
+		query.setParameter("forename", "%" + forename + "%");
+		query.setParameter("surname", "%" + surname + "%");
+		query.setParameter("email", "%" + email + "%");
+		query.setParameter("level", "%" + level + "%");
+		return (List<User>) query.getResultList();
+	}
 }

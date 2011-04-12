@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+	<ui:composition template="../template.xhtml">
+		<ui:define name="content">
+			<h:messages id="messages" layout="table"></h:messages>
+
+			<h:form>
+				<h:messages layout="table"></h:messages>
+				<h:panelGrid columns="2">
+					<h:outputLabel rendered="true" value="Číslo průkazky:"></h:outputLabel>
+					<h:inputText value="#{manageUsersBean.user.permitNumber}" required="true"
+									 requiredMessage="Číslo průkazu musí být vyplněno">
+					</h:inputText>
+					<h:outputLabel rendered="true" value="Jméno:"></h:outputLabel>
+					<h:inputText value="#{manageUsersBean.user.forename}" required="true"
+								 requiredMessage="Jméno musí být vyplněno"
+								 validatorMessage="Špatně zadané jméno">
+						<f:validateLength minimum="2" maximum="80" />
+					</h:inputText>
+					<h:outputLabel rendered="true" value="Příjmení:"></h:outputLabel>
+					<h:inputText value="#{manageUsersBean.user.surname}" required="true"
+								 requiredMessage="Příjmení musí být vyplněno"
+								 validatorMessage="Špatně zadané příjmení">
+						<f:validateLength minimum="2" maximum="80" />
+					</h:inputText>
+					<h:outputLabel rendered="true" value="Adresa:"></h:outputLabel>
+					<h:inputTextarea value="#{manageUsersBean.user.address}" required="true"
+									 requiredMessage="Adresa musí být vyplněna">
+					</h:inputTextarea>
+					<h:outputLabel rendered="true" value="Telefon:"></h:outputLabel>
+					<h:inputText value="#{manageUsersBean.user.phone}">
+					</h:inputText>
+					<h:outputLabel rendered="true" value="Email:"></h:outputLabel>
+					<h:inputText value="#{manageUsersBean.user.email}" required="true"
+								 requiredMessage="Email musí být vyplněn">
+					</h:inputText>
+					<h:outputLabel rendered="true" value="Platí do:"></h:outputLabel>
+					<h:inputText value="#{manageUsersBean.user.expire}" required="true"
+								 requiredMessage="Platnost účtu musí být vyplněna">
+						<f:convertDateTime type="date" dateStyle="medium" />
+					</h:inputText>
+					<h:outputLabel rendered="true" value="Úroveň:"></h:outputLabel>
+					<h:selectOneMenu value="#{manageUsersBean.user.level}" required="true">
+						<f:selectItem itemValue="reader" itemLabel="Čtenář" />
+						<f:selectItem itemValue="librarian" itemLabel="Knihovník" />
+						<f:selectItem itemValue="admin" itemLabel="Správce" />
+					</h:selectOneMenu>
+
+				</h:panelGrid>
+
+				<p>
+				<h:commandButton action="#{manageUsersBean.actionInsert}" value="Vytvořit uživatele">
+				</h:commandButton>
+				<h:commandButton immediate="true" action="cancel" value="Zrušit">
+				</h:commandButton>
+				</p>
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</html>
+

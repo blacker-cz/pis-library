@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+	<ui:composition template="../template.xhtml">
+		<ui:define name="content">
+			
+			<h:messages id="messages" layout="table"></h:messages>
+			
+			<h:form>
+				<h:dataTable value="#{manageUsersBean.users}" var="user" binding="#{manageUsersBean.listTable}" rowClasses="odd,even">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Číslo průkazky"/><br />
+							<h:inputText value="#{manageUsersBean.filter_permitNumber}"></h:inputText>
+						</f:facet>
+						<h:outputText value="#{user.permitNumber}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Jméno"/><br />
+							<h:inputText value="#{manageUsersBean.filter_forename}"></h:inputText>
+						</f:facet>
+						<h:outputText value="#{user.forename}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Příjmení"/><br />
+							<h:inputText value="#{manageUsersBean.filter_surname}"></h:inputText>
+						</f:facet>
+						<h:outputText value="#{user.surname}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Adresa"/>
+						</f:facet>
+						<h:outputText value="#{user.address}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Telefon"/>
+						</f:facet>
+						<h:outputText value="#{user.phone}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Email"/><br />
+							<h:inputText value="#{manageUsersBean.filter_email}"></h:inputText>
+						</f:facet>
+						<h:outputText value="#{user.email}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Založen dne"/>
+						</f:facet>
+						<h:outputText value="#{user.registered}">
+							<f:convertDateTime dateStyle="short" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Vyprší"/>
+						</f:facet>
+						<h:outputText value="#{user.expire}">
+							<f:convertDateTime dateStyle="short" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Úroveň"/><br />
+							<h:selectOneMenu value="#{manageUsersBean.filter_level}">
+								<f:selectItem itemValue="all" itemLabel="Vše" />
+								<f:selectItem itemValue="reader" itemLabel="Čtenář" />
+								<f:selectItem itemValue="librarian" itemLabel="Knihovník" />
+								<f:selectItem itemValue="admin" itemLabel="Správce" />
+							</h:selectOneMenu>
+						</f:facet>
+						<h:outputText value="#{user.level}">
+							<f:convertDateTime dateStyle="long" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Akce" /><br />
+							<h:commandButton value="Filtruj" />
+						</f:facet>
+						<h:commandLink action="#{manageUsersBean.actionEdit}">
+							<h:outputText value="Edit"></h:outputText>
+						</h:commandLink>
+						<h:outputText value=" "></h:outputText>
+						<h:commandLink action="#{manageUsersBean.actionDelete}">
+							<h:outputText value="Delete"></h:outputText>
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>
+				<h:commandLink action="#{manageUsersBean.actionCreateNew}">
+					<h:outputText value="Insert new"></h:outputText>
+				</h:commandLink>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+	
+</html>
+

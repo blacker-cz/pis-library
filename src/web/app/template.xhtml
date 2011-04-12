@@ -22,6 +22,23 @@
 					<h:outputText value="Logout"></h:outputText>
 				</h:commandLink>
 			</h:form>
+			
+			<div class="menu">
+				<div class="submenu">
+					<div><h:link value="Home" outcome="home"></h:link></div>
+				</div>
+				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("reader") || authenticationBean.isInRole("librarian") || authenticationBean.isInRole("admin")}'>
+					<div>reader or higher menu part</div>
+				</h:panelGroup>
+				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("librarian") || authenticationBean.isInRole("admin")}'>
+					<div>librarian or higher menu part</div>
+				</h:panelGroup>
+				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("admin")}'>
+					<div>admin menu part</div>
+					<div><h:link value="Manage user accounts" outcome="manage_users"></h:link></div>
+				</h:panelGroup>
+			</div>
+
 			<ui:insert name="content">
 				Content area.  See comments below this line in the source.
 				<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->

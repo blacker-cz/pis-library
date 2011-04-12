@@ -2,10 +2,13 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="app/*" x="812" y="374" zoom="true"/>
+        <Node id="app/*" x="815" y="366" zoom="true"/>
+        <Node id="app/admin/edit_user.xhtml" x="83" y="629" zoom="true"/>
         <Node id="index.xhtml" x="719" y="190" zoom="true"/>
+        <Node id="app/admin/manage_users.xhtml" x="738" y="544" zoom="true"/>
         <Node id="template.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="app/home.xhtml" x="444" y="374" zoom="true"/>
+        <Node id="app/home.xhtml" x="445" y="403" zoom="true"/>
+        <Node id="app/admin/new_user.xhtml" x="150" y="450" zoom="true"/>
         <Node id="app/test.xhtml" x="400" y="150" zoom="true"/>
         <Node id="app/template.xhtml" x="150" y="300" zoom="true"/>
     </Scope>
