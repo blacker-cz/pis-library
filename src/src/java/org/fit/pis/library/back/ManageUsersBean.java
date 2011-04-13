@@ -175,10 +175,16 @@ public class ManageUsersBean {
 
 		user.setPassword(hashtext.substring(1, 8));
 		
-		// todo: this doesn't work yet, it seems it crap its pants validating empty id :/
-		userMgr.Save(user);
+		try {
+			userMgr.Save(user);
+		} catch(javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
+			return "";
+		}
 		// todo: sent email with password
 
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User was successfully created."));
+		
 		return "edit";
 	}
 
@@ -187,7 +193,12 @@ public class ManageUsersBean {
 	 * @return self
 	 */
 	public String actionUpdate() {
-		userMgr.Save(user);
+		try {
+			userMgr.Save(user);
+		} catch (javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
+			return "";
+		}
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes were successfully saved."));
 
@@ -200,7 +211,12 @@ public class ManageUsersBean {
 	 */
 	public String actionDelete() {
 		User selected = (User) listTable.getRowData();
-		userMgr.Remove(selected);
+		try {
+			userMgr.Remove(selected);
+		} catch (javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Couldn't delete user. Please try again later."));
+			return "";
+		}
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User was successfully deleted."));
 
