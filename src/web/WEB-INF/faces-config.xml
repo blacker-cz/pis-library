@@ -36,6 +36,10 @@
 	  <from-outcome>home</from-outcome>
 	  <to-view-id>/app/home.xhtml</to-view-id>
 	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>manage_readers</from-outcome>
+	  <to-view-id>/app/librarian/manage_readers.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/home.xhtml</from-view-id>
@@ -81,4 +85,33 @@
             <to-view-id>/app/admin/edit_user.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/manage_readers.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>new</from-outcome>
+   <to-view-id>/app/librarian/new_reader.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>edit</from-outcome>
+   <to-view-id>/app/librarian/edit_reader.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/new_reader.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancel</from-outcome>
+   <to-view-id>/app/librarian/manage_readers.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>edit</from-outcome>
+   <to-view-id>/app/librarian/edit_reader.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/edit_reader.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancel</from-outcome>
+   <to-view-id>/app/librarian/manage_readers.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
 </faces-config>

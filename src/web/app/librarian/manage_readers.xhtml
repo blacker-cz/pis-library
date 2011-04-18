@@ -11,25 +11,25 @@
 		<ui:define name="content">
 			
 			<h:form>
-				<h:dataTable value="#{manageUsersBean.users}" var="user" binding="#{manageUsersBean.listTable}" rowClasses="odd,even">
+				<h:dataTable value="#{manageReadersBean.users}" var="user" binding="#{manageReadersBean.listTable}" rowClasses="odd,even">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Číslo průkazky"/><br />
-							<h:inputText value="#{manageUsersBean.filter_permitNumber}"></h:inputText>
+							<h:inputText value="#{manageReadersBean.filter_permitNumber}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{user.permitNumber}"></h:outputText>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Jméno"/><br />
-							<h:inputText value="#{manageUsersBean.filter_forename}"></h:inputText>
+							<h:inputText value="#{manageReadersBean.filter_forename}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{user.forename}"></h:outputText>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Příjmení"/><br />
-							<h:inputText value="#{manageUsersBean.filter_surname}"></h:inputText>
+							<h:inputText value="#{manageReadersBean.filter_surname}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{user.surname}"></h:outputText>
 					</h:column>
@@ -48,7 +48,7 @@
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Email"/><br />
-							<h:inputText value="#{manageUsersBean.filter_email}"></h:inputText>
+							<h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{user.email}"></h:outputText>
 					</h:column>
@@ -70,33 +70,19 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Úroveň"/><br />
-							<h:selectOneMenu value="#{manageUsersBean.filter_level}">
-								<f:selectItem itemValue="all" itemLabel="Vše" />
-								<f:selectItem itemValue="reader" itemLabel="Čtenář" />
-								<f:selectItem itemValue="librarian" itemLabel="Knihovník" />
-								<f:selectItem itemValue="admin" itemLabel="Správce" />
-							</h:selectOneMenu>
-						</f:facet>
-						<h:outputText value="#{user.level}">
-							<f:convertDateTime dateStyle="long" />
-						</h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
 							<h:outputText value="Akce" /><br />
 							<h:commandButton value="Filtruj" />
 						</f:facet>
-						<h:commandLink action="#{manageUsersBean.actionEdit}">
+						<h:commandLink action="#{manageReadersBean.actionEdit}">
 							<h:outputText value="Edit"></h:outputText>
 						</h:commandLink>
 						<h:outputText value=" "></h:outputText>
-						<h:commandLink action="#{manageUsersBean.actionDelete}">
-							<h:outputText rendered="#{user.iduser != authenticationBean.iduser}" value="Delete"></h:outputText>
+						<h:commandLink action="#{manageReadersBean.actionDelete}">
+							<h:outputText rendered='#{user.level.compareTo("admin") != 0 and user.iduser != authenticationBean.iduser}' value="Delete"></h:outputText>
 						</h:commandLink>
 					</h:column>
 				</h:dataTable>
-				<h:commandLink action="#{manageUsersBean.actionCreateNew}">
+				<h:commandLink action="#{manageReadersBean.actionCreateNew}">
 					<h:outputText value="Insert new"></h:outputText>
 				</h:commandLink>
 			</h:form>

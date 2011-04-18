@@ -23,7 +23,7 @@ import org.fit.pis.library.data.UserManager;
  */
 @ManagedBean
 @SessionScoped
-public class ManageUsersBean {
+public class ManageReadersBean {
 
 	@EJB
 	private UserManager userMgr;
@@ -38,10 +38,9 @@ public class ManageUsersBean {
 	private String filter_surname;
 	private String filter_email;
 	private String filter_permitNumber;
-	private String filter_level;
 	
 	/** Creates a new instance of ManageUsersBean */
-	public ManageUsersBean() {
+	public ManageReadersBean() {
 		user = new User();
 
 		// set empty filtering
@@ -49,7 +48,6 @@ public class ManageUsersBean {
 		filter_surname = "";
 		filter_email = "";
 		filter_permitNumber = "";
-		filter_level = "";
 	}
 
 	/**
@@ -93,18 +91,6 @@ public class ManageUsersBean {
 		this.filter_forename = filter_forename;
 	}
 
-	public String getFilter_level() {
-		return filter_level;
-	}
-
-	public void setFilter_level(String filter_level) {
-		if (filter_level.compareTo("all") == 0) {
-			this.filter_level = "";
-		} else {
-			this.filter_level = filter_level;
-		}
-	}
-
 	public String getFilter_permitNumber() {
 		return filter_permitNumber;
 	}
@@ -127,7 +113,7 @@ public class ManageUsersBean {
 	 * @return 
 	 */
 	public List<User> getUsers() {
-		return userMgr.find(filter_permitNumber, filter_forename, filter_surname, filter_email, filter_level);
+		return userMgr.find(filter_permitNumber, filter_forename, filter_surname, filter_email, "");
 	}
 
 	/**
@@ -188,15 +174,17 @@ public class ManageUsersBean {
 
 		user.setPassword(hashtext.substring(1, 8));
 		
+		user.setLevel("reader");
+		
 		try {
 			userMgr.Save(user);
 		} catch(javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reader wasn't created. Please try again later (or try to change permit number)."));
 			return "";
 		}
 		/** todo: sent email with password */
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User was successfully created."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reader was successfully created."));
 		
 		return "edit";
 	}
@@ -227,11 +215,11 @@ public class ManageUsersBean {
 		try {
 			userMgr.Remove(selected);
 		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Couldn't delete user. Please try again later."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Couldn't delete reader. Please try again later."));
 			return "";
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User was successfully deleted."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reader was successfully deleted."));
 
 		return "";
 	}
