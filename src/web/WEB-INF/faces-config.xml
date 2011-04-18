@@ -40,6 +40,10 @@
 	  <from-outcome>manage_readers</from-outcome>
 	  <to-view-id>/app/librarian/manage_readers.xhtml</to-view-id>
 	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>change_password</from-outcome>
+	  <to-view-id>/app/reader/change_password.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/home.xhtml</from-view-id>

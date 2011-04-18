@@ -25,7 +25,7 @@ public class UserManager {
 	 * @param id user id
 	 * @return user instance
 	 */
-	public User find(String id) {
+	public User find(Integer id) {
 		return em.find(User.class, id);
 	}
 
