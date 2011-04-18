@@ -10,8 +10,6 @@
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
 			
-			<h:messages id="messages" layout="table"></h:messages>
-			
 			<h:form>
 				<h:dataTable value="#{manageUsersBean.users}" var="user" binding="#{manageUsersBean.listTable}" rowClasses="odd,even">
 					<h:column>
