@@ -16,6 +16,7 @@ import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import org.fit.pis.library.data.User;
 import org.fit.pis.library.data.UserManager;
+import org.richfaces.component.UIDataTable;
 
 /**
  *
@@ -28,7 +29,7 @@ public class ManageReadersBean {
 	@EJB
 	private UserManager userMgr;
 	private User user;
-	private HtmlDataTable listTable;
+	private UIDataTable listTable;
 	
 	@ManagedProperty(value="#{authenticationBean}")
 	private AuthenticationBean authBean;
@@ -120,15 +121,15 @@ public class ManageReadersBean {
 	 * Get records table
 	 * @return 
 	 */
-	public HtmlDataTable getListTable() {
-		return listTable;
+	public UIDataTable getListTable() {
+		return null;	// force rebuild of table
 	}
 
 	/**
 	 * Set records table
 	 * @param table 
 	 */
-	public void setListTable(HtmlDataTable table) {
+	public void setListTable(UIDataTable table) {
 		this.listTable = table;
 	}
 
