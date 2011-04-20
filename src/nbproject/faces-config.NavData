@@ -3,12 +3,14 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="app/*" x="974" y="380" zoom="true"/>
-        <Node id="template.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="access_denied.xhtml" x="567" y="26" zoom="true"/>
         <Node id="app/admin/manage_users.xhtml" x="484" y="552" zoom="true"/>
+        <Node id="template.xhtml" x="150" y="150" zoom="true"/>
         <Node id="app/home.xhtml" x="445" y="403" zoom="true"/>
         <Node id="app/test.xhtml" x="400" y="150" zoom="true"/>
         <Node id="app/reader/change_password.xhtml" x="858" y="666" zoom="true"/>
         <Node id="app/template.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="need_login.xhtml" x="747" y="63" zoom="true"/>
         <Node id="app/admin/edit_user.xhtml" x="83" y="629" zoom="true"/>
         <Node id="index.xhtml" x="719" y="190" zoom="true"/>
         <Node id="app/admin/new_user.xhtml" x="150" y="450" zoom="true"/>

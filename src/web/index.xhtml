@@ -12,9 +12,12 @@
 		<f:loadBundle basename="org.fit.pis.library.messages" var="msg"/>
 
 		<c:if test="#{authenticationBean.isLoggedIn()}">
-			todo: redirect to home
+			<h:form>
+			Už jste přihlášen(a) <h:commandLink action="home" value="Přejít na hlavní stránku." />
+			</h:form>
 		</c:if>
 		
+		<c:if test="#{!authenticationBean.isLoggedIn()}">
 		<h:form>
 			<h:messages layout="table"></h:messages>
 			<h:panelGrid columns="2">
@@ -26,6 +29,7 @@
 				<h:commandButton action="#{authenticationBean.actionLogIn}" value="#{msg.login}"></h:commandButton>
 			</h:panelGrid>
 		</h:form>
+		</c:if>
 	
 	</ui:define>
 </ui:composition>

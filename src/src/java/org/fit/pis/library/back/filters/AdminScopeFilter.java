@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.fit.pis.library.back.AuthenticationBean;
 
@@ -47,23 +48,11 @@ public class AdminScopeFilter implements Filter {
 			if (auth.isInRole("admin")) {
 				chain.doFilter(request, response);
 			} else {
-				// @todo: 403 page
-				response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
-				out.println("<html><head><title>Access denied</title></head><body>");
-				out.println("<h1>Access denied</h1>");
-				// @todo: change address
-				out.println("Access denied. <a href=\"/pis-library/faces/app/home.xhtml\">Try again</a>.");
-				out.println("</body></html>");
+				String path = ((HttpServletRequest) request).getContextPath();
+				((HttpServletResponse) response).sendRedirect(path + "/faces/access_denied.xhtml");
 			}
 		} else {
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			out.println("<html><head><title>Access denied</title></head><body>");
-			out.println("<h1>Access denied</h1>");
-			// @todo: change address
-			out.println("Access denied. <a href=\"/pis-library/\">Try again</a>.");
-			out.println("</body></html>");
+			throw new ServletException();
 		}
 	}
 

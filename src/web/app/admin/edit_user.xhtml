@@ -50,7 +50,7 @@
 						<f:convertDateTime type="date" dateStyle="medium" />
 					</rich:calendar>
 					<h:outputLabel rendered="true" value="Úroveň:*"></h:outputLabel>
-					<h:selectOneMenu value="#{manageUsersBean.user.level}" required="true">
+					<h:selectOneMenu value="#{manageUsersBean.user.level}" disabled="#{manageUsersBean.user.iduser == authenticationBean.iduser}" required="true">
 						<f:selectItem itemValue="reader" itemLabel="Čtenář" />
 						<f:selectItem itemValue="librarian" itemLabel="Knihovník" />
 						<f:selectItem itemValue="admin" itemLabel="Správce" />

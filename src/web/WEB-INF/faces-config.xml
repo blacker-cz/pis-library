@@ -21,6 +21,10 @@
 			<from-outcome>login</from-outcome>
 			<to-view-id>/app/home.xhtml</to-view-id>
 		</navigation-case>
+	 <navigation-case>
+	  <from-outcome>home</from-outcome>
+	  <to-view-id>/app/home.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/*</from-view-id>
@@ -118,4 +122,18 @@
    <to-view-id>/app/librarian/manage_readers.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/need_login.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>login</from-outcome>
+   <to-view-id>/index.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/access_denied.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/app/home.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

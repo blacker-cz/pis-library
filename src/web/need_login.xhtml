@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="template.xhtml">
+	<ui:define name="title">
+		Přístup odepřen.
+	</ui:define>
+	
+	<ui:define name="header">
+		Přístup odepřen
+	</ui:define>
+	
+	<ui:define name="content">
+		<p>Přístup na danou stránku Vám byl odepřen. Zkuste se nejdříve <h:link value="přihlásit" outcome="login" />.</p>
+		
+		<p>Jestliže jste již byli přihlášeni, je pravděpodobné, že jste byli automaticky odhlášeni z důvodu neaktivity.</p>
+	</ui:define>
+</ui:composition>
+</html>
