@@ -90,18 +90,22 @@
 							<h:commandButton value="Filtruj" />
 						</f:facet>
 						<h:commandLink action="#{manageUsersBean.actionEdit}">
-							<h:outputText value="Edit"></h:outputText>
+							<h:outputText value="Upravit"></h:outputText>
 						</h:commandLink>
 						<h:outputText value=" "></h:outputText>
 						<h:commandLink action="#{manageUsersBean.actionDelete}">
-							<h:outputText rendered="#{user.iduser != authenticationBean.iduser}" value="Delete"></h:outputText>
+							<h:outputText rendered="#{user.iduser != authenticationBean.iduser}" value="Smazat"></h:outputText>
+						</h:commandLink>
+						<h:outputText value=" "></h:outputText>
+						<h:commandLink action="#{manageUsersBean.actionGenerateNewPassword}">
+							<h:outputText rendered="#{user.iduser != authenticationBean.iduser}" value="Nové heslo"></h:outputText>
 						</h:commandLink>
 					</rich:column>
 				</rich:dataTable>
 				
 				<rich:dataScroller for="userList" maxPages="20" />
 				<h:commandLink action="#{manageUsersBean.actionCreateNew}">
-					<h:outputText value="Insert new"></h:outputText>
+					<h:outputText value="Vložit nový záznam"></h:outputText>
 				</h:commandLink>
 			</h:form>
 		</ui:define>

@@ -76,23 +76,27 @@
 							<h:commandButton value="Filtruj" />
 						</f:facet>
 						<h:commandLink action="#{manageReadersBean.actionEdit}">
-							<h:outputText value="Edit"></h:outputText>
+							<h:outputText value="Upravit"></h:outputText>
 						</h:commandLink>
 						<h:outputText value=" "></h:outputText>
 						<h:commandLink action="#{manageReadersBean.actionDelete}">
-							<h:outputText rendered='#{user.level.compareTo("admin") != 0 and user.iduser != authenticationBean.iduser}' value="Delete"></h:outputText>
+							<h:outputText rendered='#{user.level.compareTo("admin") != 0 and user.level.compareTo("librarian") != 0}' value="Smazat"></h:outputText>
+						</h:commandLink>
+						<h:outputText value=" "></h:outputText>
+						<h:commandLink action="#{manageReadersBean.actionGenerateNewPassword}">
+							<h:outputText rendered='#{user.level.compareTo("admin") != 0 and user.level.compareTo("librarian") != 0}' value="Nové heslo"></h:outputText>
 						</h:commandLink>
 						<h:outputText value=" "></h:outputText>
 						<h:commandLink action="booking">
 							<f:param name="user" value="#{user.iduser}" />
-							<h:outputText value="Booking"></h:outputText>
+							<h:outputText value="Výpůjčky"></h:outputText>
 						</h:commandLink>
 					</rich:column>
 				</rich:dataTable>
 				
 				<rich:dataScroller for="userList" maxPages="20" />
 				<h:commandLink action="#{manageReadersBean.actionCreateNew}">
-					<h:outputText value="Insert new"></h:outputText>
+					<h:outputText value="Vložit nový záznam"></h:outputText>
 				</h:commandLink>
 			</h:form>
 		</ui:define>

@@ -169,24 +169,7 @@ public class ManageUsersBean {
 	public String actionInsert() {
 		user.setRegistered(new Date(System.currentTimeMillis()));
 
-		// generate password
-		String hashtext;
-		try {
-			MessageDigest m = MessageDigest.getInstance("MD5");
-			m.reset();
-			m.update(Long.toString(System.currentTimeMillis()).getBytes());
-			byte[] digest = m.digest();
-			BigInteger bigInt = new BigInteger(1, digest);
-			hashtext = bigInt.toString(16);
-
-			while (hashtext.length() < 32) {
-				hashtext = "0" + hashtext;
-			}
-		} catch (NoSuchAlgorithmException e) {
-			hashtext = Long.toString(System.currentTimeMillis(), 12);
-		}
-
-		user.setPassword(hashtext.substring(1, 8));
+		user.setPassword(ManageUsersBean.generatePassword());
 		
 		try {
 			userMgr.Save(user);
@@ -194,7 +177,15 @@ public class ManageUsersBean {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
 			return "";
 		}
-		/** todo: sent email with password */
+
+		Mailer mailer = new Mailer();
+		
+		if(!mailer.send(user.getEmail(), "Knihovna: Váš nový účet", "Byl Vám vytvořen účet v naší knihovně.<br />" +
+				"Pro přístup do systému použijte následující údaje: <br />" + 
+				"Číslo průkazky: " + user.getPermitNumber() + "<br />" +
+				"Heslo: " + user.getPassword())) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odeslat email s potvrzením registrace a heslem."));
+		}
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User was successfully created."));
 		
@@ -234,5 +225,63 @@ public class ManageUsersBean {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User was successfully deleted."));
 
 		return "";
+	}
+	
+	/**
+	 * Generate new password for user.
+	 * @return 
+	 */
+	public String actionGenerateNewPassword() {
+		User selected = (User) listTable.getRowData();
+
+		selected.setPassword(ManageUsersBean.generatePassword());
+
+		try {
+			userMgr.Save(selected);
+		} catch (javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit zkuste to prosím později."));
+			return "";
+		}
+
+		Mailer mailer = new Mailer();
+		
+		if(!mailer.send(selected.getEmail(), "Knihovna: Nové heslo", "Bylo Vám vygenerováno nové heslo.<br />" +
+				"Pro přístup do systému použijte následující údaje: <br />" + 
+				"Číslo průkazky: " + selected.getIduser() + "<br />" +
+				"Heslo: " + selected.getPassword())) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odeslat email s potvrzením registrace a heslem."));
+		}
+
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nové heslo bylo úspěšně vygenerováno."));
+
+		return "";
+	}
+	
+	/**
+	 * Generate password
+	 * @return 
+	 */
+	public static String generatePassword() {
+		// generate password
+		String hashtext;
+		try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
+			m.reset();
+			m.update(Long.toString(System.currentTimeMillis()).getBytes());
+			byte[] digest = m.digest();
+			BigInteger bigInt = new BigInteger(1, digest);
+			hashtext = bigInt.toString(16);
+
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+		} catch (NoSuchAlgorithmException e) {
+			hashtext = Long.toString(System.currentTimeMillis(), 12);
+		}
+		
+		// for debugging purposes all passwords are set to: heslo
+		return "heslo";
+		
+		//return hashtext.substring(1, 8);
 	}
 }
