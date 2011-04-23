@@ -42,7 +42,7 @@ public class Genre implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
 	private String name;
-		@OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
 	private Collection<Book> booksCollection;
 
 	public Genre() {

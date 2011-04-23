@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.html.HtmlDataTable;
+import org.richfaces.component.UIDataTable;
 
 import org.fit.pis.library.data.*;
 
@@ -24,7 +25,7 @@ public class BookBean /*implements Serializable*/ {
     @EJB
     private BookManager bookMgr;
     private Book book;
-    private HtmlDataTable listTable;
+    private UIDataTable listTable;
     
     public BookBean() {
         book = new Book();
@@ -42,11 +43,11 @@ public class BookBean /*implements Serializable*/ {
         return bookMgr.findAll();
     }
     
-    public HtmlDataTable getListTable() {
+    public UIDataTable getListTable() {
         return listTable;
     }
     
-    public void setListTable(HtmlDataTable table) {
+    public void setListTable(UIDataTable table) {
         this.listTable = table;
     }
     

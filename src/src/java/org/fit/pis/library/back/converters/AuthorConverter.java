@@ -18,7 +18,7 @@ import org.fit.pis.library.data.*;
  * @author Vojtěch Sysel <xsysel03@stud.fit.vutbr.cz>
  */
 @FacesConverter(value="authorConverter")
-public class authorConverter implements Converter {
+public class AuthorConverter implements Converter {
     public static final String AUTHOR_SEPARATOR = ", ";
 
     @Override
