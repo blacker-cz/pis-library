@@ -45,7 +45,7 @@ public class AuthorConverter implements Converter {
                 
                 return sb.toString();
         } catch (ClassCastException e) {
-                throw new ConverterException("Invalid Authors value");
+                throw new ConverterException("Invalid Authors value (" + value.toString() + ")");
         }
     }
 

@@ -8,12 +8,10 @@
 	  xmlns:a4j="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich">
 
-<ui:composition template="template.xhtml">
-	<ui:define name="content">
 
-		Logged in? Or not?
-		<h:link value="Go for test" outcome="test" />
-
+	<ui:composition template="../template.xhtml">
+		<ui:define name="content">
+			
 			<h:form>
 				<h:panelGrid columns="2">
 					<h:outputLabel rendered="true" value="Název knihy:"></h:outputLabel>
@@ -48,8 +46,52 @@
 				</p>
 				
 			</h:form>
+			
+			<h:form>
+				<rich:dataTable value="#{searchBooksBean.books}" rows="20" id="catalogBookList" var="book" binding="#{searchBooksBean.listTable}" rowClasses="odd,even">
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Název"/>
+						</f:facet>
+						<h:commandLink action="#{searchBooksBean.actionDetail}">
+							<h:outputText value="#{book.name}"></h:outputText>
+						</h:commandLink>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Autor"/>
+						</f:facet>
+						<h:outputText value="#{book.authorCollection}">
+							<f:converter converterId="authorConverter" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Rok vydání"/>
+						</f:facet>
+						<h:outputText value="#{book.year}">
+							<f:converter converterId="dateConverter" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Žánr"/>
+						</f:facet>
+						<h:outputText value="#{book.genre}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Vydavatel"/><br />
+						</f:facet>
+						<h:outputText value="#{book.publisher}"></h:outputText>
+					</rich:column>
+				</rich:dataTable>
+				
+				<rich:dataScroller for="catalogBookList" maxPages="20" />
+			</h:form>
 
-	</ui:define>
-</ui:composition>
+			
+		</ui:define>
+	</ui:composition>
+	
 </html>
-

@@ -42,6 +42,9 @@ import javax.validation.constraints.Size;
 	@NamedQuery(name = "Book.findByType", query = "SELECT b FROM Book b WHERE b.type = :type"),
 	@NamedQuery(name = "Book.findByCode", query = "SELECT b FROM Book b WHERE b.code = :code")})
 public class Book implements Serializable {
+	public static final int MIN_BOOK_YEAR = 1000;
+	public static final int MAX_BOOK_YEAR = 2100;
+	
 	private static final long serialVersionUID = 1L;
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

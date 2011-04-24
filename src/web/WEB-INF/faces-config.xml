@@ -48,6 +48,14 @@
 	  <from-outcome>change_password</from-outcome>
 	  <to-view-id>/app/reader/change_password.xhtml</to-view-id>
 	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>searchBooks</from-outcome>
+	  <to-view-id>/app/reader/catalog.xhtml</to-view-id>
+	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>viewBooks</from-outcome>
+	  <to-view-id>/app/reader/catalog.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/home.xhtml</from-view-id>
@@ -134,6 +142,13 @@
         <navigation-case>
             <from-outcome>home</from-outcome>
             <to-view-id>/app/home.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/app/reader/catalog.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>detail</from-outcome>
+            <to-view-id>/app/reader/book_detail.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
