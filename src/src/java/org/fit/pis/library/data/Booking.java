@@ -28,6 +28,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "booking")
 @NamedQueries({
 	@NamedQuery(name = "Booking.findAll", query = "SELECT b FROM Booking b"),
+	@NamedQuery(name = "Booking.findByUser", query = "SELECT b FROM Booking b WHERE b.user = :user"),
 	@NamedQuery(name = "Booking.findByIdbooking", query = "SELECT b FROM Booking b WHERE b.idbooking = :idbooking"),
 	@NamedQuery(name = "Booking.findByDate", query = "SELECT b FROM Booking b WHERE b.date = :date"),
 	@NamedQuery(name = "Booking.findByState", query = "SELECT b FROM Booking b WHERE b.state = :state")})
@@ -35,8 +36,8 @@ public class Booking implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "idbooking")
 	private Integer idbooking;
 	@Basic(optional = false)
@@ -50,10 +51,10 @@ public class Booking implements Serializable {
 	private int state;
 	@JoinColumn(name = "iduser", referencedColumnName = "iduser")
     @ManyToOne(optional = false)
-	private User iduser;
+	private User user;
 	@JoinColumn(name = "idbook", referencedColumnName = "idbook")
     @ManyToOne(optional = false)
-	private Book idbook;
+	private Book book;
 
 	public Booking() {
 	}
@@ -92,20 +93,20 @@ public class Booking implements Serializable {
 		this.state = state;
 	}
 
-	public User getIduser() {
-		return iduser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setIduser(User iduser) {
-		this.iduser = iduser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Book getIdbook() {
-		return idbook;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setIdbook(Book idbook) {
-		this.idbook = idbook;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	@Override

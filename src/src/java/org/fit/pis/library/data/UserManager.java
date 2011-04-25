@@ -46,6 +46,14 @@ public class UserManager {
 	}
 
 	/**
+	 * Refreah user
+	 */
+	public void Refresh(User u) {
+		em.flush();
+		em.refresh(u);
+	}
+	
+	/**
 	 * Get list of all users
 	 * @return List of all users
 	 */
@@ -73,10 +81,13 @@ public class UserManager {
 	}
 	
 	public User findByIduser(int idUser) {
+		// synchronize with db
+		em.flush();
+		
 		try {
-			Query queryUserByPermitNumber = em.createNamedQuery("User.findByIduser");
-			queryUserByPermitNumber.setParameter("iduser", idUser);
-			return (User) queryUserByPermitNumber.getSingleResult();
+			Query queryUserByIduser = em.createNamedQuery("User.findByIduser");
+			queryUserByIduser.setParameter("iduser", idUser);
+			return (User) queryUserByIduser.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		} catch (NonUniqueResultException e) {

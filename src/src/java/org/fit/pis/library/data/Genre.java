@@ -33,8 +33,8 @@ public class Genre implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "idgenre")
 	private Integer idgenre;
 	@Basic(optional = false)

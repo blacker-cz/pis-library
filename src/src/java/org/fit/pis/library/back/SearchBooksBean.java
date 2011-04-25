@@ -4,12 +4,15 @@ package org.fit.pis.library.back;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import org.fit.pis.library.data.*;
 import org.richfaces.component.UIDataTable;
 
@@ -24,6 +27,11 @@ public class SearchBooksBean {
 	private BookManager bookMgr;
 	@EJB
 	private GenreManager genreMgr;
+	@EJB
+	private BookingManager bookingMgr;
+	@EJB
+	private UserManager userMgr;
+	
 	private Book book;
 	private UIDataTable listTable;
 	private UIDataTable exemplarListTable;
@@ -268,7 +276,55 @@ public class SearchBooksBean {
 	 * @return 
 	 */
 	public String actionCancelDetail() {
+		book = null;
+		
 		return "cancelDetail";
+	}
+	
+	/**
+	 * Book booking ;-)
+	 * @return 
+	 */
+	public String actionBookBooking() {
+		String action = "detailBookBooking";
+		// user
+		User user = userMgr.find(authBean.getIduser());
+		
+		// check if user has already booked this title
+		Collection<Booking> colection = user.getBookingCollection();
+		if (colection != null) {
+			for (Booking b : colection) {
+				// book is already booked
+				if (b.getBook().getIdbook() == book.getIdbook()) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Book is already booked!"));
+					return action;
+				}
+			}
+		}
+		
+		// create new booking
+		Booking booking = new Booking();
+		booking.setBook(book);
+		booking.setState(0);
+		booking.setDate(new Date(System.currentTimeMillis()));
+		booking.setUser(user);
+		
+		System.out.println("===================");
+		System.out.println(book);
+		System.out.println(user);
+		System.out.println(booking);
+		
+		try {
+			// save booking
+			bookingMgr.Save(booking);
+		} catch (javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
+			return action;
+		}
+
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes were successfully saved."));
+		
+		return action;
 	}
 	
 	/**

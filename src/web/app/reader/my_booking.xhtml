@@ -13,6 +13,48 @@
 		<ui:define name="content">
 
 			<p>Moje rezervace</p>
+
+			<h:form>
+				<rich:dataTable value="#{manageBookingBean.myBooking}" rows="20" id="myBookingList" var="booking" binding="#{manageBookingBean.listTable}" rowClasses="odd,even">
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Datum rezervace"/>
+						</f:facet>
+						<h:outputText value="#{booking.date}">
+							<f:convertDateTime dateStyle="short" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Název"/>
+						</f:facet>
+						<h:outputText value="#{booking.book.name}"></h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Autor"/>
+						</f:facet>
+						<h:outputText value="#{booking.book.authorCollection}">
+							<f:converter converterId="authorConverter" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Akce"/>
+						</f:facet>
+						<h:outputText value=""></h:outputText>
+						<h:commandLink action="#{manageBookingBean.actionCancelBooking}">
+							<h:outputText value="Zrušit rezervaci"></h:outputText>
+						</h:commandLink>
+					</rich:column>
+				</rich:dataTable>
+				
+				<rich:dataScroller for="myBookingList" maxPages="20" />
+			</h:form>
+
 			
 		</ui:define>
 	</ui:composition>

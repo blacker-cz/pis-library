@@ -2,7 +2,11 @@
  */
 package org.fit.pis.library.back;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -18,20 +22,17 @@ import org.richfaces.component.UIDataTable;
  */
 @ManagedBean
 @SessionScoped
-public class ManageBorrowsBean {
+public class ManageBookingBean {
 	@EJB
-	private BorrowManager borrowMgr;
-	private Borrow borrow;
+	private BookingManager bookingMgr;
+	private Booking	booking;
 	private UIDataTable listTable;
 	
 	@ManagedProperty(value="#{authenticationBean}")
 	private AuthenticationBean authBean;
 	
-	/**
-	 * Constructor
-	 */
-	public ManageBorrowsBean() {
-		borrow = new Borrow();
+	public ManageBookingBean() {
+		booking = new Booking();
 	}
 	
 	/**
@@ -62,10 +63,10 @@ public class ManageBorrowsBean {
 	 * Get list of my Borrows
 	 * @return 
 	 */
-	public Collection<Borrow> getMyBorrows() {
+	public Collection<Booking> getMyBooking() {
 		int idUser = authBean.getIduser();
 		User user = new User(idUser);
-		return borrowMgr.find(user); 
+		return bookingMgr.find(user); 
 	}
 	
 	/**
@@ -74,26 +75,21 @@ public class ManageBorrowsBean {
 	 */
 	public String actionDisplay() {
 		listTable = null;	// force rebuild of table 
-		return "viewMyBorrows";
+		return "viewMyBooking";
 	}
 	
 	/**
-	 * Prolongate 
+	 * Cancel booking
 	 * @return 
 	 */
-	public String actionProlongate() {
-		Borrow selected = (Borrow) listTable.getRowData();
-		
-		// add prolongation count
-		int prolongationCount = selected.getProlongations();
-		prolongationCount++;
-		selected.setProlongations(prolongationCount);
+	public String actionCancelBooking() {
+		Booking selected = (Booking) listTable.getRowData();
 		
 		try {
-			borrowMgr.Save(selected);
+			bookingMgr.Remove(selected);
 		} catch (javax.ejb.EJBException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
-			return "myBorrowsProlongate";
+			return "viewMyBooking";
 		}
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes were successfully saved."));
@@ -101,6 +97,6 @@ public class ManageBorrowsBean {
 		// clear list table
 		listTable = null;
 		
-		return "myBorrowsProlongate";
+		return "viewMyBooking";
 	}
 }

@@ -20,9 +20,40 @@ public class BookingManager {
     @PersistenceContext
     private EntityManager em;
 	
+	/**
+	 * Save new booking
+	 * @param b booking instance
+	 */
+	public void Save(Booking b) {
+		em.merge(b);
+	}
+	
+	/**
+	 * Remove Booking
+	 * @param b booking instance
+	 */
+	public void Remove(Booking b) {
+		em.remove(em.merge(b));
+	}
+	
+	/**
+	 * Find all bookings
+	 * @return 
+	 */
     @SuppressWarnings("unchecked")
-    public List<Booking> findAll()
-    {
+    public List<Booking> findAll() {
     	return em.createNamedQuery("Booking.findAll").getResultList();
+    }
+	
+	/**
+	 * Find booking for user defined by id
+	 * @param user
+	 * @return 
+	 */
+    public List<Booking> find(User user) {
+    	Query query = em.createNamedQuery("Booking.findByUser");
+		
+		query.setParameter("user", user);
+		return (List<Booking>) query.getResultList();
     }
 }

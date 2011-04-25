@@ -31,8 +31,8 @@
 					<div>reader or higher menu part</div>
 					<div><h:link value="Change password" outcome="change_password"></h:link></div>
 					<div><h:link value="Projít katalog" outcome="viewBooks"></h:link></div>
-					<div><h:link value="Moje výpůjčky" outcome="viewMyBorrows"></h:link></div>
-					<div><h:link value="Moje rezervace" outcome="viewMyBooking"></h:link></div>
+					<div><h:link value="Moje výpůjčky" outcome="#{manageBorrowsBean.actionDisplay()}"></h:link></div>
+					<div><h:link value="Moje rezervace" outcome="#{manageBookingBean.actionDisplay()}"></h:link></div>
 				</h:panelGroup>
 				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("librarian") || authenticationBean.isInRole("admin")}'>
 					<div>librarian or higher menu part</div>

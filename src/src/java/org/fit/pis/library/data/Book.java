@@ -48,8 +48,8 @@ public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Basic(optional = false)
-        @NotNull
+//        @Basic(optional = false)
+//        @NotNull
         @Column(name = "idbook")
 	private Integer idbook;
         
@@ -96,7 +96,7 @@ public class Book implements Serializable {
         @ManyToOne(optional = false)
 	private Genre genre;
         
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idbook")
+		@OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
 	private Collection<Booking> bookingCollection;
         
 		@OneToMany(cascade = CascadeType.ALL, mappedBy = "book")

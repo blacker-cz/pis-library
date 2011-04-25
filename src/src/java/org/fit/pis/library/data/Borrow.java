@@ -4,6 +4,7 @@
 package org.fit.pis.library.data;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -36,10 +37,12 @@ import javax.validation.constraints.NotNull;
 public class Borrow implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final int MAX_PROLONGATE_COUNT = 3;
+	public static final int PROLONGATE_DAYS_COUNT = 30;
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "idborrow")
 	private Integer idborrow;
 	@Basic(optional = false)
@@ -127,7 +130,38 @@ public class Borrow implements Serializable {
 	 * @return 
 	 */
 	public boolean getCanProlongate() {
-		return returned == null && prolongations < MAX_PROLONGATE_COUNT;
+		return returned == null && prolongations < (MAX_PROLONGATE_COUNT - 1);
+	}
+	
+	/**
+	 * Maximum return date
+	 * @return 
+	 */
+	public Date getMaximumReturnDate() {
+		// already returned
+		if (returned != null)
+			return null;
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(borrowed);
+		
+		// count max return date
+		cal.add(Calendar.HOUR, (prolongations + 1) * PROLONGATE_DAYS_COUNT * 24);
+		return cal.getTime();
+	}
+	
+	/**
+	 * Is borrow expired = now is later than maximumReturnDate
+	 * @return 
+	 */
+	public boolean getIsBorrowExpired() {
+		Calendar ret = Calendar.getInstance(), now = Calendar.getInstance();
+		ret.setTime(getMaximumReturnDate());
+		
+		if (ret.compareTo(now) < 0)
+			return true;
+		else		
+			return false;
 	}
 	
 	@Override

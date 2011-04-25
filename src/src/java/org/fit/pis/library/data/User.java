@@ -95,7 +95,7 @@ public class User implements Serializable {
     @Size(min = 1, max = 9)
     @Column(name = "level")
 	private String level;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "iduser")
+		@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private Collection<Booking> bookingCollection;
 		@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private Collection<Borrow> borrowCollection;

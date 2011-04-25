@@ -50,6 +50,15 @@
 					
 					<rich:column>
 						<f:facet name="header">
+							<h:outputText value="Vrátit nejpozději"/>
+						</f:facet>
+						<h:outputText value="#{borrow.maximumReturnDate}">
+							<f:convertDateTime dateStyle="short" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
 							<h:outputText value="Prodloužení"/>
 						</f:facet>
 						<h:outputText value="#{borrow.prolongations}"></h:outputText>

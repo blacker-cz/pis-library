@@ -34,8 +34,8 @@ public class Publisher implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "idpublisher")
 	private Integer idpublisher;
 	@Basic(optional = false)
