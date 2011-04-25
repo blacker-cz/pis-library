@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author vojta
+ * @author Vojtěch Sysel <xsysel03@setud.fit.vutbr.cz>
  */
 @Stateless
 public class BookManager {
@@ -51,16 +51,25 @@ public class BookManager {
 		// genre SQL
 		String genreSQL = "";
 		if (genre != null) {
-			genreSQL = " AND b.genre.idgenre = :idgenreFilter";
+			genreSQL = " AND b.genre.idgenre = :idgenreFilter ";
 		}
 		
 		System.out.println("from: " + yearFrom + ", to:" + yearTo);
 		
-		Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.year BETWEEN :yearFrom AND :yearTo AND b.code LIKE :isbn_issn" + genreSQL);
-		//  b.year <= :yearTo AND
+		Query query = em.createQuery(
+				"SELECT DISTINCT b FROM Book b "
+//				+ "JOIN b.author a "
+				+ "WHERE "
+				+	"b.name LIKE :name AND "
+				+	"b.year BETWEEN :yearFrom AND :yearTo AND "
+				+	"b.code LIKE :isbn_issn "
+//				+	"AND a.name LIKE :author "
+				+ genreSQL 
+				+ "ORDER BY b.name ASC, b.year ASC"
+				);
 		//Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.authors.name LIKE :authorname" + genreSQL);
-		//  AND u.year BETWEEN :yearFrom AND :yearTo LIKE :forename AND u.surname LIKE :surname AND u.email LIKE :email AND u.level LIKE :level
 		query.setParameter("name", "%" + name + "%");
+//		query.setParameter("author", "%" + author + "%");
 		// TODO: author
 		//query.setParameter("authorname", "%" + author + "%");
 	

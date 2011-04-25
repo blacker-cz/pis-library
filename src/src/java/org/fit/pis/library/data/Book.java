@@ -99,7 +99,7 @@ public class Book implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idbook")
 	private Collection<Booking> bookingCollection;
         
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idbook")
+		@OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
 	private Collection<Exemplar> exemplarCollection;
 
 	public Book() {

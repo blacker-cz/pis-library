@@ -28,12 +28,14 @@ import javax.validation.constraints.NotNull;
 @Table(name = "borrow")
 @NamedQueries({
 	@NamedQuery(name = "Borrow.findAll", query = "SELECT b FROM Borrow b"),
-	@NamedQuery(name = "Borrow.findByIdborrow", query = "SELECT b FROM Borrow b WHERE b.idborrow = :idborrow"),
+	@NamedQuery(name = "Borrow.findByIdborrow", query = "SELECT b FROM Borrow b WHERE b.idborrow = :idborrow ORDER BY b.returned DESC, b.borrowed ASC"),
+	@NamedQuery(name = "Borrow.findByUser", query = "SELECT b FROM Borrow b WHERE b.user = :user"),
 	@NamedQuery(name = "Borrow.findByBorrowed", query = "SELECT b FROM Borrow b WHERE b.borrowed = :borrowed"),
 	@NamedQuery(name = "Borrow.findByReturned", query = "SELECT b FROM Borrow b WHERE b.returned = :returned"),
 	@NamedQuery(name = "Borrow.findByProlongations", query = "SELECT b FROM Borrow b WHERE b.prolongations = :prolongations")})
 public class Borrow implements Serializable {
 	private static final long serialVersionUID = 1L;
+	public static final int MAX_PROLONGATE_COUNT = 3;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -54,10 +56,10 @@ public class Borrow implements Serializable {
 	private int prolongations;
 	@JoinColumn(name = "iduser", referencedColumnName = "iduser")
     @ManyToOne(optional = false)
-	private User iduser;
+	private User user;
 	@JoinColumn(name = "idexemplar", referencedColumnName = "idexemplar")
     @ManyToOne(optional = false)
-	private Exemplar idexemplar;
+	private Exemplar exemplar;
 
 	public Borrow() {
 	}
@@ -104,22 +106,30 @@ public class Borrow implements Serializable {
 		this.prolongations = prolongations;
 	}
 
-	public User getIduser() {
-		return iduser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setIduser(User iduser) {
-		this.iduser = iduser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Exemplar getIdexemplar() {
-		return idexemplar;
+	public Exemplar getExemplar() {
+		return exemplar;
 	}
 
-	public void setIdexemplar(Exemplar idexemplar) {
-		this.idexemplar = idexemplar;
+	public void setExemplar(Exemplar exemplar) {
+		this.exemplar = exemplar;
 	}
 
+	/**
+	 * Can prolongate book borrow
+	 * @return 
+	 */
+	public boolean getCanProlongate() {
+		return returned == null && prolongations < MAX_PROLONGATE_COUNT;
+	}
+	
 	@Override
 	public int hashCode() {
 		int hash = 0;

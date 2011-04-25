@@ -72,6 +72,20 @@ public class UserManager {
 		}
 	}
 	
+	public User findByIduser(int idUser) {
+		try {
+			Query queryUserByPermitNumber = em.createNamedQuery("User.findByIduser");
+			queryUserByPermitNumber.setParameter("iduser", idUser);
+			return (User) queryUserByPermitNumber.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		} catch (NonUniqueResultException e) {
+			return null;
+		} catch (IllegalStateException e) {
+			return null;
+		}
+	}
+	
 	/**
 	 * Filter user list by some parameters
 	 * @param permitNumber
