@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -31,6 +32,7 @@ public class SearchBooksBean {
 	private GenreManager genreMgr;
 	private Book book;
 	private UIDataTable listTable;
+	private UIDataTable exemplarListTable;
 	
 	@ManagedProperty(value="#{authenticationBean}")
 	private AuthenticationBean authBean;
@@ -41,6 +43,7 @@ public class SearchBooksBean {
 	private Calendar filter_dateFrom;
 	private Calendar filter_dateTo;
 	private String filter_genre;
+	private String filter_isbn_issn;
 	
 	private int minBookYear;
 	private int maxBookYear;
@@ -60,10 +63,11 @@ public class SearchBooksBean {
 		filter_name = "";
 		filter_author = "";
 		filter_genre = "";
+		filter_isbn_issn = "";
 		filter_dateFrom = Calendar.getInstance();
-		filter_dateFrom.set(Book.MIN_BOOK_YEAR, 1, 3);
+		filter_dateFrom.set(Book.MIN_BOOK_YEAR, Calendar.JANUARY, 1);
 		filter_dateTo = Calendar.getInstance();
-		filter_dateTo.set(Book.MAX_BOOK_YEAR, 1, 3);
+		filter_dateTo.set(Book.MAX_BOOK_YEAR, Calendar.DECEMBER, 31);
 		
 		minBookYear = Book.MIN_BOOK_YEAR;
 		maxBookYear = Book.MAX_BOOK_YEAR;
@@ -111,6 +115,14 @@ public class SearchBooksBean {
 		this.filter_author = filter_author;
 	}
 	
+	public String getFilter_isbn_issn() {
+		return filter_isbn_issn;
+	}
+
+	public void setFilter_isbn_issn(String filter_isbn_issn) {
+		this.filter_isbn_issn = filter_isbn_issn;
+	}
+	
 	public String getFilter_genre() {
 		return filter_genre;
 	}
@@ -154,11 +166,7 @@ public class SearchBooksBean {
 	
 	public void setFilter_yearFrom(String yearFrom) {
 		int year = Integer.parseInt(yearFrom);
-		
-		if (filter_dateFrom == null)
-			filter_dateFrom = Calendar.getInstance();
-		
-		filter_dateFrom.set(year, 1, 3);
+		filter_dateFrom.set(year, Calendar.JANUARY, 1);
 	}
 	
 	public String getFilter_yearTo() {
@@ -172,49 +180,34 @@ public class SearchBooksBean {
 
 	public void setFilter_yearTo(String yearFrom) {
 		int year = Integer.parseInt(yearFrom);
-		
-		if (filter_dateTo == null)
-			filter_dateTo = Calendar.getInstance();
-		
-		filter_dateTo.set(year, 1, 3);
+		filter_dateTo.set(year, Calendar.DECEMBER, 31);
 	}
 	// </editor-fold>
 	/**
 	 * Get list of users
 	 * @return 
 	 */
-	public List<Book> getBooks() throws Exception {
-		Date yearFrom, yearTo;
-		// create new date
-		if (filter_dateFrom == null) {
-			Calendar c = Calendar.getInstance();
-			c.set(1000, 1, 3);
-			yearFrom = c.getTime();
-		// get year
-		} else {
-			yearFrom = filter_dateFrom.getTime();
+	public List<Book> getBooks() {
+		// switch dates
+		if (filter_dateFrom.compareTo(filter_dateTo) > 0) {
+			Calendar tmp = filter_dateFrom;
+			filter_dateFrom = filter_dateTo;
+			filter_dateTo = tmp;
 		}
 		
-		// create new date
-		if (filter_dateFrom == null) {
-			Calendar c = Calendar.getInstance();
-			c.set(1000, 1, 3);
-			yearTo = c.getTime();
-		// get year
-		} else {
-			yearTo = filter_dateFrom.getTime();
-		}
-		
+		Date yearFrom = filter_dateFrom.getTime();
+		Date yearTo = filter_dateTo.getTime();
+
 		// genre
 		Genre genre = null;
 		if (!filter_genre.isEmpty() && !filter_genre.equalsIgnoreCase("all")) {
 			genre = genreMgr.findByName(filter_genre);
 			if (genre == null) {
-				throw new Exception("NULL!!!");
+				System.err.println("Badly working database encoding!");
 			}
 		}
 		
-		return bookMgr.find(filter_name, yearFrom, yearTo, genre);
+		return bookMgr.find(filter_name, filter_author, yearFrom, yearTo, genre, filter_isbn_issn);
 	}
 
 	/**
@@ -233,6 +226,22 @@ public class SearchBooksBean {
 		this.listTable = table;
 	}
 
+	/**
+	 * Get records table
+	 * @return 
+	 */
+	public UIDataTable getExemplarListTable() {
+		return null;	// force rebuild of table
+	}
+
+	/**
+	 * Set records table
+	 * @param table 
+	 */
+	public void setExemplarListTable(UIDataTable table) {
+		this.exemplarListTable = table;
+	}
+	
 	/**
 	 * Search books
 	 * @return 
@@ -258,6 +267,14 @@ public class SearchBooksBean {
 	public String actionDetail() {
 		setBook((Book) listTable.getRowData());
 		return "detail";
+	}
+
+	/**
+	 * Book cancel detail
+	 * @return 
+	 */
+	public String actionCancelDetail() {
+		return "cancelDetail";
 	}
 	
 	/**

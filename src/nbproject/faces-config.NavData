@@ -9,13 +9,12 @@
         <Node id="template.xhtml" x="4772" y="32" zoom="true"/>
         <Node id="app/home.xhtml" x="3201" y="32" zoom="true"/>
         <Node id="app/test.xhtml" x="3485" y="32" zoom="true"/>
-        <Node id="app/reader/book_detail.xhtml" x="1109" y="262" zoom="true"/>
+        <Node id="app/reader/book_detail.xhtml" x="1116" y="351" zoom="true"/>
         <Node id="app/reader/change_password.xhtml" x="818" y="32" zoom="true"/>
         <Node id="need_login.xhtml" x="4119" y="32" zoom="true"/>
         <Node id="app/template.xhtml" x="5050" y="32" zoom="true"/>
         <Node id="app/admin/edit_user.xhtml" x="2843" y="32" zoom="true"/>
         <Node id="index.xhtml" x="1451" y="32" zoom="true"/>
-        <Node id="app/reader/__catalog.xhtml" x="4410" y="32" zoom="true"/>
         <Node id="app/admin/new_user.xhtml" x="3759" y="32" zoom="true"/>
         <Node id="app/librarian/edit_reader.xhtml" x="34" y="32" zoom="true"/>
         <Node id="app/librarian/manage_readers.xhtml" x="2098" y="32" zoom="true"/>
@@ -33,7 +32,7 @@
         <Node id="index.xhtml" x="719" y="190" zoom="true"/>
         <Node id="app/admin/new_user.xhtml" x="150" y="450" zoom="true"/>
         <Node id="app/librarian/edit_reader.xhtml" x="1309" y="575" zoom="true"/>
-        <Node id="app/librarian/manage_readers.xhtml" x="1167" y="180" zoom="true"/>
         <Node id="app/librarian/new_reader.xhtml" x="1118" y="443" zoom="true"/>
+        <Node id="app/librarian/manage_readers.xhtml" x="1167" y="180" zoom="true"/>
     </Scope>
 </Scene>

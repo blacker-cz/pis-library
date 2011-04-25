@@ -38,6 +38,9 @@
 						<f:validateLongRange minimum="#{searchBooksBean.minBookYear}" maximum="#{searchBooksBean.maxBookYear}" />
 					</h:inputText>
 					
+					<h:outputLabel rendered="true" value="ISBN/ISSN:"></h:outputLabel>
+					<h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
+					
 				</h:panelGrid>
 
 				<p>

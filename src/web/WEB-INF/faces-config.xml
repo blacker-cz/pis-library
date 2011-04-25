@@ -151,4 +151,11 @@
             <to-view-id>/app/reader/book_detail.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/app/reader/book_detail.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cancelDetail</from-outcome>
+            <to-view-id>/app/reader/catalog.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

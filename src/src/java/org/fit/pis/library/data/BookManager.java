@@ -47,27 +47,30 @@ public class BookManager {
 	 * @param level
 	 * @return 
 	 */
-	public List<Book> find(String name, Date yearFrom, Date yearTo, Genre genre) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		
+	public List<Book> find(String name, String author, Date yearFrom, Date yearTo, Genre genre, String isbn_issn) {
 		// genre SQL
 		String genreSQL = "";
 		if (genre != null) {
 			genreSQL = " AND b.genre.idgenre = :idgenreFilter";
 		}
 		
-		Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name" + genreSQL);
+		System.out.println("from: " + yearFrom + ", to:" + yearTo);
+		
+		Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.year BETWEEN :yearFrom AND :yearTo AND b.code LIKE :isbn_issn" + genreSQL);
+		//  b.year <= :yearTo AND
+		//Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.authors.name LIKE :authorname" + genreSQL);
 		//  AND u.year BETWEEN :yearFrom AND :yearTo LIKE :forename AND u.surname LIKE :surname AND u.email LIKE :email AND u.level LIKE :level
 		query.setParameter("name", "%" + name + "%");
-		
+		// TODO: author
+		//query.setParameter("authorname", "%" + author + "%");
+	
+		query.setParameter("isbn_issn", "%" + isbn_issn + "%");
 		// genre
 		if (genre != null) {
 			query.setParameter("idgenreFilter", genre.getIdgenre());
 		}
-//		query.setParameter("yearFrom", "1850-01-01");
-//		query.setParameter("yearTo", "2100-01-01");
-//		query.setParameter("email", "%" + email + "%");
-//		query.setParameter("level", "%" + level + "%");
+		query.setParameter("yearFrom", yearFrom);
+		query.setParameter("yearTo", yearTo);
 		return (List<Book>) query.getResultList();
 	}
 }

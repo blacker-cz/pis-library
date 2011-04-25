@@ -35,7 +35,9 @@
 					<h:inputText id="filter_yearTo" value="#{searchBooksBean.filter_yearTo}" required="false" converterMessage="Rok musí být v rozsahu #{Book.MIN_BOOK_YEAR} - #{Book.MAX_BOOK_YEAR}">
 						<f:validateLongRange minimum="#{searchBooksBean.minBookYear}" maximum="#{searchBooksBean.maxBookYear}" />
 					</h:inputText>
-					
+
+					<h:outputLabel rendered="true" value="ISBN/ISSN:"></h:outputLabel>
+					<h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
 				</h:panelGrid>
 
 				<p>
