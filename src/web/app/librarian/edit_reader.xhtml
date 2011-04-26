@@ -37,7 +37,9 @@
 					</h:inputText>
 					<h:outputLabel rendered="true" value="Email:*"></h:outputLabel>
 					<h:inputText value="#{manageReadersBean.user.email}" required="true"
-								 requiredMessage="Email musí být vyplněn">
+								 requiredMessage="Email musí být vyplněn"
+								 validatorMessage="Špatný formát emailu">
+						<f:validateRegex pattern="^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</h:inputText>
 					<h:outputLabel rendered="true" value="Založen dne:"></h:outputLabel>
 					<h:outputText value="#{manageReadersBean.user.registered}">

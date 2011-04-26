@@ -11,7 +11,7 @@
 
 		<div id="header">
 			<ui:insert name="header">
-				<h1>Library</h1>
+				<h1>Knihovna</h1>
 			</ui:insert>
 		</div>
 
@@ -19,28 +19,28 @@
 		<div id="content">
 			<h:form>
 				<h:commandLink action="#{authenticationBean.actionLogout}">
-					<h:outputText value="Logout"></h:outputText>
+					<h:outputText value="Odhlásit"></h:outputText>
 				</h:commandLink>
 			</h:form>
 			
 			<div class="menu">
 				<div class="submenu">
-					<div><h:link value="Home" outcome="home"></h:link></div>
+					<div><h:link value="Domů" outcome="home"></h:link></div>
 				</div>
 				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("reader") || authenticationBean.isInRole("librarian") || authenticationBean.isInRole("admin")}'>
 					<div>reader or higher menu part</div>
-					<div><h:link value="Change password" outcome="change_password"></h:link></div>
+					<div><h:link value="Změnit heslo" outcome="change_password"></h:link></div>
 					<div><h:link value="Projít katalog" outcome="viewBooks"></h:link></div>
 					<div><h:link value="Moje výpůjčky" outcome="#{manageBorrowsBean.actionDisplay()}"></h:link></div>
 					<div><h:link value="Moje rezervace" outcome="#{manageBookingBean.actionDisplay()}"></h:link></div>
 				</h:panelGroup>
 				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("librarian") || authenticationBean.isInRole("admin")}'>
 					<div>librarian or higher menu part</div>
-					<div><h:link value="Manage readers accounts" outcome="manage_readers"></h:link></div>
+					<div><h:link value="Spravovat čtenáře" outcome="manage_readers"></h:link></div>
 				</h:panelGroup>
 				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("admin")}'>
 					<div>admin menu part</div>
-					<div><h:link value="Manage user accounts" outcome="manage_users"></h:link></div>
+					<div><h:link value="Spravovat uživatele" outcome="manage_users"></h:link></div>
 				</h:panelGroup>
 			</div>
 

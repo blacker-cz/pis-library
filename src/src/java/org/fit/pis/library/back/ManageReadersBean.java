@@ -2,9 +2,6 @@
  */
 package org.fit.pis.library.back;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -12,7 +9,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import org.fit.pis.library.data.User;
 import org.fit.pis.library.data.UserManager;
@@ -163,7 +159,7 @@ public class ManageReadersBean {
 		try {
 			userMgr.Save(user);
 		} catch(javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reader wasn't created. Please try again later (or try to change permit number)."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Čtenáře se nepodařilo, zkuste to později (nebo zkuste jiné číslo průkazky)."));
 			return "";
 		}
 		
@@ -176,7 +172,7 @@ public class ManageReadersBean {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odeslat email s potvrzením registrace a heslem."));
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reader was successfully created."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Čtenář byl úspěšně vytvořen."));
 		
 		return "edit";
 	}
@@ -189,11 +185,11 @@ public class ManageReadersBean {
 		try {
 			userMgr.Save(user);
 		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit, zkuste to prosím později."));
 			return "";
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes were successfully saved."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny byly úspěšně uloženy."));
 
 		return "";
 	}
@@ -207,11 +203,11 @@ public class ManageReadersBean {
 		try {
 			userMgr.Remove(selected);
 		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Couldn't delete reader. Please try again later."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odstranit čtenáře, zkuste to prosím později."));
 			return "";
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reader was successfully deleted."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Čtenář byl úspěšně odstraněn."));
 
 		return "";
 	}
