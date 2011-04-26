@@ -57,9 +57,17 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>XmlResponseServlet</servlet-name>
+        <servlet-class>org.fit.pis.library.servlets.XmlResponseServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>XmlResponseServlet</servlet-name>
+        <url-pattern>/xml/export</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -19,6 +19,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.fit.pis.library.back.converters.IntegerAdapter;
 
 /**
  *
@@ -37,6 +41,8 @@ public class Author implements Serializable {
 //    @Basic(optional = false)
 //    @NotNull
     @Column(name = "idauthor")
+	@XmlID
+	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	private Integer idauthor;
 	@Basic(optional = false)
     @NotNull
@@ -47,6 +53,7 @@ public class Author implements Serializable {
     	@JoinColumn(name = "author_idauthor", referencedColumnName = "idauthor")}, inverseJoinColumns = {
     	@JoinColumn(name = "book_idbook", referencedColumnName = "idbook")})
     @ManyToMany
+	@XmlIDREF
 	private Collection<Book> booksCollection;
 
 	public Author() {

@@ -18,6 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.fit.pis.library.back.converters.IntegerAdapter;
 
 /**
  *
@@ -36,6 +39,8 @@ public class Genre implements Serializable {
 //    @Basic(optional = false)
 //    @NotNull
     @Column(name = "idgenre")
+	@XmlID
+	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	private Integer idgenre;
 	@Basic(optional = false)
     @NotNull

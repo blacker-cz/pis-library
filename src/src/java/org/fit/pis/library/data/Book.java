@@ -24,6 +24,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.fit.pis.library.back.converters.IntegerAdapter;
 
 /**
  *
@@ -51,6 +55,8 @@ public class Book implements Serializable {
 //        @Basic(optional = false)
 //        @NotNull
         @Column(name = "idbook")
+	@XmlID
+	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	private Integer idbook;
         
 	@Basic(optional = false)
@@ -90,10 +96,12 @@ public class Book implements Serializable {
         
 	@JoinColumn(name = "idpublisher", referencedColumnName = "idpublisher")
         @ManyToOne(optional = false)
+	@XmlIDREF
 	private Publisher publisher;
         
 	@JoinColumn(name = "idgenre", referencedColumnName = "idgenre")
         @ManyToOne(optional = false)
+	@XmlIDREF
 	private Genre genre;
         
 		@OneToMany(cascade = CascadeType.ALL, mappedBy = "book")

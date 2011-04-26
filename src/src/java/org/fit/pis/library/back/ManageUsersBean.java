@@ -174,7 +174,7 @@ public class ManageUsersBean {
 		try {
 			userMgr.Save(user);
 		} catch(javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uživatele se nepodařilo vytvořit, zkuste to prosím později (nebo změnte číslo průkazky)."));
 			return "";
 		}
 
@@ -187,7 +187,7 @@ public class ManageUsersBean {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odeslat email s potvrzením registrace a heslem."));
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User was successfully created."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uživatel byl úspěšně vytvořen."));
 		
 		return "edit";
 	}
@@ -200,11 +200,11 @@ public class ManageUsersBean {
 		try {
 			userMgr.Save(user);
 		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit, zkuste to prosím později."));
 			return "";
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes were successfully saved."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny byly úspěšně uloženy."));
 
 		return "";
 	}
@@ -218,11 +218,11 @@ public class ManageUsersBean {
 		try {
 			userMgr.Remove(selected);
 		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Couldn't delete user. Please try again later."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uživatele se nepodařilo odstranit, zkuste to prosím později."));
 			return "";
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User was successfully deleted."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uživatel byl úspěšně odstraněn."));
 
 		return "";
 	}
@@ -239,7 +239,7 @@ public class ManageUsersBean {
 		try {
 			userMgr.Save(selected);
 		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit zkuste to prosím později."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit, zkuste to prosím později."));
 			return "";
 		}
 

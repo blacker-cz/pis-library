@@ -20,6 +20,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.fit.pis.library.back.converters.IntegerAdapter;
 
 /**
  *
@@ -44,6 +48,8 @@ public class Borrow implements Serializable {
 //    @Basic(optional = false)
 //    @NotNull
     @Column(name = "idborrow")
+	@XmlID
+	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	private Integer idborrow;
 	@Basic(optional = false)
     @NotNull
@@ -59,9 +65,11 @@ public class Borrow implements Serializable {
 	private int prolongations;
 	@JoinColumn(name = "iduser", referencedColumnName = "iduser")
     @ManyToOne(optional = false)
+	@XmlIDREF
 	private User user;
 	@JoinColumn(name = "idexemplar", referencedColumnName = "idexemplar")
     @ManyToOne(optional = false)
+	@XmlIDREF
 	private Exemplar exemplar;
 
 	public Borrow() {
