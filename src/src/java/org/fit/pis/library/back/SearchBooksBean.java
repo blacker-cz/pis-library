@@ -291,7 +291,7 @@ public class SearchBooksBean {
 		User user = userMgr.find(authBean.getIduser());
 		
 		// check if user has already booked this title
-		Collection<Booking> colection = user.getBookingCollection();
+		Collection<Booking> colection = bookingMgr.find(user);
 		if (colection != null) {
 			for (Booking b : colection) {
 				// book is already booked
@@ -309,11 +309,6 @@ public class SearchBooksBean {
 		booking.setDate(new Date(System.currentTimeMillis()));
 		booking.setUser(user);
 		
-		System.out.println("===================");
-		System.out.println(book);
-		System.out.println(user);
-		System.out.println(booking);
-		
 		try {
 			// save booking
 			bookingMgr.Save(booking);
@@ -322,7 +317,7 @@ public class SearchBooksBean {
 			return action;
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes were successfully saved."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Book was successfully booked."));
 		
 		return action;
 	}
