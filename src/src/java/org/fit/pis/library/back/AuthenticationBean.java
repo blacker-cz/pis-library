@@ -112,7 +112,7 @@ public class AuthenticationBean implements Serializable {
 		
 		// @todo: erase all internal variables
 		
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Logout was succesful"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Odhlášení proběhlo úspěšně."));
 		return "logout";
 	}
 	
@@ -144,7 +144,7 @@ public class AuthenticationBean implements Serializable {
 			this.authorized = true;
 			this.iduser = 0;
 			this.forename = "";
-			this.surname = "Guest";
+			this.surname = "Host";
 			this.permitNumber = "guest";
 			this.address = "";
 			this.phone = "";
@@ -172,7 +172,7 @@ public class AuthenticationBean implements Serializable {
 			return "login";
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Invalid login"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se přihlásit, zkuste to znovu."));
 		return "failed";
 	}
 }
