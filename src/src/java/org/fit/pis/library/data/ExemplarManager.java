@@ -45,6 +45,23 @@ public class ExemplarManager {
 		}
 	}
 	
+	/**
+	 * Find book exemplars
+	 * @param book
+	 * @return 
+	 */
+	public List<Exemplar> findByBook(Book book) {
+		em.flush();
+		
+		try {
+			Query query = em.createNamedQuery("Exemplar.findByBook");
+			query.setParameter("book", book);
+			return query.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
     @SuppressWarnings("unchecked")
     public List<Exemplar> findAll()
     {

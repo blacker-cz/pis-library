@@ -44,6 +44,9 @@
 					
 					<h:outputText value="Místo vydání"/>
 					<h:outputText value="#{searchBooksBean.book.place}"></h:outputText>
+					
+					<h:outputText value="Výtisky"/>
+					<h:outputText value="#{searchBooksBean.book.exemplarCollection.size()} celkem, #{searchBooksBean.countExemplarsBorrowed} vypůjčeno, #{searchBooksBean.countExemplarsFree} dostupných"></h:outputText>
 				</h:panelGrid>
 
 				<p>

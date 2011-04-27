@@ -31,6 +31,8 @@ public class SearchBooksBean {
 	private BookingManager bookingMgr;
 	@EJB
 	private UserManager userMgr;
+	@EJB
+	private ExemplarManager exemplarMgr;
 	
 	private Book book;
 	private UIDataTable listTable;
@@ -236,6 +238,44 @@ public class SearchBooksBean {
 		return null;	// force rebuild of table
 	}
 
+	/**
+	 * Count of curently free exemplars
+	 * @return 
+	 */
+	public int getCountExemplarsFree() {
+		if (book == null)
+			return 0;
+		
+		int freeCount = 0;
+		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
+		// list exemplars
+		for (Exemplar exemplar : exemplars) {
+			if (!exemplar.getIsBorrowed())
+				freeCount++;
+		}
+		
+		return freeCount;
+	}
+	
+	/**
+	 * Count of currently borrowed exemplars
+	 * @return 
+	 */
+	public int getCountExemplarsBorrowed() {
+		if (book == null)
+			return 0;
+		
+		int borrowedCount = 0;
+		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
+		// list exemplars
+		for (Exemplar exemplar : exemplars) {
+			if (exemplar.getIsBorrowed())
+				borrowedCount++;
+		}
+		
+		return borrowedCount;
+	}
+	
 	/**
 	 * Set records table
 	 * @param table 

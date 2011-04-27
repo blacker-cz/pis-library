@@ -33,6 +33,7 @@ import org.fit.pis.library.back.converters.IntegerAdapter;
 @Table(name = "exemplar")
 @NamedQueries({
 	@NamedQuery(name = "Exemplar.findAll", query = "SELECT e FROM Exemplar e"),
+	@NamedQuery(name = "Exemplar.findByBook", query = "SELECT e FROM Exemplar e WHERE e.book = :book"),
 	@NamedQuery(name = "Exemplar.findByIdexemplar", query = "SELECT e FROM Exemplar e WHERE e.idexemplar = :idexemplar"),
 	@NamedQuery(name = "Exemplar.findByAquired", query = "SELECT e FROM Exemplar e WHERE e.aquired = :aquired"),
 	@NamedQuery(name = "Exemplar.findByState", query = "SELECT e FROM Exemplar e WHERE e.state = :state")})
@@ -108,6 +109,14 @@ public class Exemplar implements Serializable {
 		this.book = book;
 	}
 
+	public boolean getIsBorrowed() {
+		for (Borrow b : borrowCollection) {
+			if (b.getReturned() == null)
+				return true;
+		}
+		return false;
+	}
+	
 	public Collection<Borrow> getBorrowCollection() {
 		return borrowCollection;
 	}
