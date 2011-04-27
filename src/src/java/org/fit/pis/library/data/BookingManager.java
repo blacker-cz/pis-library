@@ -35,6 +35,11 @@ public class BookingManager {
 	public void Remove(Booking b) {
 		em.remove(em.merge(b));
 	}
+    
+	public void flush()
+	{
+		em.flush();
+	}
 	
 	/**
 	 * Find all bookings

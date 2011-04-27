@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,7 +27,24 @@ public class ExemplarManager {
     {
     	em.remove(em.merge(e));
     }
-    
+        
+	public void flush()
+	{
+		em.flush();
+	}
+
+	public Exemplar findByIdexemplar(Integer id) {
+		em.flush();
+		
+		try {
+			Query query = em.createNamedQuery("Exemplar.findByIdexemplar");
+			query.setParameter("idexemplar", id);
+			return (Exemplar) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
     @SuppressWarnings("unchecked")
     public List<Exemplar> findAll()
     {

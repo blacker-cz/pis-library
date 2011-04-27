@@ -35,7 +35,12 @@ public class BorrowManager {
 	public void Remove(Borrow b) {
 		em.remove(em.merge(b));
 	}
-	
+	    
+	public void flush()
+	{
+		em.flush();
+	}
+
 	/**
 	 * Find all borrows
 	 * @return 

@@ -29,12 +29,34 @@ public class PublisherManager {
     {
     	em.remove(em.merge(p));
     }
-    
+        
+	public void flush()
+	{
+		em.flush();
+	}
+
     @SuppressWarnings("unchecked")
     public List<Publisher> findAll()
     {
 		return em.createNamedQuery("Publisher.findAll").getResultList();
     }
+	
+	/**
+	 * Find publisher by id
+	 * @param id
+	 * @return Publisher or null
+	 */
+	public Publisher findByIdpublisher(Integer id) {
+		em.flush();
+		
+		try {
+			Query query = em.createNamedQuery("Publisher.findByIdpublisher");
+			query.setParameter("idpublisher", id);
+			return (Publisher) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
 	/**
 	 * Find Publisher by name

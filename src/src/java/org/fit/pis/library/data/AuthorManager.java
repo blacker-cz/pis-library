@@ -30,11 +30,33 @@ public class AuthorManager {
     	em.remove(em.merge(a));
     }
     
+	public void flush()
+	{
+		em.flush();
+	}
+	
     @SuppressWarnings("unchecked")
     public List<Author> findAll()
     {
 		return em.createNamedQuery("Author.findAll").getResultList();
     }
+	
+	/**
+	 * Find author by id
+	 * @param id	Author id
+	 * @return Author or null
+	 */
+	public Author findByIdauthor(Integer id) {
+		em.flush();
+		
+		try {
+			Query query = em.createNamedQuery("Author.findByIdauthor");
+			query.setParameter("idauthor", id);
+			return (Author) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
 	/**
 	 * Find Author by name

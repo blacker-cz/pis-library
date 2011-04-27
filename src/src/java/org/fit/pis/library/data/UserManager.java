@@ -52,6 +52,11 @@ public class UserManager {
 		em.flush();
 		em.refresh(u);
 	}
+    
+	public void flush()
+	{
+		em.flush();
+	}
 	
 	/**
 	 * Get list of all users
@@ -67,6 +72,8 @@ public class UserManager {
 	 * @return user instance or null when not found
 	 */
 	public User findByPermitNumber(String permitNumber) {
+		em.flush();
+		
 		try {
 			Query queryUserByPermitNumber = em.createNamedQuery("User.findByPermitNumber");
 			queryUserByPermitNumber.setParameter("permitNumber", permitNumber);

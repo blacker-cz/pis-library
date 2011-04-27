@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,6 +20,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.fit.pis.library.back.converters.IntegerAdapter;
 
@@ -45,7 +44,6 @@ import org.fit.pis.library.back.converters.IntegerAdapter;
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "iduser")
 	@XmlID
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
@@ -99,8 +97,10 @@ public class User implements Serializable {
     @Column(name = "level")
 	private String level;
 		@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@XmlIDREF
 	private Collection<Booking> bookingCollection;
 		@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@XmlIDREF
 	private Collection<Borrow> borrowCollection;
 
 	public User() {
