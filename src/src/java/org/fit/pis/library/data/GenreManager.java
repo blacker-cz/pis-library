@@ -37,6 +37,28 @@ public class GenreManager {
     {
 		return em.createNamedQuery("Genre.findAll").getResultList();
     }
+	    
+	public void flush()
+	{
+		em.flush();
+	}
+
+	/**
+	 * Find Genre by id
+	 * @param id
+	 * @return Genre or null
+	 */
+	public Genre findByIdgenre(Integer id) {
+		em.flush();
+		
+		try {
+			Query query = em.createNamedQuery("Genre.findByIdgenre");
+			query.setParameter("idgenre", id);
+			return (Genre) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
 	/**
 	 * Find genre by name

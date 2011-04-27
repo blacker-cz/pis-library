@@ -9,8 +9,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -19,6 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.fit.pis.library.back.converters.IntegerAdapter;
 
@@ -35,7 +34,7 @@ import org.fit.pis.library.back.converters.IntegerAdapter;
 public class Genre implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Basic(optional = false)
 //    @NotNull
     @Column(name = "idgenre")
@@ -48,6 +47,7 @@ public class Genre implements Serializable {
     @Column(name = "name")
 	private String name;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
+	@XmlIDREF
 	private Collection<Book> booksCollection;
 
 	public Genre() {

@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
-import javax.xml.namespace.QName;
 import org.fit.pis.library.data.*;
 
 /**
@@ -25,6 +23,18 @@ public class XmlResponseServlet extends HttpServlet {
 	private UserManager userMgr;
 	@EJB
 	private BookManager bookMgr;
+	@EJB
+	private AuthorManager authorMgr;
+	@EJB
+	private BookingManager bookingMgr;
+	@EJB
+	private ExemplarManager exemplarMgr;
+	@EJB
+	private GenreManager genreMgr;
+	@EJB
+	private PublisherManager publisherMgr;
+	@EJB
+	private BorrowManager borrowMgr;
 
 	/** 
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,20 +50,26 @@ public class XmlResponseServlet extends HttpServlet {
 		try {
 			DatabaseWrapper db = new DatabaseWrapper();
 
+			// fill database wrapper with data
 			db.setUsers(userMgr.findAll());
 			db.setBooks(bookMgr.findAll());
-			// Step 2 - Convert the Domain Model to XML
+			db.setAuthors(authorMgr.findAll());
+			db.setBookings(bookingMgr.findAll());
+			db.setBorrows(borrowMgr.findAll());
+			db.setExemplars(exemplarMgr.findAll());
+			db.setGenres(genreMgr.findAll());
+			db.setPublishers(publisherMgr.findAll());
 
+			// Step 2 - convert to xml
 			JAXBContext jaxbContext = JAXBContext.newInstance(DatabaseWrapper.class);
 
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-			JAXBElement<DatabaseWrapper> jaxbElement = new JAXBElement<DatabaseWrapper>(new QName(null, "library"), DatabaseWrapper.class, db);
-			marshaller.marshal(jaxbElement, out);
+			marshaller.marshal(db, out);
 
 		} catch (Exception ex) {
-			out.println(ex.getMessage());
+			ex.printStackTrace(out);
 		} finally {
 			out.close();
 		}

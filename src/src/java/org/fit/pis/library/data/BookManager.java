@@ -32,11 +32,33 @@ public class BookManager {
     	em.remove(em.merge(b));
     }
     
+	public void flush()
+	{
+		em.flush();
+	}
+    
     @SuppressWarnings("unchecked")
     public List<Book> findAll()
     {
     	return em.createQuery("SELECT b FROM Book b ORDER BY b.name ASC, b.year ASC").getResultList();
     }
+	
+	/**
+	 * Find book by id
+	 * @param id
+	 * @return Book or null
+	 */
+	public Book findByIdbook(Integer id) {
+		em.flush();
+		
+		try {
+			Query query = em.createNamedQuery("Book.findByIdbook");
+			query.setParameter("idbook", id);
+			return (Book) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
 	/**
 	 * Filter user list by some parameters
