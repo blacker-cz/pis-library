@@ -2,7 +2,8 @@
  */
 package org.fit.pis.library.back;
 
-import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
@@ -67,6 +68,10 @@ public class XmlImportBean {
 			processAuthors(doc.getElementsByTagName("authors"));
 			processPublishers(doc.getElementsByTagName("publishers"));
 			processGenres(doc.getElementsByTagName("genres"));
+			processBooks(doc.getElementsByTagName("books"));
+			processExemplars(doc.getElementsByTagName("exemplars"));
+			processBookings(doc.getElementsByTagName("bookings"));
+			processBorrows(doc.getElementsByTagName("borrows"));
 
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Import se nezdařil."));
@@ -75,7 +80,7 @@ public class XmlImportBean {
 			return;
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Import se nezdařil."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Import proběhl úspěšně."));
 	}
 
 	/**
@@ -102,7 +107,7 @@ public class XmlImportBean {
 				user.setExpire(DatatypeConverter.parseDateTime(getTagValue("expire", userNode)).getTime());
 				user.setPassword(getTagValue("password", userNode));
 				user.setLevel(getTagValue("level", userNode));
-				
+
 				try {
 					userMgr.Save(user);
 				} catch (EJBException ex) {
@@ -126,10 +131,10 @@ public class XmlImportBean {
 				Element authorNode = (Element) authors.item(i);
 
 				Author author = new Author();
-				
+
 				author.setIdauthor(Integer.parseInt(getTagValue("idauthor", authorNode)));
 				author.setName(getTagValue("name", authorNode));
-				
+
 				try {
 					authorMgr.save(author);
 				} catch (EJBException ex) {
@@ -139,7 +144,7 @@ public class XmlImportBean {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Import publishers
 	 * @param nodes
@@ -153,11 +158,11 @@ public class XmlImportBean {
 				Element publisherNode = (Element) publishers.item(i);
 
 				Publisher publisher = new Publisher();
-				
+
 				publisher.setIdpublisher(Integer.parseInt(getTagValue("idpublisher", publisherNode)));
 				publisher.setName(getTagValue("name", publisherNode));
 				publisher.setAddress(getTagValue("address", publisherNode));
-				
+
 				try {
 					publisherMgr.save(publisher);
 				} catch (EJBException ex) {
@@ -167,7 +172,7 @@ public class XmlImportBean {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Import genres
 	 * @param nodes
@@ -181,12 +186,202 @@ public class XmlImportBean {
 				Element genreNode = (Element) genres.item(i);
 
 				Genre genre = new Genre();
-				
+
 				genre.setIdgenre(Integer.parseInt(getTagValue("idgenre", genreNode)));
 				genre.setName(getTagValue("name", genreNode));
-				
+
 				try {
 					genreMgr.save(genre);
+				} catch (EJBException ex) {
+					ex.printStackTrace(System.out);
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Import books
+	 * @param nodes
+	 * @return 
+	 */
+	private Boolean processBooks(NodeList nodes) {
+		NodeList books = nodes.item(0).getChildNodes();
+
+		for (int i = 0; i < books.getLength(); i++) {
+			if (books.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element bookNode = (Element) books.item(i);
+
+				Book book = new Book();
+
+				book.setIdbook(Integer.parseInt(getTagValue("idbook", bookNode)));
+				book.setCode(getTagValue("code", bookNode));
+				book.setEdition(Integer.parseInt(getTagValue("edition", bookNode)));
+				book.setPages(Integer.parseInt(getTagValue("pages", bookNode)));
+				book.setPlace(getTagValue("place", bookNode));
+				book.setYear(DatatypeConverter.parseDateTime(getTagValue("year", bookNode)).getTime());
+				book.setType(getTagValue("type", bookNode));
+				book.setName(getTagValue("name", bookNode));
+
+				// find and set publisher
+				Publisher publisher = publisherMgr.findByIdpublisher(Integer.parseInt(getTagValue("publisher", bookNode)));
+				if (publisher == null) {
+					continue;
+				}
+
+				book.setPublisher(publisher);
+
+				// find and set genre
+				Genre genre = genreMgr.findByIdgenre(Integer.parseInt(getTagValue("genre", bookNode)));
+				if (genre == null) {
+					continue;
+				}
+
+				book.setGenre(genre);
+
+				// setup book authors
+				List<String> authors = getTagsValues("authorCollection", bookNode);
+
+				if (book.getAuthorCollection() == null) {
+					book.setAuthorCollection(new ArrayList<Author>());
+				}
+
+				for (String authorId : authors) {
+					Author author = authorMgr.findByIdauthor(Integer.parseInt(authorId));
+					if (author != null) {
+//						book.getAuthorCollection().add(author);
+						author.getBooksCollection().add(book);
+						authorMgr.save(author);
+					}
+				}
+
+				try {
+					bookMgr.save(book);
+				} catch (EJBException ex) {
+					ex.printStackTrace(System.out);
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Import book exemplars
+	 * @param nodes
+	 * @return 
+	 */
+	private Boolean processExemplars(NodeList nodes) {
+		NodeList exemplars = nodes.item(0).getChildNodes();
+
+		for (int i = 0; i < exemplars.getLength(); i++) {
+			if (exemplars.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element exemplarNode = (Element) exemplars.item(i);
+
+				Exemplar exemplar = new Exemplar();
+
+				exemplar.setIdexemplar(Integer.parseInt(getTagValue("idexemplar", exemplarNode)));
+				exemplar.setAquired(DatatypeConverter.parseDateTime(getTagValue("aquired", exemplarNode)).getTime());
+				exemplar.setState(Integer.parseInt(getTagValue("state", exemplarNode)));
+
+				Book book = bookMgr.findByIdbook(Integer.parseInt(getTagValue("book", exemplarNode)));
+				if (book == null) {
+					continue;
+				}
+
+				exemplar.setBook(book);
+
+				try {
+					exemplarMgr.save(exemplar);
+				} catch (EJBException ex) {
+					ex.printStackTrace(System.out);
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Import bookings
+	 * @param nodes
+	 * @return 
+	 */
+	private Boolean processBookings(NodeList nodes) {
+		NodeList bookings = nodes.item(0).getChildNodes();
+
+		for (int i = 0; i < bookings.getLength(); i++) {
+			if (bookings.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element bookingNode = (Element) bookings.item(i);
+
+				Booking booking = new Booking();
+				
+				booking.setIdbooking(Integer.parseInt(getTagValue("idbooking", bookingNode)));
+				booking.setState(Integer.parseInt(getTagValue("state", bookingNode)));
+				booking.setDate(DatatypeConverter.parseDateTime(getTagValue("date", bookingNode)).getTime());
+
+				Book book = bookMgr.findByIdbook(Integer.parseInt(getTagValue("book", bookingNode)));
+				if (book == null) {
+					continue;
+				}
+				
+				booking.setBook(book);
+				
+				User user = userMgr.findByIduser(Integer.parseInt(getTagValue("user", bookingNode)));
+				if(user == null) {
+					continue;
+				}
+				
+				booking.setUser(user);
+				
+				try {
+					bookingMgr.Save(booking);
+				} catch (EJBException ex) {
+					ex.printStackTrace(System.out);
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Import borrows
+	 * @param nodes
+	 * @return 
+	 */
+	public Boolean processBorrows(NodeList nodes) {
+		NodeList borrows = nodes.item(0).getChildNodes();
+
+		for (int i = 0; i < borrows.getLength(); i++) {
+			if (borrows.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element borrowNode = (Element) borrows.item(i);
+
+				Borrow borrow = new Borrow();
+				
+				borrow.setIdborrow(Integer.parseInt(getTagValue("idborrow", borrowNode)));
+				borrow.setProlongations(Integer.parseInt(getTagValue("prolongations", borrowNode)));
+				borrow.setBorrowed(DatatypeConverter.parseDateTime(getTagValue("borrowed", borrowNode)).getTime());
+				
+				// set returned date (can be null)
+				if(getTagValue("returned", borrowNode) == null)
+					borrow.setReturned(null);
+				else
+					borrow.setReturned(DatatypeConverter.parseDateTime(getTagValue("returned", borrowNode)).getTime());
+				
+				User user = userMgr.findByIduser(Integer.parseInt(getTagValue("user", borrowNode)));
+				if(user == null) {
+					continue;
+				}
+				
+				borrow.setUser(user);
+				
+				Exemplar exemplar = exemplarMgr.findByIdexemplar(Integer.parseInt(getTagValue("exemplar", borrowNode)));
+				if(exemplar == null) {
+					continue;
+				}
+				
+				borrow.setExemplar(exemplar);
+				
+				try {
+					borrowMgr.Save(borrow);
 				} catch (EJBException ex) {
 					ex.printStackTrace(System.out);
 				}
@@ -203,12 +398,37 @@ public class XmlImportBean {
 	 */
 	private static String getTagValue(String sTag, Element eElement) {
 		NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-		
-		if(nlList.getLength() == 0)
+
+		if (nlList.getLength() == 0) {
 			return null;
-		
+		}
+
 		Node nValue = (Node) nlList.item(0);
 
 		return nValue.getNodeValue();
+	}
+
+	/**
+	 * Get list of tags values
+	 * @param sTag
+	 * @param eElement
+	 * @return 
+	 */
+	private static List<String> getTagsValues(String sTag, Element eElement) {
+		List<String> values = new ArrayList();
+
+		NodeList nlList = eElement.getElementsByTagName(sTag);
+
+		for (int i = 0; i < nlList.getLength(); i++) {
+			NodeList children = nlList.item(i).getChildNodes();
+
+			if (children.getLength() == 0) {
+				continue;
+			}
+
+			values.add(((Node) (children.item(0))).getNodeValue());
+		}
+
+		return values;
 	}
 }
