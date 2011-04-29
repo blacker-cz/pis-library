@@ -170,6 +170,14 @@ public class Borrow implements Serializable {
 			return false;
 	}
 	
+	/**
+	 * Is borrow returned
+	 * @return 
+	 */
+	public boolean getIsReturnedFlag() {
+		return returned != null;
+	}
+	
 	@Override
 	public int hashCode() {
 		int hash = 0;

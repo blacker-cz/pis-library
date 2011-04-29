@@ -51,7 +51,7 @@ public class BookingManager {
     }
 	
 	/**
-	 * Find booking for user defined by id
+	 * Find booking for user
 	 * @param user
 	 * @return 
 	 */
@@ -59,6 +59,18 @@ public class BookingManager {
     	Query query = em.createNamedQuery("Booking.findByUser");
 		
 		query.setParameter("user", user);
+		return (List<Booking>) query.getResultList();
+    }
+	
+	/**
+	 * Find booking for book
+	 * @param user
+	 * @return 
+	 */
+    public List<Booking> find(Book book) {
+    	Query query = em.createNamedQuery("Booking.findByBook");
+		
+		query.setParameter("book", book);
 		return (List<Booking>) query.getResultList();
     }
 }

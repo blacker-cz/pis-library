@@ -34,6 +34,7 @@ import org.fit.pis.library.back.converters.IntegerAdapter;
 @NamedQueries({
 	@NamedQuery(name = "Exemplar.findAll", query = "SELECT e FROM Exemplar e"),
 	@NamedQuery(name = "Exemplar.findByBook", query = "SELECT e FROM Exemplar e WHERE e.book = :book"),
+//	@NamedQuery(name = "Exemplar.findByBookUserDate", query = "SELECT e FROM Exemplar e JOIN e.Borrow b WHERE e.book = :book AND b.user = :user AND b.date = :date"),
 	@NamedQuery(name = "Exemplar.findByIdexemplar", query = "SELECT e FROM Exemplar e WHERE e.idexemplar = :idexemplar"),
 	@NamedQuery(name = "Exemplar.findByAquired", query = "SELECT e FROM Exemplar e WHERE e.aquired = :aquired"),
 	@NamedQuery(name = "Exemplar.findByState", query = "SELECT e FROM Exemplar e WHERE e.state = :state")})

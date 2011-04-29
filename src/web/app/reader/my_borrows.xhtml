@@ -21,7 +21,7 @@
 							<h:outputText value="Datum vypůjčení"/>
 						</f:facet>
 						<h:outputText value="#{borrow.borrowed}">
-							<f:convertDateTime dateStyle="short" />
+							<f:convertDateTime dateStyle="medium" />
 						</h:outputText>
 					</rich:column>
 					
@@ -45,7 +45,9 @@
 						<f:facet name="header">
 							<h:outputText value="Vráceno"/>
 						</f:facet>
-						<h:outputText value="#{borrow.returned}"></h:outputText>
+						<h:outputText value="#{borrow.returned}">
+							<f:convertDateTime dateStyle="short" />
+						</h:outputText>
 					</rich:column>
 					
 					<rich:column>

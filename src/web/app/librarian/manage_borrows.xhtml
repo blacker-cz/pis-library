@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+
+    
+	<ui:composition template="../template.xhtml">
+		<ui:define name="content">
+			
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:outputText value="Čtenář:"></h:outputText>
+					<h:outputText value="#{manageReadersBean.user.forename} #{manageReadersBean.user.surname}"></h:outputText>
+					
+					<h:outputText value="Číslo průkazu:"></h:outputText>
+					<h:outputText value="#{manageReadersBean.user.permitNumber}"></h:outputText>
+					
+					<h:outputText value="Adresa:"></h:outputText>
+					<h:outputText value="#{manageReadersBean.user.address}"></h:outputText>
+				</h:panelGrid>
+				
+				<p>
+				<h:commandButton action="#{manageReadersBean.actionBorrowsChangeReader}" value="Vybrat jiného čtenáře">
+				</h:commandButton>
+				<h:commandButton action="#{manageBorrowsBean.actionSaveBorrows(manageReadersBean.user)}" value="Uložit změny">
+				</h:commandButton>
+				</p>
+				
+				<rich:dataTable value="#{manageBorrowsBean.getBorrows(manageReadersBean.user)}" rows="20" id="borrowsList" var="borrow" binding="#{manageBorrowsBean.listTable}" rowClasses="odd,even">
+					<f:facet name="header">
+						<h:outputText value="Výpůjčky čtenáře #{manageReadersBean.user.forename} #{manageReadersBean.user.surname}" />
+					</f:facet>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Datum vypůjčení"/>
+						</f:facet>
+						<h:outputText value="#{borrow.borrowed}">
+							<f:convertDateTime dateStyle="medium" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Název"/>
+						</f:facet>
+						<h:outputText value="#{borrow.exemplar.book.name}"></h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Autor"/>
+						</f:facet>
+						<h:outputText value="#{borrow.exemplar.book.authorCollection}">
+							<f:converter converterId="authorConverter" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Vráceno"/>
+						</f:facet>
+						<h:outputText value="#{borrow.returned}">
+							<f:convertDateTime dateStyle="medium" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Vrátit nejpozději"/>
+						</f:facet>
+						<h:outputText value="#{borrow.maximumReturnDate}">
+							<f:convertDateTime dateStyle="medium" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Prodloužení"/>
+						</f:facet>
+						<h:outputText value="#{borrow.prolongations}"></h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Akce"/>
+						</f:facet>
+						<h:outputText value=""></h:outputText>
+						<h:commandLink action="#{manageBorrowsBean.actionReturn}">
+							<h:outputText rendered="#{!borrow.isReturnedFlag}" value="Vrátit výpůjčku"></h:outputText>
+						</h:commandLink>
+						<h:outputText value=" "></h:outputText>
+						<h:commandLink action="#{manageBorrowsBean.actionProlongate}">
+							<h:outputText rendered="#{borrow.canProlongate}" value="Prodloužit výpůjčku"></h:outputText>
+						</h:commandLink>
+					</rich:column>
+				</rich:dataTable>
+				
+				
+				<rich:dataScroller for="borrowsList" maxPages="20" />
+				
+				<h:commandLink action="#{manageBorrowsBean.actionCreateNew(manageReadersBean.user)}">
+					<h:outputText value="Vložit novou výpůjčku"></h:outputText>
+				</h:commandLink>
+				
+				
+				
+				<rich:dataTable value="#{manageBookingBean.getBooking(manageReadersBean.user)}" rows="20" id="bookingList" var="booking" binding="#{manageBookingBean.listTable}" rowClasses="odd,even">
+					<f:facet name="header">
+						<h:outputText value="Rezervace čtenáře #{manageReadersBean.user.forename} #{manageReadersBean.user.surname}" />
+					</f:facet>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Datum rezervace"/>
+						</f:facet>
+						<h:outputText value="#{booking.date}">
+							<f:convertDateTime dateStyle="short" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Název"/>
+						</f:facet>
+						<h:outputText value="#{booking.book.name}"></h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Autor"/>
+						</f:facet>
+						<h:outputText value="#{booking.book.authorCollection}">
+							<f:converter converterId="authorConverter" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Akce"/>
+						</f:facet>
+						<h:outputText value=""></h:outputText>
+						<h:commandLink action="#{manageBookingBean.actionCancelBooking}">
+							<h:outputText value="Zrušit rezervaci"></h:outputText>
+						</h:commandLink>
+					</rich:column>
+				</rich:dataTable>
+				
+				<rich:dataScroller for="bookingList" maxPages="20" />
+				
+				<h:commandLink action="#{manageBorrowsBean.actionCreateNewBooking(manageReadersBean.user)}">
+					<h:outputText value="Vložit novou rezervaci"></h:outputText>
+				</h:commandLink>
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+
+</html>

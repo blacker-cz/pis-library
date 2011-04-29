@@ -40,6 +40,7 @@ public class SearchBooksBean {
 	private Book book;
 	private UIDataTable listTable;
 	private UIDataTable exemplarListTable;
+	private UIDataTable bookingListTable;
 	
 	@ManagedProperty(value="#{authenticationBean}")
 	private AuthenticationBean authBean;
@@ -242,6 +243,30 @@ public class SearchBooksBean {
 	}
 
 	/**
+	 * Set records table
+	 * @param table 
+	 */
+	public void setExemplarListTable(UIDataTable table) {
+		this.exemplarListTable = table;
+	}
+	
+	/**
+	 * Get booking table
+	 * @return 
+	 */
+	public UIDataTable getBookingListTable() {
+		return null;	// force rebuild of table
+	}
+
+	/**
+	 * Set booking list table
+	 * @return 
+	 */
+	public void setBookingListTable(UIDataTable table) {
+		this.bookingListTable = table;
+	}
+	
+	/**
 	 * Count of curently free exemplars
 	 * @return 
 	 */
@@ -279,12 +304,38 @@ public class SearchBooksBean {
 		return borrowedCount;
 	}
 	
+	public boolean canBorrowBook(User user) {
+		if (book == null)
+			return false;
+		
+		List<Booking> booking = bookingMgr.find(book);
+		// no booking record
+		if (booking.isEmpty())
+			return true;
+		
+		// can borrow only if is first in list
+		if (booking.get(0).getUser().getIduser() == user.getIduser())
+			return true;
+		
+		return false;
+	}
+	
 	/**
-	 * Set records table
-	 * @param table 
+	 * Return exemplar collection
+	 * @param book
+	 * @return 
 	 */
-	public void setExemplarListTable(UIDataTable table) {
-		this.exemplarListTable = table;
+	public List<Exemplar> getExemplarCollection(Book book) {
+		return exemplarMgr.findByBook(book);
+	}
+	
+	/**
+	 * Return booking collection
+	 * @param book
+	 * @return 
+	 */
+	public List<Booking> getBookingCollection(Book book) {
+		return bookingMgr.find(book);
 	}
 	
 	/**
@@ -329,9 +380,27 @@ public class SearchBooksBean {
 	 * @return 
 	 */
 	public String actionBookBooking() {
-		String action = "detailBookBooking";
 		// user
 		User user = userMgr.find(authBean.getIduser());
+		
+		return bookBooking(user);
+	}
+	
+	/**
+	 * Book booking ;-)
+	 * @return 
+	 */
+	public String actionBookBooking(User user) {
+		return bookBooking(user);
+	}
+	
+	/**
+	 * Book booking function
+	 * @param user
+	 * @return 
+	 */
+	private String bookBooking(User user) {
+		String action = "detailBookBooking";
 		
 		// check if user has already booked this title
 		Collection<Booking> colection = bookingMgr.find(user);
@@ -344,6 +413,19 @@ public class SearchBooksBean {
 				}
 			}
 		}
+		
+		// check borrowed
+		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
+		if (!exemplars.isEmpty()) {
+			for (Exemplar e : exemplars) {
+				// book is already borrowed
+				if (e.getIsBorrowed()) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Can't book borrowed book!"));
+					return action;
+				}
+			}
+		}
+		
 		
 		// create new booking
 		Booking booking = new Booking();
@@ -362,16 +444,62 @@ public class SearchBooksBean {
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Book was successfully booked."));
 		
+		// reaload book
+		bookReload();
+		
 		return action;
+	}
+	
+	/**
+	 * Reload book info
+	 */
+	private void bookReload() {
+		book = bookMgr.findByIdbook(book.getIdbook());
+	}
+	
+	/**
+	 * Remove book booking
+	 * @return 
+	 */
+	public String actionBookingRemove() {
+		Booking selected = (Booking) bookingListTable.getRowData();
+		
+		try {
+			bookingMgr.Remove(selected);
+		} catch (javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
+			return "viewMyBooking";
+		}
+
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Booking successfully removed."));
+		
+		// clear list table
+		bookingListTable = null;
+		
+		// reload book
+		bookReload();
+		
+		return "";
+	}
+	
+	/**
+	 * Borrow book
+	 * @return 
+	 */
+	public String actionBorrow(User user) {
+		// select bookings
+		
+		// select borrows
+		
+		// add borrow
+		return "";
 	}
 	
 	/**
 	 * Edit user
 	 * @return "edit"
 	 */
-	
-
-        public String actionEdit() {
+	public String actionEdit() {
 		setBook((Book) listTable.getRowData());
 		return "edit";
 	}

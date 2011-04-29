@@ -241,4 +241,24 @@ public class ManageReadersBean {
 
 		return "";
 	}
+	
+	/**
+	 * Manage borrows action
+	 * @return 
+	 */
+	public String actionManageBorrows() {
+		setUser((User) listTable.getRowData());
+		
+		return "manageBorrows";
+	}
+	
+	/**
+	 * Display readers list
+	 * @return 
+	 */
+	public String actionBorrowsChangeReader() {
+		setUser(null);
+		
+		return "displayReaders";
+	}
 }

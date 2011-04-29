@@ -118,6 +118,10 @@
    <from-outcome>edit</from-outcome>
    <to-view-id>/app/librarian/edit_reader.xhtml</to-view-id>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>manageBorrows</from-outcome>
+   <to-view-id>/app/librarian/manage_borrows.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/app/librarian/new_reader.xhtml</from-view-id>
@@ -212,4 +216,53 @@
             <to-view-id>/app/librarian/manage_catalog.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/manage_borrows.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>displayReaders</from-outcome>
+   <to-view-id>/app/librarian/manage_readers.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>borrowsReturned</from-outcome>
+   <to-view-id>/app/librarian/manage_borrows.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>newBorrowCatalog</from-outcome>
+   <to-view-id>/app/librarian/manage_borrows_add.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/manage_borrows_add.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>viewBooks</from-outcome>
+   <to-view-id>/app/librarian/manage_borrows_add.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>searchBooks</from-outcome>
+   <to-view-id>/app/librarian/manage_borrows_add.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>detail</from-outcome>
+   <to-view-id>/app/librarian/manage_borrows_book_detail.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>displayReaders</from-outcome>
+   <to-view-id>/app/librarian/manage_readers.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/manage_borrows_book_detail.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelDetail</from-outcome>
+   <to-view-id>/app/librarian/manage_borrows_add.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>detailBookBooking</from-outcome>
+   <to-view-id>/app/librarian/manage_borrows_book_detail.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>displayReaders</from-outcome>
+   <to-view-id>/app/librarian/manage_readers.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
 </faces-config>

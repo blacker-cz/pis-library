@@ -60,12 +60,20 @@ public class ManageBookingBean {
 	}
 	
 	/**
-	 * Get list of my Borrows
+	 * Get list of my Bookings
 	 * @return 
 	 */
 	public Collection<Booking> getMyBooking() {
 		int idUser = authBean.getIduser();
 		User user = new User(idUser);
+		return bookingMgr.find(user); 
+	}
+	
+	/**
+	 * Get list of Bookings
+	 * @return 
+	 */
+	public Collection<Booking> getBooking(User user) {
 		return bookingMgr.find(user); 
 	}
 	
