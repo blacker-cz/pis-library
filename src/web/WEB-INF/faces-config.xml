@@ -59,6 +59,10 @@
 	  <from-outcome>viewMyBorrows</from-outcome>
 	  <to-view-id>/app/reader/my_borrows.xhtml</to-view-id>
 	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>manage_catalog</from-outcome>
+	  <to-view-id>/app/librarian/manage_catalog.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/home.xhtml</from-view-id>
@@ -177,6 +181,35 @@
         <navigation-case>
             <from-outcome>viewMyBooking</from-outcome>
             <to-view-id>/app/reader/my_booking.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/app/librarian/manage_catalog.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>new</from-outcome>
+            <to-view-id>/app/librarian/new_book.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/app/librarian/edit_book.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/app/librarian/new_book.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/app/librarian/manage_catalog.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/app/librarian/edit_book.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/app/librarian/edit_book.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/app/librarian/manage_catalog.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

@@ -22,6 +22,7 @@ import org.richfaces.component.UIDataTable;
  */
 @ManagedBean
 @SessionScoped
+
 public class SearchBooksBean {
 	@EJB
 	private BookManager bookMgr;
@@ -33,7 +34,9 @@ public class SearchBooksBean {
 	private UserManager userMgr;
 	@EJB
 	private ExemplarManager exemplarMgr;
-	
+	@EJB
+	private PublisherManager publisherMgr;
+        
 	private Book book;
 	private UIDataTable listTable;
 	private UIDataTable exemplarListTable;
@@ -366,11 +369,14 @@ public class SearchBooksBean {
 	 * Edit user
 	 * @return "edit"
 	 */
-	public String actionEdit() {
-//		setUser((User) listTable.getRowData());
+	
+
+        public String actionEdit() {
+		setBook((Book) listTable.getRowData());
 		return "edit";
 	}
-
+        
+        
 	/**
 	 * Action for redirecting to new user page
 	 * @return 
@@ -381,29 +387,55 @@ public class SearchBooksBean {
 
 		return "new";
 	}
+        
+        public String actionDelete() {
+                   
+		Book selected = (Book) listTable.getRowData();
+		try {
+			bookMgr.remove(selected);
+		} catch (javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odstranit knihu, zkuste to prosím později."));
+			return "";
+		}
+
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Kniha byla úspěšně odstraněna."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odstranit knihu, zkuste to prosím později."));
+		return "";
+	}
+        
+        public String actionUpdate() {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny byly úspěšně uloženy."));
+                return ""; 
+                }
+                /*try {
+			bookMgr.save(book);
+		} catch (javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit, zkuste to prosím později."));
+			return "";
+		}
+
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny byly úspěšně uloženy."));
+
+		return "";
+	*/
+                
+        
+        
 
 	public String actionInsert() {
-//		user.setRegistered(new Date(System.currentTimeMillis()));
-//
-//		user.setPassword(ManageUsersBean.generatePassword());
-//		
-//		try {
-//			userMgr.Save(user);
-//		} catch(javax.ejb.EJBException e) {
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
-//			return "";
-//		}
-//
-//		Mailer mailer = new Mailer();
-//		
-//		if(!mailer.send(user.getEmail(), "Knihovna: Váš nový účet", "Byl Vám vytvořen účet v naší knihovně.<br />" +
-//				"Pro přístup do systému použijte následující údaje: <br />" + 
-//				"Číslo průkazky: " + user.getPermitNumber() + "<br />" +
-//				"Heslo: " + user.getPassword())) {
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odeslat email s potvrzením registrace a heslem."));
-//		}
-//
-//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User was successfully created."));
+            
+                //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vkladam."));
+
+		
+		try {
+			bookMgr.save(book);
+		} catch(javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
+			return "";
+		}
+
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Title was successfully created."));
 		
 		return "edit";
 	}

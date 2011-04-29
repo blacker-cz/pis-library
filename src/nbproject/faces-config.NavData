@@ -2,25 +2,29 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="app/*" x="1244" y="32" zoom="true"/>
+        <Node id="app/*" x="1254" y="131" zoom="true"/>
+        <Node id="app/librarian/new_book.xhtml" x="487" y="444" zoom="true"/>
         <Node id="app/reader/catalog.xhtml" x="1124" y="178" zoom="true"/>
         <Node id="access_denied.xhtml" x="2526" y="32" zoom="true"/>
         <Node id="app/admin/manage_users.xhtml" x="1703" y="32" zoom="true"/>
         <Node id="template.xhtml" x="4772" y="32" zoom="true"/>
-        <Node id="app/reader/my_booking.xhtml" x="690" y="268" zoom="true"/>
         <Node id="app/home.xhtml" x="3201" y="32" zoom="true"/>
+        <Node id="app/reader/my_booking.xhtml" x="690" y="268" zoom="true"/>
         <Node id="app/test.xhtml" x="3485" y="32" zoom="true"/>
         <Node id="app/reader/book_detail.xhtml" x="1116" y="351" zoom="true"/>
         <Node id="app/reader/change_password.xhtml" x="818" y="32" zoom="true"/>
-        <Node id="app/template.xhtml" x="5050" y="32" zoom="true"/>
+        <Node id="app/librarian/manage_catalog.xhtml" x="239" y="256" zoom="true"/>
+        <Node id="app/librarian/edit_book.xhtml" x="215" y="405" zoom="true"/>
         <Node id="need_login.xhtml" x="4119" y="32" zoom="true"/>
-        <Node id="app/admin/edit_user.xhtml" x="2843" y="32" zoom="true"/>
+        <Node id="app/template.xhtml" x="5050" y="32" zoom="true"/>
         <Node id="app/reader/my_borrows.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="index.xhtml" x="1451" y="32" zoom="true"/>
+        <Node id="app/admin/edit_user.xhtml" x="2843" y="32" zoom="true"/>
+        <Node id="index.xhtml" x="1482" y="220" zoom="true"/>
         <Node id="app/admin/new_user.xhtml" x="3759" y="32" zoom="true"/>
+        <Node id="import.xhtml" x="400" y="150" zoom="true"/>
         <Node id="app/librarian/edit_reader.xhtml" x="34" y="32" zoom="true"/>
-        <Node id="app/librarian/new_reader.xhtml" x="425" y="32" zoom="true"/>
         <Node id="app/librarian/manage_readers.xhtml" x="2098" y="32" zoom="true"/>
+        <Node id="app/librarian/new_reader.xhtml" x="425" y="32" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations">
         <Node id="app/*" x="974" y="380" zoom="false"/>

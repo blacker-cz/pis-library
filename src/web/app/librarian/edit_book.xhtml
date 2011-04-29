@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+
+	<ui:composition template="../template.xhtml">
+		<ui:define name="content">
+
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:outputLabel rendered="true" value="Název titulu:*"></h:outputLabel>
+					<h:inputTextarea value="#{searchBooksBean.book.name}" required="true"
+									 requiredMessage="Název titulu musí být vyplněn">
+					</h:inputTextarea>
+                                        
+                                        
+					
+                                        
+                                        
+					<h:outputLabel rendered="true" value="Rok:*"></h:outputLabel>
+					<h:inputText value="#{searchBooksBean.book.year}" required="true"
+                                                     
+								 requiredMessage="Rok musí být vyplněno">
+                                                                 <f:converter converterId="dateConverter" />
+					</h:inputText>
+					<h:outputLabel rendered="true" value="Počet strán:"></h:outputLabel>
+					<h:inputText value="#{searchBooksBean.book.pages}">
+					</h:inputText>
+					<h:outputLabel rendered="true" value="Edice:"></h:outputLabel>
+					<h:inputText value="#{searchBooksBean.book.edition}">
+					</h:inputText>
+					<h:outputLabel rendered="true" value="Město:*"></h:outputLabel>
+					<h:inputText value="#{searchBooksBean.book.place}" required="true">
+					</h:inputText>
+                                        
+                                         <h:outputLabel rendered="true" value="Žáner*"></h:outputLabel>
+                                        <h:selectOneMenu value="#{searchBooksBean.book.genre}" immediate="true" required="true">
+                                                <f:selectItem itemValue="all" itemLabel="" />                          
+                                                <f:selectItems value="#{genreBean.genres}" />
+					</h:selectOneMenu>
+                                        
+					<h:outputLabel rendered="true" value="Vydavatelství*"></h:outputLabel>
+                                        <h:selectOneMenu value="#{searchBooksBean.book.publisher}" immediate="true" required="true">
+                                                <f:selectItem itemValue="all" itemLabel="" />
+                                                <f:selectItems value="#{publisherBean.publishers}" />
+					</h:selectOneMenu>
+                                                                                
+                                        <h:outputLabel rendered="true" value="Kód*"></h:outputLabel>
+					<h:inputText value="#{searchBooksBean.book.code}" required="true">
+					</h:inputText>
+                                        
+                                        
+                                        
+
+				</h:panelGrid>
+
+				<p><strong>* údaje označené hvězdičkou jsou povinné</strong></p>
+
+				<p>
+				<h:commandButton action="#{searchBooksBean.actionUpdate}" value="Edituj titul">
+				</h:commandButton>
+				<h:commandButton immediate="true" action="cancel" value="Hotovo" onclick="return confirm('Všechny neuložené změny budou ztraceny. Pokračovat?');">
+				</h:commandButton>
+				</p>
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</html>
+
