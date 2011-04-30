@@ -45,11 +45,11 @@
 	 </navigation-case>
 	 <navigation-case>
 	  <from-outcome>searchBooks</from-outcome>
-	  <to-view-id>/app/reader/catalog.xhtml</to-view-id>
+	  <to-view-id>/app/catalog.xhtml</to-view-id>
 	 </navigation-case>
 	 <navigation-case>
 	  <from-outcome>viewBooks</from-outcome>
-	  <to-view-id>/app/reader/catalog.xhtml</to-view-id>
+	  <to-view-id>/app/catalog.xhtml</to-view-id>
 	 </navigation-case>
 	 <navigation-case>
 	  <from-outcome>viewMyBooking</from-outcome>
@@ -172,21 +172,21 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/app/reader/catalog.xhtml</from-view-id>
+        <from-view-id>/app/catalog.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>detail</from-outcome>
-            <to-view-id>/app/reader/book_detail.xhtml</to-view-id>
+            <to-view-id>/app/book_detail.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/app/reader/book_detail.xhtml</from-view-id>
+        <from-view-id>/app/book_detail.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancelDetail</from-outcome>
-            <to-view-id>/app/reader/catalog.xhtml</to-view-id>
+            <to-view-id>/app/catalog.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>detailBookBooking</from-outcome>
-            <to-view-id>/app/reader/book_detail.xhtml</to-view-id>
+            <to-view-id>/app/book_detail.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

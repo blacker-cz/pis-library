@@ -9,7 +9,7 @@
       xmlns:rich="http://richfaces.org/rich">
 
 
-	<ui:composition template="../template.xhtml">
+	<ui:composition template="template.xhtml">
 		<ui:define name="content">
 
 			<h:form>
@@ -54,7 +54,7 @@
 						</h:panelGrid>
 
 						<p>
-						<h:commandButton action="#{searchBooksBean.actionBookBooking}" value="Rezervovat knížku">
+						<h:commandButton rendered='#{!authenticationBean.isInRole("guest")}' action="#{searchBooksBean.actionBookBooking}" value="Rezervovat knížku">
 						</h:commandButton>
 						<h:commandButton immediate="true" action="#{searchBooksBean.actionCancelDetail}" value="Zpět do katalogu">
 						</h:commandButton>
