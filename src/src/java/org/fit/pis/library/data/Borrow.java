@@ -33,6 +33,7 @@ import org.fit.pis.library.back.converters.IntegerAdapter;
 	@NamedQuery(name = "Borrow.findAll", query = "SELECT b FROM Borrow b"),
 	@NamedQuery(name = "Borrow.findByIdborrow", query = "SELECT b FROM Borrow b WHERE b.idborrow = :idborrow ORDER BY b.returned DESC, b.borrowed ASC"),
 	@NamedQuery(name = "Borrow.findByUser", query = "SELECT b FROM Borrow b WHERE b.user = :user"),
+	@NamedQuery(name = "Borrow.findNotReturned", query = "SELECT b FROM Borrow b WHERE b.returned IS NULL"),
 	@NamedQuery(name = "Borrow.findByBorrowed", query = "SELECT b FROM Borrow b WHERE b.borrowed = :borrowed"),
 	@NamedQuery(name = "Borrow.findByReturned", query = "SELECT b FROM Borrow b WHERE b.returned = :returned"),
 	@NamedQuery(name = "Borrow.findByProlongations", query = "SELECT b FROM Borrow b WHERE b.prolongations = :prolongations")})

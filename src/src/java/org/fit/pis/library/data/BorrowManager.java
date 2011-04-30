@@ -61,4 +61,14 @@ public class BorrowManager {
 		query.setParameter("user", user);
 		return (List<Borrow>) query.getResultList();
     }
+	
+	/**
+	 * Find not returned borrows
+	 * @return 
+	 */
+    public List<Borrow> findNotReturned() {
+    	Query query = em.createNamedQuery("Borrow.findNotReturned");
+
+		return (List<Borrow>) query.getResultList();
+    }
 }

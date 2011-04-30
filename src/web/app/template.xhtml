@@ -38,6 +38,7 @@
 					<div>librarian or higher menu part</div>                                
 					<div><h:link value="Spravovat katalog" outcome="manage_catalog"></h:link></div>
 					<div><h:link value="Spravovat čtenáře" outcome="manage_readers"></h:link></div>
+					<div><h:link value="Zobrazit hříšníky" outcome="#{manageTrespassersBean.actionDisplay()}"></h:link></div>
 				</h:panelGroup>
 				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("admin")}'>
 					<div>admin menu part</div>
