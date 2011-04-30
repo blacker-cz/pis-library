@@ -9,8 +9,9 @@
       xmlns:rich="http://richfaces.org/rich">
 
 
-	<ui:composition template="template.xhtml">
+	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
+			<h2>Import databáze</h2>
 			<h:form>
 				<rich:fileUpload fileUploadListener="#{xmlImportBean.listener}"
 								 id="upload" addLabel="Přidat" clearAllLabel="Odstranit vše"

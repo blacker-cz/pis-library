@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:h="http://java.sun.com/jsf/html">
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
 	<h:head>
 		<title><ui:insert name="title">Library</ui:insert></title>
 		<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/style/default.css" />
@@ -17,33 +21,79 @@
 
 
 		<div id="content">
-			<h:form>
-				<h:commandLink action="#{authenticationBean.actionLogout}">
-					<h:outputText value="Odhlásit"></h:outputText>
-				</h:commandLink>
-			</h:form>
-			
+
 			<div class="menu">
-				<div class="submenu">
-					<div><h:link value="Domů" outcome="home"></h:link></div>
-				</div>
-				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("reader") || authenticationBean.isInRole("librarian") || authenticationBean.isInRole("admin")}'>
-					<div>reader or higher menu part</div>
-					<div><h:link value="Změnit heslo" outcome="change_password"></h:link></div>
-					<div><h:link value="Projít katalog" outcome="viewBooks"></h:link></div>
-					<div><h:link value="Moje výpůjčky" outcome="#{manageBorrowsBean.actionDisplay()}"></h:link></div>
-					<div><h:link value="Moje rezervace" outcome="#{manageBookingBean.actionDisplay()}"></h:link></div>
-				</h:panelGroup>
-				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("librarian") || authenticationBean.isInRole("admin")}'>
-					<div>librarian or higher menu part</div>                                
-					<div><h:link value="Spravovat katalog" outcome="manage_catalog"></h:link></div>
-					<div><h:link value="Spravovat čtenáře" outcome="manage_readers"></h:link></div>
-					<div><h:link value="Zobrazit hříšníky" outcome="#{manageTrespassersBean.actionDisplay()}"></h:link></div>
-				</h:panelGroup>
-				<h:panelGroup styleClass="submenu" rendered='#{authenticationBean.isInRole("admin")}'>
-					<div>admin menu part</div>
-					<div><h:link value="Spravovat uživatele" outcome="manage_users"></h:link></div>
-				</h:panelGroup>
+				<rich:toolbar>
+					<rich:toolbarGroup>
+						<h:link value="Domů" outcome="home"></h:link>
+					</rich:toolbarGroup>
+					<rich:toolbarGroup rendered='#{authenticationBean.isInRole("reader") || authenticationBean.isInRole("librarian") || authenticationBean.isInRole("admin")}'>
+						<rich:dropDownMenu>
+							<f:facet name="label"> 
+								<h:panelGroup>
+									<h:outputText value="Čtenář"/>
+								</h:panelGroup>
+							</f:facet>
+							<rich:menuItem>
+								<h:link value="Změnit heslo" outcome="change_password"></h:link>
+							</rich:menuItem>
+							<rich:menuItem>
+								<h:link value="Projít katalog" outcome="viewBooks"></h:link>
+							</rich:menuItem>
+							<rich:menuItem>
+								<h:link value="Moje výpůjčky" outcome="#{manageBorrowsBean.actionDisplay()}"></h:link>
+							</rich:menuItem>
+							<rich:menuItem>
+								<h:link value="Moje rezervace" outcome="#{manageBookingBean.actionDisplay()}"></h:link>
+							</rich:menuItem>
+						</rich:dropDownMenu>
+					</rich:toolbarGroup>
+					<rich:toolbarGroup rendered='#{authenticationBean.isInRole("librarian") || authenticationBean.isInRole("admin")}'>
+						<rich:dropDownMenu>
+							<f:facet name="label"> 
+								<h:panelGroup>
+									<h:outputText value="Knihovník"/>
+								</h:panelGroup>
+							</f:facet>
+							<rich:menuItem>
+								<h:link value="Spravovat katalog" outcome="manage_catalog"></h:link>
+							</rich:menuItem>
+							<rich:menuItem>
+								<h:link value="Spravovat čtenáře" outcome="manage_readers"></h:link>
+							</rich:menuItem>
+							<rich:menuItem>
+								<h:link value="Zobrazit hříšníky" outcome="#{manageTrespassersBean.actionDisplay()}"></h:link>
+							</rich:menuItem>
+						</rich:dropDownMenu>
+					</rich:toolbarGroup>
+					<rich:toolbarGroup rendered='#{authenticationBean.isInRole("admin")}'>
+						<rich:dropDownMenu>
+							<f:facet name="label"> 
+								<h:panelGroup>
+									<h:outputText value="Správce"/>
+								</h:panelGroup>
+							</f:facet>
+							<rich:menuItem>
+								<h:link value="Spravovat uživatele" outcome="manage_users"></h:link>
+							</rich:menuItem>
+							<rich:menuItem>
+								<h:link value="Import databáze" outcome="import"></h:link>
+							</rich:menuItem>
+							<rich:menuItem>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/xml/export" target="_blank">
+									<h:outputText value="Export databáze" />
+								</h:outputLink>
+							</rich:menuItem>
+						</rich:dropDownMenu>
+					</rich:toolbarGroup>
+					<rich:toolbarGroup location="right">
+						<h:form>
+							<h:commandLink action="#{authenticationBean.actionLogout}">
+								<h:outputText value="Odhlásit"></h:outputText>
+							</h:commandLink>
+						</h:form>
+					</rich:toolbarGroup>
+				</rich:toolbar>
 			</div>
 
 			<h:messages id="messages" layout="table"></h:messages>

@@ -67,6 +67,10 @@
 	  <from-outcome>view_trespassers</from-outcome>
 	  <to-view-id>/app/librarian/trespassers.xhtml</to-view-id>
 	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>import</from-outcome>
+	  <to-view-id>/app/admin/import.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/home.xhtml</from-view-id>

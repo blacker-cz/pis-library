@@ -48,6 +48,7 @@
         <filter-name>AdminScopeFilter</filter-name>
         <url-pattern>/app/admin/*</url-pattern>
         <url-pattern>/faces/app/admin/*</url-pattern>
+		<url-pattern>/xml/export</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
