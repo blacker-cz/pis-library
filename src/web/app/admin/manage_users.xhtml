@@ -11,6 +11,7 @@
 
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
+			<h2>Správa uživatelů</h2>
 			
 			<h:form>
 				<rich:dataTable value="#{manageUsersBean.users}" rows="25" id="userList" var="user" binding="#{manageUsersBean.listTable}" rowClasses="odd,even">
