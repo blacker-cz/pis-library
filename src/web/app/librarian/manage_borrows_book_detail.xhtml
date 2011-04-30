@@ -12,146 +12,163 @@
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
 
-			<h:form>
-				<h:panelGrid columns="2">
-					<h:outputText value="Čtenář:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user}">
-						<f:converter converterId="userNameConverter" />
-					</h:outputText>
-					
-					<h:outputText value="Číslo průkazu:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user.permitNumber}"></h:outputText>
-					
-					<h:outputText value="Adresa:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user.address}"></h:outputText>
-				</h:panelGrid>
-				
-				<p>
-				<h:commandButton action="#{manageReadersBean.actionBorrowsChangeReader}" value="Vybrat jiného čtenáře">
-				</h:commandButton>
-				<h:commandButton action="#{manageBorrowsBean.actionSaveBorrows(manageReadersBean.user)}" value="Uložit změny">
-				</h:commandButton>
-				</p>
-			</h:form>
-
+			<rich:tabPanel switchType="client">
+				<rich:tab header="Upravovaný čtenář">
 			
-			<h:form>
-				<h:panelGrid columns="2">
-					<h:outputText value="Název"></h:outputText>
-					<h:outputText value="#{searchBooksBean.book.name}"></h:outputText>
+					<h:form>
 
-					<h:outputText value="Autor"></h:outputText>
-					<h:outputText value="#{searchBooksBean.book.authorCollection}">
-						<f:converter converterId="authorConverter" />
-					</h:outputText>
+						<h:panelGrid columns="2">
+							<h:outputText value="Čtenář:"></h:outputText>
+							<h:outputText value="#{manageReadersBean.user}">
+								<f:converter converterId="userNameConverter" />
+							</h:outputText>
 
-					<h:outputText value="Rok vydání"/>
-					<h:outputText value="#{searchBooksBean.book.year}">
-						<f:converter converterId="dateConverter" />
-					</h:outputText>
-					
-					<h:outputText value="Žánr"></h:outputText>
-					<h:outputText value="#{searchBooksBean.book.genre}"></h:outputText>
+							<h:outputText value="Číslo průkazu:"></h:outputText>
+							<h:outputText value="#{manageReadersBean.user.permitNumber}"></h:outputText>
 
-					<h:outputText value="Vydavatel"/>
-					<h:outputText value="#{searchBooksBean.book.publisher}"></h:outputText>
-					
-					<h:outputText value="#{searchBooksBean.book.type.toUpperCase()}"/>
-					<h:outputText value="#{searchBooksBean.book.code}"></h:outputText>
-					
-					<h:outputText value="Počet stran"/>
-					<h:outputText value="#{searchBooksBean.book.pages}"></h:outputText>
-					
-					<h:outputText value="Vydání"/>
-					<h:outputText value="#{searchBooksBean.book.edition}. vydání"></h:outputText>
-					
-					<h:outputText value="Místo vydání"/>
-					<h:outputText value="#{searchBooksBean.book.place}"></h:outputText>
-					
-					<h:outputText value="Výtisky"/>
-					<h:outputText value="#{searchBooksBean.book.exemplarCollection.size()} celkem, #{searchBooksBean.countExemplarsBorrowed} vypůjčeno, #{searchBooksBean.countExemplarsFree} dostupných"></h:outputText>
-				</h:panelGrid>
+							<h:outputText value="Adresa:"></h:outputText>
+							<h:outputText value="#{manageReadersBean.user.address}"></h:outputText>
+						</h:panelGrid>
 
-				<p>
-				<h:commandButton action="#{searchBooksBean.actionBookBooking(manageReadersBean.user)}" value="Rezervovat knížku">
-				</h:commandButton>
-				<h:commandButton immediate="true" action="#{searchBooksBean.actionCancelDetail}" value="Zpět do katalogu">
-				</h:commandButton>
-				</p>
+						<p>
+						<h:commandButton action="#{manageReadersBean.actionBorrowsChangeReader}" value="Vybrat jiného čtenáře">
+						</h:commandButton>
+						<h:commandButton action="#{manageBorrowsBean.actionSaveBorrows(manageReadersBean.user)}" value="Uložit změny">
+						</h:commandButton>
+						</p>
+					</h:form>
+					
+					<div class="spacer-tab" />
 
-			</h:form>
+					<rich:tabPanel switchType="client">
+						<rich:tab header="Detail knihy">
+
+							<h:form>
+								<h:panelGrid columns="2">
+									<h:outputText value="Název"></h:outputText>
+									<h:outputText value="#{searchBooksBean.book.name}"></h:outputText>
+
+									<h:outputText value="Autor"></h:outputText>
+									<h:outputText value="#{searchBooksBean.book.authorCollection}">
+										<f:converter converterId="authorConverter" />
+									</h:outputText>
+
+									<h:outputText value="Rok vydání"/>
+									<h:outputText value="#{searchBooksBean.book.year}">
+										<f:converter converterId="dateConverter" />
+									</h:outputText>
+
+									<h:outputText value="Žánr"></h:outputText>
+									<h:outputText value="#{searchBooksBean.book.genre}"></h:outputText>
+
+									<h:outputText value="Vydavatel"/>
+									<h:outputText value="#{searchBooksBean.book.publisher}"></h:outputText>
+
+									<h:outputText value="#{searchBooksBean.book.type.toUpperCase()}"/>
+									<h:outputText value="#{searchBooksBean.book.code}"></h:outputText>
+
+									<h:outputText value="Počet stran"/>
+									<h:outputText value="#{searchBooksBean.book.pages}"></h:outputText>
+
+									<h:outputText value="Vydání"/>
+									<h:outputText value="#{searchBooksBean.book.edition}. vydání"></h:outputText>
+
+									<h:outputText value="Místo vydání"/>
+									<h:outputText value="#{searchBooksBean.book.place}"></h:outputText>
+
+									<h:outputText value="Výtisky"/>
+									<h:outputText value="#{searchBooksBean.book.exemplarCollection.size()} celkem, #{searchBooksBean.countExemplarsBorrowed} vypůjčeno, #{searchBooksBean.countExemplarsFree} dostupných"></h:outputText>
+								</h:panelGrid>
+
+								<p>
+								<h:commandButton action="#{searchBooksBean.actionBookBooking(manageReadersBean.user)}" value="Rezervovat knížku">
+								</h:commandButton>
+								<h:commandButton immediate="true" action="#{searchBooksBean.actionCancelDetail}" value="Zpět do katalogu">
+								</h:commandButton>
+								</p>
+
+							</h:form>
+
+							<div class="spacer" />
+
+							<h:form>
+								<rich:dataTable value="#{searchBooksBean.getExemplarCollection(searchBooksBean.book)}" rows="20" id="exemplarCollectionList" var="exemplar" binding="#{searchBooksBean.exemplarListTable}" rowClasses="odd,even">
+									<f:facet name="header">
+										<h:outputText value="Exempláře" />
+									</f:facet>
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Datum pořízení"/>
+										</f:facet>
+										<h:outputText value="#{exemplar.aquired}">
+											<f:convertDateTime dateStyle="medium" />
+										</h:outputText>
+									</rich:column>
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Stav"/>
+										</f:facet>
+										<h:outputText value="volné" rendered="#{!exemplar.isBorrowed}"></h:outputText>
+										<h:outputText value="vypůjčené " rendered="#{exemplar.isBorrowed}"></h:outputText>
+										<h:outputText value="#{exemplar.borrowedUser}" rendered="#{exemplar.isBorrowed}">
+											<f:converter converterId="userNameConverter" />
+										</h:outputText>
+									</rich:column>
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Akce"/>
+										</f:facet>
+										<h:commandLink action="#{searchBooksBean.actionBorrow(manageReadersBean.user)}" value="Vypůjčit exemplář" rendered="#{searchBooksBean.isBorrowLinkDisplayed(exemplar, manageReadersBean.user)}"></h:commandLink>
+										<h:outputText value="Nelze vypůjčit" rendered="#{!searchBooksBean.isBorrowLinkDisplayed(exemplar, manageReadersBean.user)}"></h:outputText>
+									</rich:column>
+								</rich:dataTable>
+
+								<rich:dataScroller for="exemplarCollectionList" maxPages="20" />
+							</h:form>
+
+							<div class="spacer" />
+							
+							<h:form rendered="#{searchBooksBean.getBookingCollection(searchBooksBean.book).size() > 0}">
+								<rich:dataTable value="#{searchBooksBean.getBookingCollection(searchBooksBean.book)}" rows="20" id="exemplarBookingList" var="booking" binding="#{searchBooksBean.bookingListTable}" rowClasses="odd,even">
+									<f:facet name="header">
+										<h:outputText value="Rezervace titulu" />
+									</f:facet>
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Datum rezervace" />
+										</f:facet>
+										<h:outputText value="#{booking.date}">
+											<f:convertDateTime dateStyle="medium" />
+										</h:outputText>
+									</rich:column>
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Uživatel" />
+										</f:facet>
+										<h:outputText value="#{booking.user.forename} #{booking.user.surname} (#{booking.user.permitNumber})"></h:outputText>
+									</rich:column>
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Akce"/>
+										</f:facet>
+										<h:commandLink action="#{searchBooksBean.actionBookingRemove}">
+											<h:outputText value="Odstranit rezervaci"></h:outputText>
+										</h:commandLink>
+									</rich:column>
+								</rich:dataTable>
+
+								<rich:dataScroller for="exemplarBookingList" maxPages="20" />
+							</h:form>
+
+						</rich:tab>
+					</rich:tabPanel>
 			
-
-			<h:form>
-				<rich:dataTable value="#{searchBooksBean.getExemplarCollection(searchBooksBean.book)}" rows="20" id="exemplarCollectionList" var="exemplar" binding="#{searchBooksBean.exemplarListTable}" rowClasses="odd,even">
-					<f:facet name="header">
-						<h:outputText value="Exempláře" />
-					</f:facet>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Datum pořízení"/>
-						</f:facet>
-						<h:outputText value="#{exemplar.aquired}">
-							<f:convertDateTime dateStyle="medium" />
-						</h:outputText>
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Stav"/>
-						</f:facet>
-						<h:outputText value="volné" rendered="#{!exemplar.isBorrowed}"></h:outputText>
-						<h:outputText value="vypůjčené " rendered="#{exemplar.isBorrowed}"></h:outputText>
-						<h:outputText value="#{exemplar.borrowedUser}" rendered="#{exemplar.isBorrowed}">
-							<f:converter converterId="userNameConverter" />
-						</h:outputText>
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Akce"/>
-						</f:facet>
-						<h:commandLink action="#{searchBooksBean.actionBorrow(manageReadersBean.user)}" value="Vypůjčit exemplář" rendered="#{searchBooksBean.isBorrowLinkDisplayed(exemplar, manageReadersBean.user)}"></h:commandLink>
-						<h:outputText value="Nelze vypůjčit" rendered="#{!searchBooksBean.isBorrowLinkDisplayed(exemplar, manageReadersBean.user)}"></h:outputText>
-					</rich:column>
-				</rich:dataTable>
-				
-				<rich:dataScroller for="exemplarCollectionList" maxPages="20" />
-			</h:form>
-			
-			<h:form rendered="#{searchBooksBean.getBookingCollection(searchBooksBean.book).size() > 0}">
-				<rich:dataTable value="#{searchBooksBean.getBookingCollection(searchBooksBean.book)}" rows="20" id="exemplarBookingList" var="booking" binding="#{searchBooksBean.bookingListTable}" rowClasses="odd,even">
-					<f:facet name="header">
-						<h:outputText value="Rezervace titulu" />
-					</f:facet>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Datum rezervace" />
-						</f:facet>
-						<h:outputText value="#{booking.date}">
-							<f:convertDateTime dateStyle="medium" />
-						</h:outputText>
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Uživatel" />
-						</f:facet>
-						<h:outputText value="#{booking.user.forename} #{booking.user.surname} (#{booking.user.permitNumber})"></h:outputText>
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Akce"/>
-						</f:facet>
-						<h:commandLink action="#{searchBooksBean.actionBookingRemove}">
-							<h:outputText value="Odstranit rezervaci"></h:outputText>
-						</h:commandLink>
-					</rich:column>
-				</rich:dataTable>
-				
-				<rich:dataScroller for="exemplarBookingList" maxPages="20" />
-			</h:form>
+				</rich:tab>
+			</rich:tabPanel>
 			
 		</ui:define>
 	</ui:composition>

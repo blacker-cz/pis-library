@@ -12,10 +12,11 @@
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
 
-			<p>Moje výpůjčky</p>
-			
 			<h:form>
 				<rich:dataTable value="#{manageBorrowsBean.myBorrows}" rows="20" id="myBorrowsList" var="borrow" binding="#{manageBorrowsBean.listTable}" rowClasses="odd,even">
+					<f:facet name="header">
+						<h:outputText value="Moje výpůjčky" />
+					</f:facet>
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Datum vypůjčení"/>

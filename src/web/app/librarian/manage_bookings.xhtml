@@ -14,72 +14,81 @@
 		<ui:define name="content">
 			
 			<h:form>
-				<h:panelGrid columns="2">
-					<h:outputText value="Čtenář:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user}">
-						<f:converter converterId="userNameConverter" />
-					</h:outputText>
-					
-					<h:outputText value="Číslo průkazu:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user.permitNumber}"></h:outputText>
-					
-					<h:outputText value="Adresa:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user.address}"></h:outputText>
-				</h:panelGrid>
 				
-				<p>
-				<h:commandButton action="#{manageReadersBean.actionBorrowsChangeReader}" value="Vybrat jiného čtenáře">
-				</h:commandButton>
-				<h:commandButton action="#{manageBorrowsBean.actionSaveBorrows(manageReadersBean.user)}" value="Uložit změny">
-				</h:commandButton>
-				</p>
-								
+				<rich:tabPanel switchType="client">
+					<rich:tab header="Upravovaný čtenář">
+						<h:panelGrid columns="2">
+							<h:outputText value="Čtenář:"></h:outputText>
+							<h:outputText value="#{manageReadersBean.user}">
+								<f:converter converterId="userNameConverter" />
+							</h:outputText>
+
+							<h:outputText value="Číslo průkazu:"></h:outputText>
+							<h:outputText value="#{manageReadersBean.user.permitNumber}"></h:outputText>
+
+							<h:outputText value="Adresa:"></h:outputText>
+							<h:outputText value="#{manageReadersBean.user.address}"></h:outputText>
+						</h:panelGrid>
+
+						<p>
+						<h:commandButton action="#{manageReadersBean.actionBorrowsChangeReader}" value="Vybrat jiného čtenáře">
+						</h:commandButton>
+						<h:commandButton action="#{manageBorrowsBean.actionSaveBorrows(manageReadersBean.user)}" value="Uložit změny">
+						</h:commandButton>
+						</p>
+						
+						<div class="spacer-tab" />
 				
-				<rich:dataTable value="#{manageBookingBean.getBooking(manageReadersBean.user)}" rows="20" id="bookingList" var="booking" binding="#{manageBookingBean.listTable}" rowClasses="odd,even">
-					<f:facet name="header">
-						<h:outputText value="Rezervace čtenáře #{manageReadersBean.user.forename} #{manageReadersBean.user.surname}" />
-					</f:facet>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Datum rezervace"/>
-						</f:facet>
-						<h:outputText value="#{booking.date}">
-							<f:convertDateTime dateStyle="medium" />
-						</h:outputText>
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Název"/>
-						</f:facet>
-						<h:outputText value="#{booking.book.name}"></h:outputText>
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Autor"/>
-						</f:facet>
-						<h:outputText value="#{booking.book.authorCollection}">
-							<f:converter converterId="authorConverter" />
-						</h:outputText>
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Akce"/>
-						</f:facet>
-						<h:outputText value=""></h:outputText>
-						<h:commandLink action="#{manageBookingBean.actionCancelBooking}">
-							<h:outputText value="Zrušit rezervaci"></h:outputText>
-						</h:commandLink>
-					</rich:column>
-				</rich:dataTable>
-				
-				<rich:dataScroller for="bookingList" maxPages="20" />
-				
-				<h:commandLink action="#{manageBorrowsBean.actionCreateNew(manageReadersBean.user)}">
-					<h:outputText value="Vložit novou rezervaci"></h:outputText>
-				</h:commandLink>
+						<div class="add-new">
+							<h:commandLink action="#{manageBorrowsBean.actionCreateNew(manageReadersBean.user)}">
+								<h:outputText value="Vložit novou rezervaci"></h:outputText>
+							</h:commandLink>
+						</div>
+						
+						<rich:dataTable value="#{manageBookingBean.getBooking(manageReadersBean.user)}" rows="20" id="bookingList" var="booking" binding="#{manageBookingBean.listTable}" rowClasses="odd,even">
+							<f:facet name="header">
+								<h:outputText value="Rezervace čtenáře #{manageReadersBean.user.forename} #{manageReadersBean.user.surname}" />
+							</f:facet>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Datum rezervace"/>
+								</f:facet>
+								<h:outputText value="#{booking.date}">
+									<f:convertDateTime dateStyle="medium" />
+								</h:outputText>
+							</rich:column>
+
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Název"/>
+								</f:facet>
+								<h:outputText value="#{booking.book.name}"></h:outputText>
+							</rich:column>
+
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Autor"/>
+								</f:facet>
+								<h:outputText value="#{booking.book.authorCollection}">
+									<f:converter converterId="authorConverter" />
+								</h:outputText>
+							</rich:column>
+
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Akce"/>
+								</f:facet>
+								<h:outputText value=""></h:outputText>
+								<h:commandLink action="#{manageBookingBean.actionCancelBooking}">
+									<h:outputText value="Zrušit rezervaci"></h:outputText>
+								</h:commandLink>
+							</rich:column>
+						</rich:dataTable>
+
+						<rich:dataScroller for="bookingList" maxPages="20" />
+
+					</rich:tab>
+				</rich:tabPanel>
 			</h:form>
 			
 		</ui:define>

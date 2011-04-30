@@ -13,49 +13,56 @@
 		<ui:define name="content">
 
 			<h:form>
-				<h:panelGrid columns="2">
-					<h:outputText value="Název"></h:outputText>
-					<h:outputText value="#{searchBooksBean.book.name}"></h:outputText>
+				
+				<rich:tabPanel switchType="client">
+					<rich:tab header="Detail knihy">
+				
+						<h:panelGrid columns="2">
+							<h:outputText value="Název"></h:outputText>
+							<h:outputText value="#{searchBooksBean.book.name}"></h:outputText>
 
-					<h:outputText value="Autor"></h:outputText>
-					<h:outputText value="#{searchBooksBean.book.authorCollection}">
-						<f:converter converterId="authorConverter" />
-					</h:outputText>
+							<h:outputText value="Autor"></h:outputText>
+							<h:outputText value="#{searchBooksBean.book.authorCollection}">
+								<f:converter converterId="authorConverter" />
+							</h:outputText>
 
-					<h:outputText value="Rok vydání"/>
-					<h:outputText value="#{searchBooksBean.book.year}">
-						<f:converter converterId="dateConverter" />
-					</h:outputText>
-					
-					<h:outputText value="Žánr"></h:outputText>
-					<h:outputText value="#{searchBooksBean.book.genre}"></h:outputText>
+							<h:outputText value="Rok vydání"/>
+							<h:outputText value="#{searchBooksBean.book.year}">
+								<f:converter converterId="dateConverter" />
+							</h:outputText>
 
-					<h:outputText value="Vydavatel"/>
-					<h:outputText value="#{searchBooksBean.book.publisher}"></h:outputText>
-					
-					<h:outputText value="#{searchBooksBean.book.type.toUpperCase()}"/>
-					<h:outputText value="#{searchBooksBean.book.code}"></h:outputText>
-					
-					<h:outputText value="Počet stran"/>
-					<h:outputText value="#{searchBooksBean.book.pages}"></h:outputText>
-					
-					<h:outputText value="Vydání"/>
-					<h:outputText value="#{searchBooksBean.book.edition}. vydání"></h:outputText>
-					
-					<h:outputText value="Místo vydání"/>
-					<h:outputText value="#{searchBooksBean.book.place}"></h:outputText>
-					
-					<h:outputText value="Výtisky"/>
-					<h:outputText value="#{searchBooksBean.book.exemplarCollection.size()} celkem, #{searchBooksBean.countExemplarsBorrowed} vypůjčeno, #{searchBooksBean.countExemplarsFree} dostupných"></h:outputText>
-				</h:panelGrid>
+							<h:outputText value="Žánr"></h:outputText>
+							<h:outputText value="#{searchBooksBean.book.genre}"></h:outputText>
 
-				<p>
-				<h:commandButton action="#{searchBooksBean.actionBookBooking}" value="Rezervovat knížku">
-				</h:commandButton>
-				<h:commandButton immediate="true" action="#{searchBooksBean.actionCancelDetail}" value="Zpět do katalogu">
-				</h:commandButton>
-				</p>
+							<h:outputText value="Vydavatel"/>
+							<h:outputText value="#{searchBooksBean.book.publisher}"></h:outputText>
 
+							<h:outputText value="#{searchBooksBean.book.type.toUpperCase()}"/>
+							<h:outputText value="#{searchBooksBean.book.code}"></h:outputText>
+
+							<h:outputText value="Počet stran"/>
+							<h:outputText value="#{searchBooksBean.book.pages}"></h:outputText>
+
+							<h:outputText value="Vydání"/>
+							<h:outputText value="#{searchBooksBean.book.edition}. vydání"></h:outputText>
+
+							<h:outputText value="Místo vydání"/>
+							<h:outputText value="#{searchBooksBean.book.place}"></h:outputText>
+
+							<h:outputText value="Výtisky"/>
+							<h:outputText value="#{searchBooksBean.book.exemplarCollection.size()} celkem, #{searchBooksBean.countExemplarsBorrowed} vypůjčeno, #{searchBooksBean.countExemplarsFree} dostupných"></h:outputText>
+						</h:panelGrid>
+
+						<p>
+						<h:commandButton action="#{searchBooksBean.actionBookBooking}" value="Rezervovat knížku">
+						</h:commandButton>
+						<h:commandButton immediate="true" action="#{searchBooksBean.actionCancelDetail}" value="Zpět do katalogu">
+						</h:commandButton>
+						</p>
+
+					</rich:tab>
+				</rich:tabPanel>
+						
 			</h:form>
 			
 		</ui:define>

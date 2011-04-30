@@ -5,3 +5,13 @@
 .form-year {
 	width: 30px;
 }
+
+.spacer {
+	height: 20px;
+}
+
+.spacer-tab {
+	margin-top: 10px;
+	height: 20px;
+	border-top: solid 1px #ccc;
+}

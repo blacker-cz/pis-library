@@ -13,108 +13,117 @@
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
 			
-			<h:form>
-				<h:panelGrid columns="2">
-					<h:outputText value="Čtenář:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user}">
-						<f:converter converterId="userNameConverter" />
-					</h:outputText>
+			
+			<rich:tabPanel switchType="client">
+				<rich:tab header="Upravovaný čtenář">
 					
-					<h:outputText value="Číslo průkazu:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user.permitNumber}"></h:outputText>
+					<h:form>
+						<h:panelGrid columns="2">
+							<h:outputText value="Čtenář:"></h:outputText>
+							<h:outputText value="#{manageReadersBean.user}">
+								<f:converter converterId="userNameConverter" />
+							</h:outputText>
+
+							<h:outputText value="Číslo průkazu:"></h:outputText>
+							<h:outputText value="#{manageReadersBean.user.permitNumber}"></h:outputText>
+
+							<h:outputText value="Adresa:"></h:outputText>
+							<h:outputText value="#{manageReadersBean.user.address}"></h:outputText>
+						</h:panelGrid>
+
+						<p>
+						<h:commandButton action="#{manageReadersBean.actionBorrowsChangeReader}" value="Vybrat jiného čtenáře">
+						</h:commandButton>
+						<h:commandButton action="#{manageBorrowsBean.actionSaveBorrows(manageReadersBean.user)}" value="Uložit změny">
+						</h:commandButton>
+						</p>
+				</h:form>
+				
+				<div class="spacer-tab" />
 					
-					<h:outputText value="Adresa:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user.address}"></h:outputText>
-				</h:panelGrid>
-				
-				<p>
-				<h:commandButton action="#{manageReadersBean.actionBorrowsChangeReader}" value="Vybrat jiného čtenáře">
-				</h:commandButton>
-				<h:commandButton action="#{manageBorrowsBean.actionSaveBorrows(manageReadersBean.user)}" value="Uložit změny">
-				</h:commandButton>
-				</p>
-			</h:form>
-				
-			<h:form>
-				<rich:dataTable value="#{searchBooksBean.books}" rows="20" id="catalogBookList" var="book" binding="#{searchBooksBean.listTable}" rowClasses="odd,even">
-					<f:facet name="header">
-						<h:outputText value="Katalog" />
-					</f:facet>
-					<rich:column>
+				<h:form>
+					<rich:dataTable value="#{searchBooksBean.books}" rows="20" id="catalogBookList" var="book" binding="#{searchBooksBean.listTable}" rowClasses="odd,even">
 						<f:facet name="header">
-							<h:outputText value="Název"/>
-							<br />
-							<h:inputText value="#{searchBooksBean.filter_name}"></h:inputText>
+							<h:outputText value="Katalog" />
 						</f:facet>
-						<h:commandLink action="#{searchBooksBean.actionDetail}">
-							<h:outputText value="#{book.name}"></h:outputText>
-						</h:commandLink>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Autor"/>
-							<br />
-							<h:inputText value="#{searchBooksBean.filter_author}"></h:inputText>
-						</f:facet>
-						<h:outputText value="#{book.authorCollection}">
-							<f:converter converterId="authorConverter" />
-						</h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="ISBN/ISSN"/>
-							<br />
-							<h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
-						</f:facet>
-						<h:outputText value="#{book.code}"></h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Rok vydání"/>
-							<br />
-							<h:inputText id="filter_yearFrom" value="#{searchBooksBean.filter_yearFrom}" required="false" converterMessage="Rok musí být v rozsahu #{Book.MIN_BOOK_YEAR} - #{Book.MAX_BOOK_YEAR}" size="4" styleClass="form-year">
-								<f:validateLongRange minimum="#{searchBooksBean.minBookYear}" maximum="#{searchBooksBean.maxBookYear}" />
-							</h:inputText>
-							<h:outputText value=" - "/>
-							<h:inputText id="filter_yearTo" value="#{searchBooksBean.filter_yearTo}" required="false" converterMessage="Rok musí být v rozsahu #{Book.MIN_BOOK_YEAR} - #{Book.MAX_BOOK_YEAR}" size="4" styleClass="form-year">
-								<f:validateLongRange minimum="#{searchBooksBean.minBookYear}" maximum="#{searchBooksBean.maxBookYear}" />
-							</h:inputText>
-						</f:facet>
-						<h:outputText value="#{book.year}">
-							<f:converter converterId="dateConverter" />
-						</h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Žánr"/>
-							<br />
-							<h:selectOneMenu id="searchGenreList" value="#{searchBooksBean.filter_genre}">
-								<f:selectItem itemValue="all" itemLabel="" />
-								<f:selectItems value="#{genreBean.genres}" />
-							</h:selectOneMenu>
-						</f:facet>
-						<h:outputText value="#{book.genre}"></h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Vydavatel"/><br />
-						</f:facet>
-						<h:outputText value="#{book.publisher}"></h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:commandButton action="#{searchBooksBean.actionSearchBooks}" value="Vyhledat"></h:commandButton>
-							<br />
-							<h:commandButton action="#{searchBooksBean.actionViewBooks}" value="Projít katalog"></h:commandButton>
-						</f:facet>
-						<h:commandLink action="#{searchBooksBean.actionDetail}">
-							<h:outputText value="Detail"></h:outputText>
-						</h:commandLink>
-					</rich:column>
-				</rich:dataTable>
-				
-				<rich:dataScroller for="catalogBookList" maxPages="20" />
-			</h:form>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Název"/>
+								<br />
+								<h:inputText value="#{searchBooksBean.filter_name}"></h:inputText>
+							</f:facet>
+							<h:commandLink action="#{searchBooksBean.actionDetail}">
+								<h:outputText value="#{book.name}"></h:outputText>
+							</h:commandLink>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Autor"/>
+								<br />
+								<h:inputText value="#{searchBooksBean.filter_author}"></h:inputText>
+							</f:facet>
+							<h:outputText value="#{book.authorCollection}">
+								<f:converter converterId="authorConverter" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="ISBN/ISSN"/>
+								<br />
+								<h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
+							</f:facet>
+							<h:outputText value="#{book.code}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Rok vydání"/>
+								<br />
+								<h:inputText id="filter_yearFrom" value="#{searchBooksBean.filter_yearFrom}" required="false" converterMessage="Rok musí být v rozsahu #{Book.MIN_BOOK_YEAR} - #{Book.MAX_BOOK_YEAR}" size="4" styleClass="form-year">
+									<f:validateLongRange minimum="#{searchBooksBean.minBookYear}" maximum="#{searchBooksBean.maxBookYear}" />
+								</h:inputText>
+								<h:outputText value=" - "/>
+								<h:inputText id="filter_yearTo" value="#{searchBooksBean.filter_yearTo}" required="false" converterMessage="Rok musí být v rozsahu #{Book.MIN_BOOK_YEAR} - #{Book.MAX_BOOK_YEAR}" size="4" styleClass="form-year">
+									<f:validateLongRange minimum="#{searchBooksBean.minBookYear}" maximum="#{searchBooksBean.maxBookYear}" />
+								</h:inputText>
+							</f:facet>
+							<h:outputText value="#{book.year}">
+								<f:converter converterId="dateConverter" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Žánr"/>
+								<br />
+								<h:selectOneMenu id="searchGenreList" value="#{searchBooksBean.filter_genre}">
+									<f:selectItem itemValue="all" itemLabel="" />
+									<f:selectItems value="#{genreBean.genres}" />
+								</h:selectOneMenu>
+							</f:facet>
+							<h:outputText value="#{book.genre}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Vydavatel"/><br />
+							</f:facet>
+							<h:outputText value="#{book.publisher}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:commandButton action="#{searchBooksBean.actionSearchBooks}" value="Vyhledat"></h:commandButton>
+								<br />
+								<h:commandButton action="#{searchBooksBean.actionViewBooks}" value="Projít katalog"></h:commandButton>
+							</f:facet>
+							<h:commandLink action="#{searchBooksBean.actionDetail}">
+								<h:outputText value="Detail"></h:outputText>
+							</h:commandLink>
+						</rich:column>
+					</rich:dataTable>
+
+					<rich:dataScroller for="catalogBookList" maxPages="20" />
+				</h:form>
+					
+				</rich:tab>
+			</rich:tabPanel>
 			
 		</ui:define>
 	</ui:composition>

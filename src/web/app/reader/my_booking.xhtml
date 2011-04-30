@@ -12,10 +12,11 @@
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
 
-			<p>Moje rezervace</p>
-
 			<h:form>
 				<rich:dataTable value="#{manageBookingBean.myBooking}" rows="20" id="myBookingList" var="booking" binding="#{manageBookingBean.listTable}" rowClasses="odd,even">
+					<f:facet name="header">
+						<h:outputText value="Moje rezervace" />
+					</f:facet>
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Datum rezervace"/>

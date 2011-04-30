@@ -12,63 +12,69 @@
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
 
-			<h:form>
-				<rich:dataTable value="#{manageTrespassersBean.tresspassers}" rows="20" id="trespassersList" var="borrow" binding="#{manageTrespassersBean.listTable}" rowClasses="odd,even">
-					<f:facet name="header">
-						<h:outputText value="Čtenáři, kteří nevrátili knihy včas" />
-					</f:facet>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Uživatel" /><br />
-						</f:facet>
-						<h:outputText value="#{borrow.user}">
-							<f:converter converterId="userNameConverter" />
-						</h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Číslo průkazu" /><br />
-						</f:facet>
-						<h:outputText value="#{borrow.user.permitNumber}"></h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Adresa" /><br />
-						</f:facet>
-						<h:outputText value="#{borrow.user.address}"></h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Vypůjčeno od" /><br />
-						</f:facet>
-						<h:outputText value="#{borrow.borrowed}">
-							<f:convertDateTime dateStyle="medium" />
-						</h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Počet prodloužení" /><br />
-						</f:facet>
-						<h:outputText value="#{borrow.prolongations}"></h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Kniha" /><br />
-						</f:facet>
-						<h:outputText value="#{borrow.exemplar.book.name}"></h:outputText>
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Autoři" /><br />
-						</f:facet>
-						<h:outputText value="#{borrow.exemplar.book.authorCollection}">
-							<f:converter converterId="authorConverter" />
-						</h:outputText>
-					</rich:column>
-				</rich:dataTable>
-				
-				<rich:dataScroller for="trespassersList" maxPages="20" />
-			</h:form>
+			<rich:tabPanel switchType="client">
+				<rich:tab header="Hříšníci">
+			
+					<h:form>
+						<rich:dataTable value="#{manageTrespassersBean.tresspassers}" rows="20" id="trespassersList" var="borrow" binding="#{manageTrespassersBean.listTable}" rowClasses="odd,even">
+							<f:facet name="header">
+								<h:outputText value="Čtenáři, kteří nevrátili knihy včas" />
+							</f:facet>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Uživatel" /><br />
+								</f:facet>
+								<h:outputText value="#{borrow.user}">
+									<f:converter converterId="userNameConverter" />
+								</h:outputText>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Číslo průkazu" /><br />
+								</f:facet>
+								<h:outputText value="#{borrow.user.permitNumber}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Adresa" /><br />
+								</f:facet>
+								<h:outputText value="#{borrow.user.address}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Vypůjčeno od" /><br />
+								</f:facet>
+								<h:outputText value="#{borrow.borrowed}">
+									<f:convertDateTime dateStyle="medium" />
+								</h:outputText>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Počet prodloužení" /><br />
+								</f:facet>
+								<h:outputText value="#{borrow.prolongations}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Kniha" /><br />
+								</f:facet>
+								<h:outputText value="#{borrow.exemplar.book.name}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Autoři" /><br />
+								</f:facet>
+								<h:outputText value="#{borrow.exemplar.book.authorCollection}">
+									<f:converter converterId="authorConverter" />
+								</h:outputText>
+							</rich:column>
+						</rich:dataTable>
+
+						<rich:dataScroller for="trespassersList" maxPages="20" />
+					</h:form>
+					
+				</rich:tab>
+			</rich:tabPanel>
 		</ui:define>
 	</ui:composition>
 
