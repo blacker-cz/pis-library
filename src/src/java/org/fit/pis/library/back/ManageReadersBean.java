@@ -253,6 +253,16 @@ public class ManageReadersBean {
 	}
 	
 	/**
+	 * Manage bookings action
+	 * @return 
+	 */
+	public String actionManageBookings() {
+		setUser((User) listTable.getRowData());
+		
+		return "manageBookings";
+	}
+	
+	/**
 	 * Display readers list
 	 * @return 
 	 */

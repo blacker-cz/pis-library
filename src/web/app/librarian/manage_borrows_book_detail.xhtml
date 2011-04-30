@@ -15,7 +15,9 @@
 			<h:form>
 				<h:panelGrid columns="2">
 					<h:outputText value="Čtenář:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user.forename} #{manageReadersBean.user.surname}"></h:outputText>
+					<h:outputText value="#{manageReadersBean.user}">
+						<f:converter converterId="userNameConverter" />
+					</h:outputText>
 					
 					<h:outputText value="Číslo průkazu:"></h:outputText>
 					<h:outputText value="#{manageReadersBean.user.permitNumber}"></h:outputText>
@@ -99,16 +101,18 @@
 							<h:outputText value="Stav"/>
 						</f:facet>
 						<h:outputText value="volné" rendered="#{!exemplar.isBorrowed}"></h:outputText>
-						<h:outputText value="vypůjčené" rendered="#{exemplar.isBorrowed}"></h:outputText>
+						<h:outputText value="vypůjčené " rendered="#{exemplar.isBorrowed}"></h:outputText>
+						<h:outputText value="#{exemplar.borrowedUser}" rendered="#{exemplar.isBorrowed}">
+							<f:converter converterId="userNameConverter" />
+						</h:outputText>
 					</rich:column>
 					
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Akce"/>
 						</f:facet>
-						<h:commandButton action="#{searchBooksBean.actionBorrow(manageReadersBean.user)}" value="Vypůjčit exemplář" rendered="#{!exemplar.getIsBorrowed() &amp;&amp; searchBooksBean.canBorrowBook(manageReadersBean.user)}">
-						<h:outputText value="Nelze vypůjčit" rendered="#{exemplar.getIsBorrowed() || !searchBooksBean.canBorrowBook(manageReadersBean.user)}"></h:outputText>
-						</h:commandButton>
+						<h:commandLink action="#{searchBooksBean.actionBorrow(manageReadersBean.user)}" value="Vypůjčit exemplář" rendered="#{searchBooksBean.isBorrowLinkDisplayed(exemplar, manageReadersBean.user)}"></h:commandLink>
+						<h:outputText value="Nelze vypůjčit" rendered="#{!searchBooksBean.isBorrowLinkDisplayed(exemplar, manageReadersBean.user)}"></h:outputText>
 					</rich:column>
 				</rich:dataTable>
 				

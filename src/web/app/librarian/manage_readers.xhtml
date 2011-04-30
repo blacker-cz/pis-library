@@ -88,8 +88,11 @@
 						</h:commandLink>
 						<h:outputText value=" "></h:outputText>
 						<h:commandLink action="#{manageReadersBean.actionManageBorrows}">
-							<!-- <f:param name="user" value="#{user.iduser}" /> -->
 							<h:outputText value="Výpůjčky"></h:outputText>
+						</h:commandLink>
+						<h:outputText value=" "></h:outputText>
+						<h:commandLink action="#{manageReadersBean.actionManageBookings}">
+							<h:outputText value="Rezervace"></h:outputText>
 						</h:commandLink>
 					</rich:column>
 				</rich:dataTable>

@@ -16,7 +16,9 @@
 			<h:form>
 				<h:panelGrid columns="2">
 					<h:outputText value="Čtenář:"></h:outputText>
-					<h:outputText value="#{manageReadersBean.user.forename} #{manageReadersBean.user.surname}"></h:outputText>
+					<h:outputText value="#{manageReadersBean.user}">
+						<f:converter converterId="userNameConverter" />
+					</h:outputText>
 					
 					<h:outputText value="Číslo průkazu:"></h:outputText>
 					<h:outputText value="#{manageReadersBean.user.permitNumber}"></h:outputText>

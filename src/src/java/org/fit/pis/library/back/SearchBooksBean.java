@@ -36,6 +36,8 @@ public class SearchBooksBean {
 	private ExemplarManager exemplarMgr;
 	@EJB
 	private PublisherManager publisherMgr;
+	@EJB
+	private BorrowManager borrowMgr;
         
 	private Book book;
 	private UIDataTable listTable;
@@ -304,9 +306,26 @@ public class SearchBooksBean {
 		return borrowedCount;
 	}
 	
+	/**
+	 * REturn true if user can borrow book
+	 * @param user
+	 * @return 
+	 */
 	public boolean canBorrowBook(User user) {
 		if (book == null)
 			return false;
+		
+		// Zkontroluje, jestli náhodou nemám půjčený exemplář
+		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
+		if (!exemplars.isEmpty()) {
+			for (Exemplar e : exemplars) {
+				System.out.println(e);
+				// book is already borrowed or borrowed by user
+				if (e.getIsBorrowed() || e.isBorrowedByUser(user)) {
+					return false;
+				}
+			}
+		}
 		
 		List<Booking> booking = bookingMgr.find(book);
 		// no booking record
@@ -336,6 +355,10 @@ public class SearchBooksBean {
 	 */
 	public List<Booking> getBookingCollection(Book book) {
 		return bookingMgr.find(book);
+	}
+	
+	public boolean isBorrowLinkDisplayed(Exemplar exemplar, User user) {
+		return !exemplar.getIsBorrowed() && canBorrowBook(user);
 	}
 	
 	/**
@@ -487,12 +510,50 @@ public class SearchBooksBean {
 	 * @return 
 	 */
 	public String actionBorrow(User user) {
-		// select bookings
+		// check 
+		if (!canBorrowBook(user)) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Can't borrow book!"));
+			return "";
+		}
 		
-		// select borrows
+		// check borrowed
+		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
+		if (!exemplars.isEmpty()) {
+			for (Exemplar e : exemplars) {
+				// book is already borrowed
+				if (e.getIsBorrowed()) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Can't borrow borrowed book!"));
+					return "newBorrow";
+				}
+			}
+		}
+		
+		// check booking
+		List<Booking> bookings = bookingMgr.find(book);
+		
+		// has booking record
+		if (!bookings.isEmpty()) {
+			// get first booking
+			Booking booking = bookings.get(0);
+			// remove booking
+			bookingMgr.Remove(booking);
+		}
+		
+		// borrow
+		Borrow borrow = new Borrow();
+		borrow.setExemplar((Exemplar) exemplarListTable.getRowData());
+		borrow.setUser(user);
+		borrow.setBorrowed(new Date(System.currentTimeMillis()));
+		
+		try {
+			borrowMgr.Save(borrow);
+		} catch (javax.ejb.EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
+			return "newBorrow";
+		}
 		
 		// add borrow
-		return "";
+		return "newBorrow";
 	}
 	
 	/**

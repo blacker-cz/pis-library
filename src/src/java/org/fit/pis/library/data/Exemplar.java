@@ -118,6 +118,26 @@ public class Exemplar implements Serializable {
 		return false;
 	}
 	
+	/**
+	 * Return borrowed user
+	 * @return 
+	 */
+	public User getBorrowedUser() {
+		for (Borrow b : borrowCollection) {
+			if (b.getReturned() == null)
+				return b.getUser();
+		}
+		return null;
+	}
+	
+	public boolean isBorrowedByUser(User user) {
+		for (Borrow b : borrowCollection) {
+			if (b.getReturned() == null && b.getUser().getIduser() == user.getIduser())
+				return true;
+		}
+		return false;
+	}
+	
 	public Collection<Borrow> getBorrowCollection() {
 		return borrowCollection;
 	}
