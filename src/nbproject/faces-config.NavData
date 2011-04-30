@@ -15,8 +15,8 @@
         <Node id="app/*" x="1254" y="131" zoom="true"/>
         <Node id="app/librarian/new_book.xhtml" x="590" y="447" zoom="true"/>
         <Node id="app/admin/manage_users.xhtml" x="1703" y="32" zoom="true"/>
-        <Node id="app/home.xhtml" x="3201" y="32" zoom="true"/>
         <Node id="app/reader/my_booking.xhtml" x="690" y="268" zoom="true"/>
+        <Node id="app/home.xhtml" x="3201" y="32" zoom="true"/>
         <Node id="app/test.xhtml" x="3485" y="32" zoom="true"/>
         <Node id="app/reader/book_detail.xhtml" x="1071" y="343" zoom="true"/>
         <Node id="app/librarian/manage_catalog.xhtml" x="239" y="256" zoom="true"/>

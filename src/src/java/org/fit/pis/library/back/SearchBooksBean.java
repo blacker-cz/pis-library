@@ -17,7 +17,7 @@ import org.fit.pis.library.data.*;
 import org.richfaces.component.UIDataTable;
 
 /**
- *
+ * 
  * @author Vojtěch Sysel <xsysel03@setud.fit.vutbr.cz>
  */
 @ManagedBean
@@ -571,9 +571,6 @@ public class SearchBooksBean {
 	 * @return 
 	 */
 	public String actionCreateNew() {
-//		setUser(new User());
-//		getUser().setExpire(new Date(System.currentTimeMillis() + 31536000000L));
-
 		return "new";
 	}
         
