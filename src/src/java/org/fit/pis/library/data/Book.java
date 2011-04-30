@@ -88,7 +88,7 @@ public class Book implements Serializable {
 	@Size(max = 255)
         @Column(name = "code")
 	private String code;
-        
+
 	@ManyToMany(mappedBy = "booksCollection")
 	@XmlIDREF
 	private Collection<Author> authorCollection;

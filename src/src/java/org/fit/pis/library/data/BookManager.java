@@ -76,11 +76,9 @@ public class BookManager {
 			genreSQL = " AND b.genre.idgenre = :idgenreFilter ";
 		}
 		
-		System.out.println("from: " + yearFrom + ", to:" + yearTo);
-		
 		Query query = em.createQuery(
 				"SELECT DISTINCT b FROM Book b "
-//				+ "JOIN b.author a "
+//				+ "JOIN b.Author a "
 				+ "WHERE "
 				+	"b.name LIKE :name AND "
 				+	"b.year BETWEEN :yearFrom AND :yearTo AND "
@@ -92,8 +90,6 @@ public class BookManager {
 		//Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.authors.name LIKE :authorname" + genreSQL);
 		query.setParameter("name", "%" + name + "%");
 //		query.setParameter("author", "%" + author + "%");
-		// TODO: author
-		//query.setParameter("authorname", "%" + author + "%");
 	
 		query.setParameter("isbn_issn", "%" + isbn_issn + "%");
 		// genre

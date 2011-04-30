@@ -27,21 +27,9 @@ public class ManageTrespassersBean {
 	@ManagedProperty(value="#{authenticationBean}")
 	private AuthenticationBean authBean;
 	
-	// variables used for filtering table
-	private String filter_forename;
-	private String filter_surname;
-	private String filter_email;
-	private String filter_permitNumber;
-	
 	/** Creates a new instance of ManageUsersBean */
 	public ManageTrespassersBean() {
 		borrow = new Borrow();
-
-		// set empty filtering
-		filter_forename = "";
-		filter_surname = "";
-		filter_email = "";
-		filter_permitNumber = "";
 	}
 
 	/**
@@ -69,38 +57,6 @@ public class ManageTrespassersBean {
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Filter getters and setters">
-	public String getFilter_email() {
-		return filter_email;
-	}
-
-	public void setFilter_email(String filter_email) {
-		this.filter_email = filter_email;
-	}
-
-	public String getFilter_forename() {
-		return filter_forename;
-	}
-
-	public void setFilter_forename(String filter_forename) {
-		this.filter_forename = filter_forename;
-	}
-
-	public String getFilter_permitNumber() {
-		return filter_permitNumber;
-	}
-
-	public void setFilter_permitNumber(String filter_permitNumber) {
-		this.filter_permitNumber = filter_permitNumber;
-	}
-
-	public String getFilter_surname() {
-		return filter_surname;
-	}
-
-	public void setFilter_surname(String filter_surname) {
-		this.filter_surname = filter_surname;
-	}
-
 	// </editor-fold>
 	/**
 	 * Get list of users
