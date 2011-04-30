@@ -71,6 +71,14 @@
 	  <from-outcome>import</from-outcome>
 	  <to-view-id>/app/admin/import.xhtml</to-view-id>
 	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>manage_authors</from-outcome>
+	  <to-view-id>/app/librarian/manage_authors.xhtml</to-view-id>
+	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>manage_publishers</from-outcome>
+	  <to-view-id>/app/librarian/manage_publishers.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/home.xhtml</from-view-id>
@@ -298,6 +306,64 @@
   <navigation-case>
    <from-outcome>newBorrowCatalog</from-outcome>
    <to-view-id>/app/librarian/manage_borrows_add.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/edit_author.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancel</from-outcome>
+   <to-view-id>/app/librarian/manage_authors.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/manage_authors.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>new</from-outcome>
+   <to-view-id>/app/librarian/new_author.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>edit</from-outcome>
+   <to-view-id>/app/librarian/edit_author.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/new_author.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancel</from-outcome>
+   <to-view-id>/app/librarian/manage_authors.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>edit</from-outcome>
+   <to-view-id>/app/librarian/edit_author.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/manage_publishers.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>new</from-outcome>
+   <to-view-id>/app/librarian/new_publisher.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>edit</from-outcome>
+   <to-view-id>/app/librarian/edit_publisher.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/new_publisher.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancel</from-outcome>
+   <to-view-id>/app/librarian/manage_publishers.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>edit</from-outcome>
+   <to-view-id>/app/librarian/edit_publisher.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/app/librarian/edit_publisher.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancel</from-outcome>
+   <to-view-id>/app/librarian/manage_publishers.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
 </faces-config>

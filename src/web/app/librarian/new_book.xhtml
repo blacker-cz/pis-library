@@ -15,52 +15,71 @@
 			<h:form>
 				<h:panelGrid columns="2">
 					<h:outputLabel rendered="true" value="Název titulu:*"></h:outputLabel>
-					<h:inputTextarea value="#{searchBooksBean.book.name}" required="true"
-									 requiredMessage="Název titulu musí být vyplněn">
-					</h:inputTextarea>
-					<h:outputLabel rendered="true" value="Autor:*"></h:outputLabel>
-					<h:inputText value="#{searchBooksBean.book.name}" required="true"
-								 requiredMessage="Autor musí být vyplněn">
-					</h:inputText>
-					<h:outputLabel rendered="true" value="Rok:*"></h:outputLabel>
-					<h:inputText value="#{searchBooksBean.book.name}" required="true"
-								 requiredMessage="Rok musí být vyplněno">				
-					</h:inputText>
+					<h:inputTextarea value="#{searchBooksBean.book.name}" required="true"									 requiredMessage="Název titulu musí být vyplněn">
+					</h:inputTextarea>                                      
+                                        <h:outputLabel rendered="true" value="Název 1. autora*"></h:outputLabel>                                  
+                                        <h:selectOneMenu value="#{searchBooksBean.nazov_1_autora}" required="true">                                               
+                                                <f:selectItem itemValue="all" itemLabel="" />                                               
+                                                <f:selectItems value="#{searchAuthorsBean.authors}" />
+					</h:selectOneMenu>                                        
+                                        <h:outputLabel rendered="true" value="Název 2. autora*"></h:outputLabel>					                                     
+                                        <h:selectOneMenu value="#{searchBooksBean.nazov_2_autora}" >                                               
+                                                <f:selectItem itemValue="all" itemLabel="" />                                               
+                                                <f:selectItems value="#{searchAuthorsBean.authors}" />
+					</h:selectOneMenu>
+                                
+                                        <h:outputLabel rendered="true" value="Název 3. autora*"></h:outputLabel>
+                                        <h:selectOneMenu value="#{searchBooksBean.nazov_3_autora}" >                                               
+                                                <f:selectItem itemValue="all" itemLabel="" />                                               
+                                                <f:selectItems value="#{searchAuthorsBean.authors}" />
+					</h:selectOneMenu>                                   
+                                        <h:outputLabel rendered="true" value="Název 4. autora*"></h:outputLabel>
+                                        <h:selectOneMenu value="#{searchBooksBean.nazov_4_autora}" >                                               
+                                                <f:selectItem itemValue="all" itemLabel="" />                                               
+                                                <f:selectItems value="#{searchAuthorsBean.authors}" />
+					</h:selectOneMenu>
+                                               
+                                        <h:outputLabel rendered="true" value="Rok:*"></h:outputLabel>
+					<h:inputText value="#{searchBooksBean.rok_vydania}" required="true"
+							     requiredMessage="Rok musí být vyplněno">                                
+					</h:inputText>					
 					<h:outputLabel rendered="true" value="Počet strán:"></h:outputLabel>
-					<h:inputText value="#{searchBooksBean.book.name}">
+					<h:inputText value="#{searchBooksBean.book.pages}">
 					</h:inputText>
 					<h:outputLabel rendered="true" value="Edice:"></h:outputLabel>
-					<h:inputText value="#{searchBooksBean.book.name}">
+					<h:inputText value="#{searchBooksBean.book.edition}">
 					</h:inputText>
 					<h:outputLabel rendered="true" value="Město:*"></h:outputLabel>
-					<h:inputText value="#{searchBooksBean.book.name}" required="true">
-					</h:inputText>
-					<h:outputLabel rendered="true" value="Vydavatelství*"></h:outputLabel>
-					<h:inputText value="#{searchBooksBean.book.name}" required="true">
+					<h:inputText value="#{searchBooksBean.book.place}" required="true">
 					</h:inputText>
                                         <h:outputLabel rendered="true" value="Žáner*"></h:outputLabel>
-					<h:inputText value="#{searchBooksBean.book.name}" required="true">
-					</h:inputText>
-                                        
+                                        <h:selectOneMenu value="#{searchBooksBean.nazov_zanru}" required="true">
+                                                <f:selectItem itemValue="all" itemLabel="" />                          
+                                                <f:selectItems value="#{genreBean.genres}" />
+					</h:selectOneMenu>                                      
+					<h:outputLabel rendered="true" value="Vydavatelství*"></h:outputLabel>
+                                        <h:selectOneMenu value="#{searchBooksBean.nazov_vydavatelstva}" required="true">                                               
+                                                <f:selectItem itemValue="all" itemLabel="" />                                               
+                                                <f:selectItems value="#{publisherBean.publishers}" />
+					</h:selectOneMenu>                               
                                         <h:outputLabel rendered="true" value="Kód*"></h:outputLabel>
-					<h:inputText value="#{searchBooksBean.book.name}" required="true">
+					<h:inputText value="#{searchBooksBean.book.code}" required="true">
 					</h:inputText>
-                                        
-                                        
-                                        
-
 				</h:panelGrid>
 
 				<p><strong>* údaje označené hvězdičkou jsou povinné</strong></p>
 
 				<p>
-				<h:commandButton action="#{searchBooksBean.actionInsert}" value="Vytvořit nový titul">
+				<h:commandButton action="#{searchBooksBean.actionInsert}" value="Vytvoř titul">
 				</h:commandButton>
-				<h:commandButton immediate="true" action="cancel" value="Zrušit">
+				<h:commandButton immediate="true" action="cancel" value="Hotovo" onclick="return confirm('Všechny neuložené změny budou ztraceny. Pokračovat?');">
 				</h:commandButton>
 				</p>
 
 			</h:form>
+                    
+                    
+                    
 		</ui:define>
 	</ui:composition>
 

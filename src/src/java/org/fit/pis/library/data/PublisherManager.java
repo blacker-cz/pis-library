@@ -38,7 +38,8 @@ public class PublisherManager {
     @SuppressWarnings("unchecked")
     public List<Publisher> findAll()
     {
-		return em.createNamedQuery("Publisher.findAll").getResultList();
+		//return em.createNamedQuery("Publisher.findAll").getResultList();
+                return em.createQuery("SELECT p FROM Publisher p ORDER BY p.name ASC").getResultList();
     }
 	
 	/**
@@ -58,6 +59,30 @@ public class PublisherManager {
 		}
 	}
 	
+        public List<Publisher> find(String name) {
+		// genre SQL
+		String genreSQL = "";	
+		Query query = em.createQuery(
+				"SELECT DISTINCT p FROM Publisher p "
+//				+ "JOIN a.publisher a "
+				+ "WHERE "
+				+	"p.name LIKE :name "
+//				+	"AND a.name LIKE :publisher "
+				+ genreSQL 
+				+ "ORDER BY p.name ASC"
+				);
+		//Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.publishers.name LIKE :publishername" + genreSQL);
+		query.setParameter("name", "%" + name + "%");
+//		query.setParameter("publisher", "%" + publisher + "%");
+		// TODO: publisher
+		//query.setParameter("publishername", "%" + publisher + "%");
+	
+                
+            
+		return (List<Publisher>) query.getResultList();
+	}
+    
+        
 	/**
 	 * Find Publisher by name
 	 * @param name	Publisher name

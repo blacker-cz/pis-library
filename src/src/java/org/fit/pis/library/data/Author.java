@@ -112,7 +112,8 @@ public class Author implements Serializable {
 
 	@Override
 	public String toString() {
-		return "org.fit.pis.library.data.Author[ idauthor=" + idauthor + " ]";
+		//return "org.fit.pis.library.data.Author[ idauthor=" + idauthor + " ]";
+                return name;
 	}
 
 }

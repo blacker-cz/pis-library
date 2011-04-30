@@ -38,7 +38,8 @@ public class AuthorManager {
     @SuppressWarnings("unchecked")
     public List<Author> findAll()
     {
-		return em.createNamedQuery("Author.findAll").getResultList();
+		//return em.createNamedQuery("Author.findAll").getResultList();
+                return em.createQuery("SELECT a FROM Author a ORDER BY a.name ASC").getResultList();
     }
 	
 	/**
@@ -57,7 +58,29 @@ public class AuthorManager {
 			return null;
 		}
 	}
+        
+	 public List<Author> find(String name) {
+		// genre SQL
+		String genreSQL = "";	
+		Query query = em.createQuery(
+				"SELECT DISTINCT a FROM Author a "
+//				+ "JOIN a.author a "
+				+ "WHERE "
+				+	"a.name LIKE :name "
+//				+	"AND a.name LIKE :author "
+				+ genreSQL 
+				+ "ORDER BY a.name ASC"
+				);
+		//Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.authors.name LIKE :authorname" + genreSQL);
+		query.setParameter("name", "%" + name + "%");
+//		query.setParameter("author", "%" + author + "%");
+		// TODO: author
+		//query.setParameter("authorname", "%" + author + "%");
 	
+                
+            
+		return (List<Author>) query.getResultList();
+	}
 	/**
 	 * Find Author by name
 	 * @param name	Author name
@@ -65,7 +88,8 @@ public class AuthorManager {
 	 */
 	public Author findByName(String name) {
 		try {
-			Query queryAuthorName = em.createNamedQuery("Author.findByName");
+			// Query queryAuthorName = em.createNamedQuery("Author.findByName");
+			Query queryAuthorName = em.createQuery("SELECT DISTINCT a FROM Author a WHERE a.name LIKE :name");
 			queryAuthorName.setParameter("name", name);
 			return (Author) queryAuthorName.getSingleResult();
 		} catch (NoResultException e) {
