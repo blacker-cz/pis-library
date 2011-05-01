@@ -27,61 +27,65 @@ import org.fit.pis.library.back.converters.IntegerAdapter;
  * @author Lukáš Černý <cerny.l@gmail.com>
  */
 @Entity
-@Table(name = "author")
+@Table(name = "book_has_author")
 @NamedQueries({
-	@NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a"),
-	@NamedQuery(name = "Author.findByIdauthor", query = "SELECT a FROM Author a WHERE a.idauthor = :idauthor"),
-	@NamedQuery(name = "Author.findByName", query = "SELECT a FROM Author a WHERE a.name = :name")})
-public class Author implements Serializable {
+	@NamedQuery(name = "BookHasAuthor.findAll", query = "SELECT a FROM BookHasAuthor a"),
+	@NamedQuery(name = "BookHasAuthor.findByIdauthor", query = "SELECT a FROM BookHasAuthor a WHERE a.author_idauthor = :author_idauthor"),
+	@NamedQuery(name = "BookHasAuthor.findByIdbook", query = "SELECT a FROM BookHasAuthor a WHERE a.book_idbook = :book_idbook")})
+public class BookHasAuthor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Basic(optional = false)
-//    @NotNull
-    @Column(name = "idauthor")
+        //    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        //    @Basic(optional = false)
+        //    @NotNull     
+        @Column(name = "book_idbook")
 	@XmlID
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
-	private Integer idauthor;
-	@Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "name")
-	private String name;
-	@JoinTable(name = "book_has_author", joinColumns = {
+	private Integer book_idbook;
+	
+        @Basic(optional = false)
+        @NotNull
+        @Size(min = 1, max = 255)
+        @Column(name = "author_idauthor")    
+	private Integer author_idauthor;
+        
+        
+	/*@JoinTable(name = "book_has_author", joinColumns = {
     	@JoinColumn(name = "author_idauthor", referencedColumnName = "idauthor")}, inverseJoinColumns = {
     	@JoinColumn(name = "book_idbook", referencedColumnName = "idbook")})
     @ManyToMany
-	@XmlIDREF
-	private Collection<Book> booksCollection;
-
-	public Author() {
+	//@XmlIDREF
+	//private Collection<Book> booksCollection;
+   */
+        
+        
+	public BookHasAuthor() {
 	}
 
-	public Author(Integer idauthor) {
-		this.idauthor = idauthor;
+	public BookHasAuthor(Integer book_idbook,Integer author_idauthor) {
+                this.book_idbook = book_idbook;
+		this.author_idauthor = author_idauthor;
+               
+	}
+        
+        
+        public void setIdbook(Integer book_idbook) {
+            this.book_idbook = book_idbook;
+        }
+        
+         public int getIdbook() {
+            return this.book_idbook;
+        }
+        
+	public void setIdauthor(Integer author_idauthor) {
+		this.author_idauthor = author_idauthor;
+	}
+        
+        public int getIdauthor() {
+            return this.author_idauthor;
 	}
 
-	public Author(Integer idauthor, String name) {
-		this.idauthor = idauthor;
-		this.name = name;
-	}
-
-	public Integer getIdauthor() {
-		return idauthor;
-	}
-
-	public void setIdauthor(Integer idauthor) {
-		this.idauthor = idauthor;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+   /*
 	public Collection<Book> getBooksCollection() {
 		return booksCollection;
 	}
@@ -89,31 +93,26 @@ public class Author implements Serializable {
 	public void setBooksCollection(Collection<Book> booksCollection) {
 		this.booksCollection = booksCollection;
 	}
-
+*/
 	@Override
 	public int hashCode() {
 		int hash = 0;
-		hash += (idauthor != null ? idauthor.hashCode() : 0);
+		hash += (author_idauthor != null ? author_idauthor.hashCode() : 0);
 		return hash;
 	}
 
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Author)) {
+		if (!(object instanceof BookHasAuthor)) {
 			return false;
 		}
-		Author other = (Author) object;
-		if ((this.idauthor == null && other.idauthor != null) || (this.idauthor != null && !this.idauthor.equals(other.idauthor))) {
+		BookHasAuthor other = (BookHasAuthor) object;
+		if ((this.author_idauthor == null && other.author_idauthor != null) || (this.author_idauthor != null && !this.author_idauthor.equals(other.author_idauthor))) {
 			return false;
 		}
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		//return "org.fit.pis.library.data.Author[ idauthor=" + idauthor + " ]";
-                return name;
-	}
-
+   
 }
