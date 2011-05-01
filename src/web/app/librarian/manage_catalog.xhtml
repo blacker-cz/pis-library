@@ -26,23 +26,22 @@
 						</h:commandLink>
 					</rich:column>
 
-
-
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Autor"/><br />
-							<h:inputText value="#{manageBooksBean.filter_author}"></h:inputText>
+							<h:selectOneMenu value="#{manageBooksBean.filter_author}" required="true">                                               
+								<f:selectItem itemValue="all" itemLabel="" />                                               
+								<f:selectItems value="#{manageBooksBean.authors}" />
+							</h:selectOneMenu>
 						</f:facet>
 						<h:outputText value="#{book.authorCollection}">
 							<f:converter converterId="authorConverter" />
 						</h:outputText>
 					</rich:column>
 
-
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Rok"/><br />
-							<h:inputText value="#{manageReadersBean.filter_forename}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{book.year}">
 							<f:converter converterId="dateConverter" />
@@ -51,7 +50,6 @@
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Počet strán"/><br />
-							<h:inputText value="#{manageReadersBean.filter_surname}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{book.pages}"></h:outputText>
 					</rich:column>
@@ -64,22 +62,27 @@
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Město"/><br />
-							<h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
+							<h:inputText value="#{manageBooksBean.filter_city}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{book.place}"></h:outputText>
-
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Vydavatelství"/><br />
-							<h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
+							<h:selectOneMenu value="#{manageBooksBean.filter_publisher}" required="true">
+								<f:selectItem itemValue="all" itemLabel="" />                                               
+								<f:selectItems value="#{manageBooksBean.publishers}" />
+							</h:selectOneMenu>
 						</f:facet>
 						<h:outputText value="#{book.publisher}"></h:outputText>
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-
-							<h:outputText value="Žáner"/><br />
+							<h:outputText value="Žánr"/><br />
+							<h:selectOneMenu value="#{manageBooksBean.filter_genre}" required="true">
+								<f:selectItem itemValue="all" itemLabel="" />                                               
+								<f:selectItems value="#{manageBooksBean.genres}" />
+							</h:selectOneMenu>
 						</f:facet>
 						<h:outputText value="#{book.genre}">
 						</h:outputText>
@@ -104,8 +107,6 @@
 						<h:commandLink action="#{manageBooksBean.actionDelete}">
 							<h:outputText value="Smazat"></h:outputText>
 						</h:commandLink>
-
-
 					</rich:column>
 				</rich:dataTable>
 

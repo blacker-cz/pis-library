@@ -14,7 +14,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import org.fit.pis.library.data.*;
 import org.richfaces.component.UIDataTable;
 
@@ -44,8 +43,8 @@ public class ManageExemplarsBean {
 	private UIDataTable exemplaringListTable;
 	@ManagedProperty(value = "#{authenticationBean}")
 	private AuthenticationBean authBean;
-	@ManagedProperty(value = "#{searchBooksBean}")
-	private SearchBooksBean bookBean;
+	@ManagedProperty(value = "#{manageBooksBean}")
+	private ManageBooksBean bookBean;
 	// variables used for filtering table
 	private String nazov_zanru;
 	private String nazov_vydavatelstva;
@@ -133,7 +132,7 @@ public class ManageExemplarsBean {
 		this.authBean = authBean;
 	}
 
-	public void setBookBean(SearchBooksBean bookBean) {
+	public void setBookBean(ManageBooksBean bookBean) {
 		this.bookBean = bookBean;
 	}
 

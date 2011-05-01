@@ -28,8 +28,6 @@ public class SearchBooksBean {
 	@EJB
 	private BookManager bookMgr;
 	@EJB
-	private BookHasAuthorManager bookHasAuthorMgr;
-	@EJB
 	private GenreManager genreMgr;
 	@EJB
 	private BookingManager bookingMgr;
@@ -45,7 +43,6 @@ public class SearchBooksBean {
 	private AuthorManager authorMgr;
 	private Book book;
 	private Exemplar exemplar;
-	private BookHasAuthor bookHasAuthor;
 	private UIDataTable listTable;
 	private UIDataTable exemplarListTable;
 	private UIDataTable bookingListTable;
@@ -776,7 +773,6 @@ public class SearchBooksBean {
 		book.setYear(formatter.parse(rok_vydania));
 		book.setType("isbn");
 
-		bookHasAuthor = new BookHasAuthor();
 		autor = authorMgr.findByName(nazov_1_autora);
 
 
