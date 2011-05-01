@@ -430,4 +430,33 @@
 			<to-view-id>/app/librarian/manage_genres.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/app/librarian/manage_exemplars.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>new</from-outcome>
+			<to-view-id>/app/librarian/new_exemplar.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/app/librarian/edit_exemplar.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/app/librarian/new_exemplar.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/app/librarian/manage_exemplars.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/app/librarian/edit_exemplar.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/app/librarian/edit_exemplar.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/app/librarian/manage_exemplars.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

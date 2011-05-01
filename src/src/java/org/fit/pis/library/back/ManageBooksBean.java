@@ -107,7 +107,7 @@ public class ManageBooksBean {
 		return publisherMgr.findAll();
 	}
 
-	public int getA() {
+	public Integer getIdbook() {
 		return this.idbook;
 	}
 
