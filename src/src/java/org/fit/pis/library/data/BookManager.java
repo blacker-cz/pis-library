@@ -74,34 +74,40 @@ public class BookManager {
 	 * @param level
 	 * @return 
 	 */
-	public List<Book> find(String name, String author, Date yearFrom, Date yearTo, Genre genre, String isbn_issn) {
+	public List<Book> find(String name, Author author, Date yearFrom, Date yearTo, Genre genre, String isbn_issn) {
 		// genre SQL
-		String genreSQL = "";
+		String authorSQL = "", genreSQL = "";
 		if (genre != null) {
 			genreSQL = " AND b.genre.idgenre = :idgenreFilter ";
+		}
+		// author SQL
+		if (author != null) {
+			authorSQL = " AND :author MEMBER OF b.authorCollection ";
 		}
 
 		Query query = em.createQuery(
 				"SELECT DISTINCT b FROM Book b "
-				//				+ "JOIN b.Author a "
 				+ "WHERE "
 				+ "b.name LIKE :name AND "
 				+ "b.year BETWEEN :yearFrom AND :yearTo AND "
 				+ "b.code LIKE :isbn_issn "
-				//				+	"AND a.name LIKE :author "
 				+ genreSQL
+				+ authorSQL
 				+ "ORDER BY b.name ASC, b.year ASC");
-		//Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.authors.name LIKE :authorname" + genreSQL);
+		
 		query.setParameter("name", "%" + name + "%");
-//		query.setParameter("author", "%" + author + "%");
-
 		query.setParameter("isbn_issn", "%" + isbn_issn + "%");
+		query.setParameter("yearFrom", yearFrom);
+		query.setParameter("yearTo", yearTo);
+		
 		// genre
 		if (genre != null) {
 			query.setParameter("idgenreFilter", genre.getIdgenre());
 		}
-		query.setParameter("yearFrom", yearFrom);
-		query.setParameter("yearTo", yearTo);
+		// author
+		if (author != null) {
+			query.setParameter("author", author);
+		}
 		return (List<Book>) query.getResultList();
 	}
 
