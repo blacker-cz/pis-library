@@ -59,6 +59,17 @@ public class GenreManager {
 			return null;
 		}
 	}
+
+	public List<Genre> find(String name) {
+		Query query = em.createQuery(
+				"SELECT g FROM Genre g "
+				+ "WHERE "
+				+ "g.name LIKE :name "
+				+ "ORDER BY g.name ASC");
+		query.setParameter("name", "%" + name + "%");
+
+		return (List<Genre>) query.getResultList();
+	}
 	
 	/**
 	 * Find genre by name

@@ -12,12 +12,12 @@
 
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
+			<h2>Správa titulů</h2>
 
 			<h:form id="usersForm" prependId="false">
 				<rich:dataTable value="#{searchBooksBean.books}" rows="25" id="catalogBookList" var="book" binding="#{searchBooksBean.listTable}" rowClasses="odd,even">
 					<rich:column>
 						<f:facet name="header">
-							<h:outputText value=""/><br />
 							<h:outputText value="Jméno"/><br />
 							<h:inputText value="#{searchBooksBean.filter_name}"></h:inputText>
 						</f:facet>
@@ -30,7 +30,6 @@
 
 					<rich:column>
 						<f:facet name="header">
-							<div><h:link value="Správa autorů" outcome="manage_authors"></h:link></div>
 							<h:outputText value="Autor"/><br />
 							<h:inputText value="#{searchBooksBean.filter_author}"></h:inputText>
 						</f:facet>
@@ -42,7 +41,6 @@
 
 					<rich:column>
 						<f:facet name="header">
-							<h:outputText value=""/><br />
 							<h:outputText value="Rok"/><br />
 							<h:inputText value="#{manageReadersBean.filter_forename}"></h:inputText>
 						</f:facet>
@@ -52,7 +50,6 @@
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-							<h:outputText value=""/><br />
 							<h:outputText value="Počet strán"/><br />
 							<h:inputText value="#{manageReadersBean.filter_surname}"></h:inputText>
 						</f:facet>
@@ -66,7 +63,6 @@
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-							<h:outputText value=""/><br />
 							<h:outputText value="Město"/><br />
 							<h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
 						</f:facet>
@@ -75,7 +71,6 @@
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-							<div><h:link value="Správa vydavatelství" outcome="manage_publishers"></h:link></div>
 							<h:outputText value="Vydavatelství"/><br />
 							<h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
 						</f:facet>
@@ -91,7 +86,6 @@
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-							<h:outputText value=""/><br />
 							<h:outputText value="Kód"/><br />
 							<h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
 						</f:facet>

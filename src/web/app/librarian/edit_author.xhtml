@@ -11,7 +11,8 @@
 
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
-
+			<h2>Úprava autora</h2>
+			
 			<h:form>
 				<h:panelGrid columns="2">
 					<h:outputLabel rendered="true" value="Název autora:*"></h:outputLabel>
@@ -24,7 +25,7 @@
 				<p><strong>* údaje označené hvězdičkou jsou povinné</strong></p>
 
 				<p>
-				<h:commandButton action="#{searchAuthorsBean.actionUpdate}" value="Změň autora">
+				<h:commandButton action="#{searchAuthorsBean.actionUpdate}" value="Ulož změny">
 				</h:commandButton>
 				<h:commandButton immediate="true" action="cancel" value="Hotovo" onclick="return confirm('Všechny neuložené změny budou ztraceny. Pokračovat?');">
 				</h:commandButton>

@@ -1,6 +1,5 @@
 /*
  */
-
 package org.fit.pis.library.data;
 
 import java.util.List;
@@ -17,34 +16,28 @@ import javax.persistence.Query;
  */
 @Stateless
 public class AuthorManager {
-    @PersistenceContext
-    private EntityManager em;
 
-    public void save(Author a)
-    {
-    	em.merge(a);
-    }
-    
-    
-    
-	
-    public void remove(Author a)
-    {
-    	em.remove(em.merge(a));
-    }
-    
-	public void flush()
-	{
+	@PersistenceContext
+	private EntityManager em;
+
+	public void save(Author a) {
+		em.merge(a);
+	}
+
+	public void remove(Author a) {
+		em.remove(em.merge(a));
+	}
+
+	public void flush() {
 		em.flush();
 	}
-	
-    @SuppressWarnings("unchecked")
-    public List<Author> findAll()
-    {
+
+	@SuppressWarnings("unchecked")
+	public List<Author> findAll() {
 		//return em.createNamedQuery("Author.findAll").getResultList();
-                return em.createQuery("SELECT a FROM Author a ORDER BY a.name ASC").getResultList();
-    }
-	
+		return em.createQuery("SELECT a FROM Author a ORDER BY a.name ASC").getResultList();
+	}
+
 	/**
 	 * Find author by id
 	 * @param id	Author id
@@ -52,7 +45,7 @@ public class AuthorManager {
 	 */
 	public Author findByIdauthor(Integer id) {
 		em.flush();
-		
+
 		try {
 			Query query = em.createNamedQuery("Author.findByIdauthor");
 			query.setParameter("idauthor", id);
@@ -61,29 +54,18 @@ public class AuthorManager {
 			return null;
 		}
 	}
-        
-	 public List<Author> find(String name) {
-		// genre SQL
-		String genreSQL = "";	
+
+	public List<Author> find(String name) {
 		Query query = em.createQuery(
 				"SELECT DISTINCT a FROM Author a "
-//				+ "JOIN a.author a "
 				+ "WHERE "
-				+	"a.name LIKE :name "
-//				+	"AND a.name LIKE :author "
-				+ genreSQL 
-				+ "ORDER BY a.name ASC"
-				);
-		//Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.authors.name LIKE :authorname" + genreSQL);
+				+ "a.name LIKE :name "
+				+ "ORDER BY a.name ASC");
 		query.setParameter("name", "%" + name + "%");
-//		query.setParameter("author", "%" + author + "%");
-		// TODO: author
-		//query.setParameter("authorname", "%" + author + "%");
-	
-                
-            
+
 		return (List<Author>) query.getResultList();
 	}
+
 	/**
 	 * Find Author by name
 	 * @param name	Author name

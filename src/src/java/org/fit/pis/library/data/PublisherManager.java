@@ -1,6 +1,5 @@
 /*
  */
-
 package org.fit.pis.library.data;
 
 import java.util.List;
@@ -17,31 +16,27 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PublisherManager {
-    @PersistenceContext
-    private EntityManager em;
 
-    public void save(Publisher p)
-    {
-    	em.merge(p);
-    }
-	
-    public void remove(Publisher p)
-    {
-    	em.remove(em.merge(p));
-    }
-        
-	public void flush()
-	{
+	@PersistenceContext
+	private EntityManager em;
+
+	public void save(Publisher p) {
+		em.merge(p);
+	}
+
+	public void remove(Publisher p) {
+		em.remove(em.merge(p));
+	}
+
+	public void flush() {
 		em.flush();
 	}
 
-    @SuppressWarnings("unchecked")
-    public List<Publisher> findAll()
-    {
-		//return em.createNamedQuery("Publisher.findAll").getResultList();
-                return em.createQuery("SELECT p FROM Publisher p ORDER BY p.name ASC").getResultList();
-    }
-	
+	@SuppressWarnings("unchecked")
+	public List<Publisher> findAll() {
+		return em.createQuery("SELECT p FROM Publisher p ORDER BY p.name ASC").getResultList();
+	}
+
 	/**
 	 * Find publisher by id
 	 * @param id
@@ -49,7 +44,7 @@ public class PublisherManager {
 	 */
 	public Publisher findByIdpublisher(Integer id) {
 		em.flush();
-		
+
 		try {
 			Query query = em.createNamedQuery("Publisher.findByIdpublisher");
 			query.setParameter("idpublisher", id);
@@ -58,31 +53,24 @@ public class PublisherManager {
 			return null;
 		}
 	}
-	
-        public List<Publisher> find(String name) {
+
+	public List<Publisher> find(String name, String address) {
 		// genre SQL
-		String genreSQL = "";	
+		String genreSQL = "";
 		Query query = em.createQuery(
-				"SELECT DISTINCT p FROM Publisher p "
-//				+ "JOIN a.publisher a "
+				"SELECT p FROM Publisher p "
 				+ "WHERE "
-				+	"p.name LIKE :name "
-//				+	"AND a.name LIKE :publisher "
-				+ genreSQL 
-				+ "ORDER BY p.name ASC"
-				);
-		//Query query = em.createQuery("SELECT b FROM Book b WHERE b.name LIKE :name AND b.publishers.name LIKE :publishername" + genreSQL);
+				+ "p.name LIKE :name "
+				+ "AND p.address LIKE :address "
+				+ genreSQL
+				+ "ORDER BY p.name ASC");
+
 		query.setParameter("name", "%" + name + "%");
-//		query.setParameter("publisher", "%" + publisher + "%");
-		// TODO: publisher
-		//query.setParameter("publishername", "%" + publisher + "%");
-	
-                
-            
+		query.setParameter("address", "%" + address + "%");
+
 		return (List<Publisher>) query.getResultList();
 	}
-    
-        
+
 	/**
 	 * Find Publisher by name
 	 * @param name	Publisher name

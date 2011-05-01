@@ -11,6 +11,7 @@
 
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
+			<h2>Přidání titulu</h2>
 
 			<h:form>
 				<h:panelGrid columns="2">
@@ -61,7 +62,7 @@
 					<h:outputLabel rendered="true" value="Vydavatelství*"></h:outputLabel>
 					<h:selectOneMenu value="#{searchBooksBean.nazov_vydavatelstva}" required="true"
 									 requiredMessage="Nakladatelství musí být zvoleno">                                               
-						<f:selectItems value="#{publisherBean.publishers}" />
+						<f:selectItems value="#{publishersBean.publishers}" />
 					</h:selectOneMenu>                               
 					<h:outputLabel rendered="true" value="Kód*"></h:outputLabel>
 					<h:inputText value="#{searchBooksBean.book.code}" required="true"

@@ -12,12 +12,12 @@
     
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
+			<h2>Správa autorů</h2>
 
 			<h:form id="usersForm" prependId="false">
 				<rich:dataTable value="#{searchAuthorsBean.authors}" rows="25" id="catalogAuthorList" var="author" binding="#{searchAuthorsBean.listTable}" rowClasses="odd,even">
 					<rich:column>
 						<f:facet name="header">
-                                                        <h:outputText value=""/><br />
 							<h:outputText value="Jméno"/><br />
 							<h:inputText value="#{searchAuthorsBean.filter_name}"></h:inputText>
 						</f:facet>
@@ -37,7 +37,6 @@
 						<h:commandLink action="#{searchAuthorsBean.actionDelete}">
 							<h:outputText value="Smazat"></h:outputText>
 						</h:commandLink>
-						
 						
 					</rich:column>
 				</rich:dataTable>

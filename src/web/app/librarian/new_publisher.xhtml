@@ -11,33 +11,34 @@
 
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
+			<h2>Přidání vydavatelství</h2>
 
-<h:form>
+			<h:form>
 				<h:panelGrid columns="2">
 					<h:outputLabel rendered="true" value="Název vydavatelství*"></h:outputLabel>
 					<h:inputTextarea value="#{publishersBean.publisher.name}" required="true"
 									 requiredMessage="Název titulu musí být vyplněn">
 					</h:inputTextarea>
-                                        
-                                                                                                    
-                                        <h:outputLabel rendered="true" value="Adresa"></h:outputLabel>
+
+
+					<h:outputLabel rendered="true" value="Adresa"></h:outputLabel>
 					<h:inputTextarea  value="#{publishersBean.publisher.address}">
-          
+
 					</h:inputTextarea>
-					
-                      
+
+
 				</h:panelGrid>
 
 				<p><strong>* údaje označené hvězdičkou jsou povinné</strong></p>
 
 				<p>
-				<h:commandButton action="#{publishersBean.actionInsert}" value="Vytvoř titul">
+				<h:commandButton action="#{publishersBean.actionInsert}" value="Vytvoř vydavatelství">
 				</h:commandButton>
-				<h:commandButton immediate="true" action="cancel" value="Hotovo" onclick="return confirm('Všechny neuložené změny budou ztraceny. Pokračovat?');">
+				<h:commandButton immediate="true" action="cancel" value="Zrušit" onclick="return confirm('Všechny neuložené změny budou ztraceny. Pokračovat?');">
 				</h:commandButton>
 				</p>
 
-                                
+
 			</h:form>
 		</ui:define>
 	</ui:composition>

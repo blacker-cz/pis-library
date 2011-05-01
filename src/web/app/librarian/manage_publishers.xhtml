@@ -9,37 +9,36 @@
       xmlns:rich="http://richfaces.org/rich">
 
 
-    
+
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
+			<h2>Správa vydavatelů</h2>
 
 			<h:form id="usersForm" prependId="false">
-				<rich:dataTable value="#{publishersBean.publishers}" rows="25" id="catalogPublisherList" var="publisher" binding="#{publishersBean.listTable}" rowClasses="odd,even">
+				<rich:dataTable value="#{publishersBean.filteredPublishers}" rows="25" id="catalogPublisherList" var="publisher" binding="#{publishersBean.listTable}" rowClasses="odd,even">
 					<rich:column>
 						<f:facet name="header">
-                                                        <h:outputText value=""/><br />
 							<h:outputText value="Jméno"/><br />
 							<h:inputText value="#{publishersBean.filter_name}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{publisher.name}"></h:outputText>
 					</rich:column>
-                                                                            
-                                    
-                                         <rich:column>
+
+
+					<rich:column>
 						<f:facet name="header">
-                                                        <h:outputText value=""/><br />
 							<h:outputText value="Adresa"/><br />
-							<h:inputText value="#{searchAuthorsBean.filter_name}"></h:inputText>
+							<h:inputText value="#{publishersBean.filter_address}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{publisher.address}"></h:outputText>
 					</rich:column>
-                               
+
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Akce" /><br />
 							<h:commandButton value="Filtruj" />
 						</f:facet>
-                                                <h:outputText value=" "></h:outputText>
+						<h:outputText value=" "></h:outputText>
 						<h:commandLink action="#{publishersBean.actionEdit}">
 							<h:outputText value="Upravit"></h:outputText>
 						</h:commandLink>
@@ -47,11 +46,11 @@
 						<h:commandLink action="#{publishersBean.actionDelete}">
 							<h:outputText value="Smazat"></h:outputText>
 						</h:commandLink>
-						
-						
+
+
 					</rich:column>
 				</rich:dataTable>
-				
+
 				<rich:dataScroller for="catalogPublisherList" maxPages="20" />
 				<h:commandLink action="#{publishersBean.actionCreateNew}">
 					<h:outputText value="Vložit nový záznam"></h:outputText>
