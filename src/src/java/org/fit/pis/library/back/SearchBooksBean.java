@@ -429,6 +429,8 @@ public class SearchBooksBean {
 	 * @return 
 	 */
 	public List<Exemplar> getExemplarCollection(Book book) {
+		// borrowCollection = borrowMgr.
+		
 		return exemplarMgr.findByBook(book);
 	}
 	

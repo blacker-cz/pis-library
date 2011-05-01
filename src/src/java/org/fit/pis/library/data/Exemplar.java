@@ -61,7 +61,7 @@ public class Exemplar implements Serializable {
     @ManyToOne(optional = false)
 	@XmlIDREF
 	private Book book;
-		@OneToMany(cascade = CascadeType.ALL, mappedBy = "exemplar")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "exemplar")
 	@XmlIDREF
 	private Collection<Borrow> borrowCollection;
 
