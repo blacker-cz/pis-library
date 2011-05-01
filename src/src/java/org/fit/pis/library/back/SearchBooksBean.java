@@ -643,6 +643,30 @@ public class SearchBooksBean {
 	}
 	
 	/**
+	 * Manage bookings action
+	 * @return 
+	 */
+	public String actionManageBookings() {
+		return "manageBookings";
+	}
+	
+	/**
+	 * Manage borrows action
+	 * @return 
+	 */
+	public String actionManageBorrows() {
+		return "manageBorrows";
+	}
+	
+	/**
+	 * Just empty action
+	 * @return 
+	 */
+	public String actionEmptyAction() {
+		return "";
+	}
+	
+	/**
 	 * Edit user
 	 * @return "edit"
 	 */
