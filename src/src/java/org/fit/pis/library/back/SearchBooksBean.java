@@ -492,6 +492,10 @@ public class SearchBooksBean {
 					return action;
 				}
 			}
+		// no exemplar - can't book
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Can't book book with no exemplars!"));
+			return action;
 		}
 
 
