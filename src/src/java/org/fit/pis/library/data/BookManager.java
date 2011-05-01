@@ -107,11 +107,18 @@ public class BookManager {
 
 	public Integer new_id() {
 		Query query = em.createQuery(
-				"SELECT idbook FROM Book ORDER BY idbook DESC LIMIT 1").setMaxResults(1);
+				"SELECT b.idbook FROM Book b ORDER BY b.idbook DESC").setMaxResults(1);
 		return (Integer) query.getSingleResult();
 	}
-	
+
+	public void refresh(Book e) {
+		em.flush();
+		em.refresh(e);
+	}
+
 	public List<Book> find(String name, Author author, Genre genre, Publisher publisher, String code, String city) {
+		em.flush();
+
 		String authorSQL = "", genreSQL = "", publisherSQL = "";
 
 		if (author != null) {
@@ -149,10 +156,16 @@ public class BookManager {
 			query.setParameter("idpublisherFilter", publisher.getIdpublisher());
 		}
 		// author
-		if(author != null) {
+		if (author != null) {
 			query.setParameter("author", author);
 		}
-		
-		return (List<Book>) query.getResultList();
+
+		List<Book> books = query.getResultList();
+
+		for (Book b : books) {
+			refresh(b);
+		}
+
+		return books;
 	}
 }

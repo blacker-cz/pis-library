@@ -4,14 +4,12 @@ package org.fit.pis.library.back;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.fit.pis.library.data.*;
@@ -39,27 +37,22 @@ public class ManageBooksBean {
 	private Exemplar exemplar;
 	private UIDataTable listTable;
 	private UIDataTable exemplarListTable;
-
 	// variables used for filtering table
 	private int idbook;
-
 	private String nazov_zanru;
 	private String nazov_vydavatelstva;
 	private String rok_vydania;
 	private Author autor;
-
 	private String filter_name;
 	private String filter_publisher;
 	private String filter_author;
 	private String filter_genre;
 	private String filter_isbn_issn;
 	private String filter_city;
-	
 	private String nazov_1_autora;
 	private String nazov_2_autora;
 	private String nazov_3_autora;
 	private String nazov_4_autora;
-	private Collection<Author> autorovia;
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
 
 	/** Creates a new instance of ManageUsersBean */
@@ -105,15 +98,15 @@ public class ManageBooksBean {
 	public List<Author> getAuthors() {
 		return authorMgr.findAll();
 	}
-	
+
 	public List<Genre> getGenres() {
 		return genreMgr.findAll();
 	}
-	
+
 	public List<Publisher> getPublishers() {
 		return publisherMgr.findAll();
 	}
-	
+
 	public int getA() {
 		return this.idbook;
 	}
@@ -165,8 +158,63 @@ public class ManageBooksBean {
 	public void setFilter_city(String filter_city) {
 		this.filter_city = filter_city;
 	}
-	
-	
+
+	public String getNazov_1_autora() {
+		return nazov_1_autora;
+	}
+
+	public void setNazov_1_autora(String nazov_1_autora) {
+		this.nazov_1_autora = nazov_1_autora;
+	}
+
+	public String getNazov_2_autora() {
+		return nazov_2_autora;
+	}
+
+	public void setNazov_2_autora(String nazov_2_autora) {
+		this.nazov_2_autora = nazov_2_autora;
+	}
+
+	public String getNazov_3_autora() {
+		return nazov_3_autora;
+	}
+
+	public void setNazov_3_autora(String nazov_3_autora) {
+		this.nazov_3_autora = nazov_3_autora;
+	}
+
+	public String getNazov_4_autora() {
+		return nazov_4_autora;
+	}
+
+	public void setNazov_4_autora(String nazov_4_autora) {
+		this.nazov_4_autora = nazov_4_autora;
+	}
+
+	public String getNazov_vydavatelstva() {
+		return nazov_vydavatelstva;
+	}
+
+	public void setNazov_vydavatelstva(String nazov_vydavatelstva) {
+		this.nazov_vydavatelstva = nazov_vydavatelstva;
+	}
+
+	public String getNazov_zanru() {
+		return nazov_zanru;
+	}
+
+	public void setNazov_zanru(String nazov_zanru) {
+		this.nazov_zanru = nazov_zanru;
+	}
+
+	public String getRok_vydania() {
+		return rok_vydania;
+	}
+
+	public void setRok_vydania(String rok_vydania) {
+		this.rok_vydania = rok_vydania;
+	}
+
 	/**
 	 * Set user
 	 * @param user 
@@ -207,6 +255,7 @@ public class ManageBooksBean {
 			}
 		}
 
+		bookMgr.flush();
 		return bookMgr.find(filter_name, author, genre, publisher, filter_isbn_issn, filter_city);
 	}
 
@@ -280,7 +329,7 @@ public class ManageBooksBean {
 	public String actionEmptyAction() {
 		return "";
 	}
-	
+
 	/**
 	 * Edit user
 	 * @return "edit"
@@ -290,13 +339,10 @@ public class ManageBooksBean {
 
 		this.nazov_zanru = book.getGenre().toString();
 
-
 		this.nazov_vydavatelstva = book.getPublisher().toString();
 
-
-		this.autorovia = book.getAuthorCollection();
-		autorovia.size();
-		int i = 0, size = autorovia.size();
+		Collection<Author> autorovia = book.getAuthorCollection();
+		int i = 0;
 		for (Author a : autorovia) {
 			if (i == 0) {
 				this.nazov_1_autora = (String) a.getName().toString();
@@ -311,9 +357,10 @@ public class ManageBooksBean {
 				this.nazov_4_autora = (String) a.getName().toString();
 			}
 			i++;
-
 		}
+
 		this.rok_vydania = (String) formatter.format(book.getYear());
+
 		return "edit";
 	}
 
@@ -323,6 +370,13 @@ public class ManageBooksBean {
 	 */
 	public String actionCreateNew() {
 		setBook(new Book());
+		nazov_1_autora = "";
+		nazov_2_autora = "";
+		nazov_3_autora = "";
+		nazov_4_autora = "";
+		nazov_vydavatelstva = "";
+		nazov_zanru = "";
+		rok_vydania = "";
 		return "new";
 	}
 
@@ -343,20 +397,54 @@ public class ManageBooksBean {
 
 	public String actionUpdate() throws ParseException {
 
-		bookMgr.new_id();
-
 		book.setGenre(genreMgr.findByName(nazov_zanru));
 		book.setPublisher(publisherMgr.findByName(nazov_vydavatelstva));
-
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("book.getIdbook()" + book.getIdbook()));
-
-
-
-
 		book.setYear(formatter.parse(rok_vydania));
 
 		try {
+			Collection<Author> authors = book.getAuthorCollection();
+			for(Author a : authors) {
+				a.getBooksCollection().remove(book);
+				authorMgr.save(a);
+				authorMgr.flush();
+			}
+			
+			Author author = null;
+			if (nazov_1_autora != null && !nazov_1_autora.isEmpty()) {
+				author = authorMgr.findByName(nazov_1_autora);
+				if (author != null) {
+					author.getBooksCollection().add(book);
+					authorMgr.save(author);
+				}
+			}
+
+			if (nazov_2_autora != null && !nazov_2_autora.isEmpty()) {
+				author = authorMgr.findByName(nazov_2_autora);
+				if (author != null) {
+					author.getBooksCollection().add(book);
+					authorMgr.save(author);
+				}
+			}
+
+			if (nazov_3_autora != null && !nazov_3_autora.isEmpty()) {
+				author = authorMgr.findByName(nazov_3_autora);
+				if (author != null) {
+					author.getBooksCollection().add(book);
+					authorMgr.save(author);
+				}
+			}
+
+			if (nazov_4_autora != null && !nazov_4_autora.isEmpty()) {
+				author = authorMgr.findByName(nazov_4_autora);
+				if (author != null) {
+					author.getBooksCollection().add(book);
+					authorMgr.save(author);
+				}
+			}
+
 			bookMgr.save(book);
+			bookMgr.flush();
+			authorMgr.flush();
 		} catch (javax.ejb.EJBException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit, zkuste to prosím později."));
 			return "";
@@ -368,54 +456,61 @@ public class ManageBooksBean {
 	}
 
 	public String actionInsert() throws ParseException {
-		Collection<Author> novy_autorovia;
-
 
 		book.setGenre(genreMgr.findByName(nazov_zanru));
 		book.setPublisher(publisherMgr.findByName(nazov_vydavatelstva));
 		book.setYear(formatter.parse(rok_vydania));
 		book.setType("isbn");
 
-		autor = authorMgr.findByName(nazov_1_autora);
-
-
-		//bookHasAuthor.setIdauthor(autor.getIdauthor());
-
-		//bookHasAuthor.setIdbook(book.getIdbook());
-
-		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+bookHasAuthor.getIdauthor();"+bookHasAuthor.getIdauthor()));
-		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+bookHasAuthor.getIdbook()));
-
-		//bookHasAuthorMgr.save(bookHasAuthor);
-
-
-
-		novy_autorovia = (authorMgr.find(nazov_1_autora));
-
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Title was successfully created."));
-
-
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();" + autor.toString()));
-
+		if (book.getAuthorCollection() == null) {
+			book.setAuthorCollection(new ArrayList<Author>());
+		}
 
 		try {
+			book.setIdbook(bookMgr.new_id() + 1); // hope this will work
 			bookMgr.save(book);
 
+			Author author = null;
+			if (nazov_1_autora != null && !nazov_1_autora.isEmpty()) {
+				author = authorMgr.findByName(nazov_1_autora);
+				if (author != null) {
+					author.getBooksCollection().add(book);
+					authorMgr.save(author);
+				}
+			}
 
+			if (nazov_2_autora != null && !nazov_2_autora.isEmpty()) {
+				author = authorMgr.findByName(nazov_2_autora);
+				if (author != null) {
+					author.getBooksCollection().add(book);
+					authorMgr.save(author);
+				}
+			}
+
+			if (nazov_3_autora != null && !nazov_3_autora.isEmpty()) {
+				author = authorMgr.findByName(nazov_3_autora);
+				if (author != null) {
+					author.getBooksCollection().add(book);
+					authorMgr.save(author);
+				}
+			}
+
+			if (nazov_4_autora != null && !nazov_4_autora.isEmpty()) {
+				author = authorMgr.findByName(nazov_4_autora);
+				if (author != null) {
+					author.getBooksCollection().add(book);
+					authorMgr.save(author);
+				}
+			}
+
+			bookMgr.save(book);
 		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Titul se nepodařilo vytvořit, zkuste to prosím později."));
 			return "";
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Title was successfully created."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Titul byl úspěšně vytvořen."));
 
-
-		/* 
-		bookHasAuthor.setIdbook(book.getIdbook());
-		bookHasAuthor.setIdauthor(autor.getIdauthor());
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+bookHasAuthor.getIdauthor();"+bookHasAuthor.getIdauthor()));
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+bookHasAuthor.getIdbook()));
-		 */
 		return "edit";
 	}
 }

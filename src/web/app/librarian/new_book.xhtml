@@ -22,28 +22,30 @@
 					<h:outputLabel rendered="true" value="Název 1. autora*"></h:outputLabel>                                  
 					<h:selectOneMenu value="#{manageBooksBean.nazov_1_autora}" required="true"
 									 requiredMessage="Jméno prvního autora musí být vyplněno">                                               
-						<f:selectItems value="#{searchAuthorsBean.authors}" />
+						<f:selectItems value="#{manageBooksBean.authors}" />
 					</h:selectOneMenu>                                        
 					<h:outputLabel rendered="true" value="Název 2. autora*"></h:outputLabel>					                                     
 					<h:selectOneMenu value="#{manageBooksBean.nazov_2_autora}" >                                               
 						<f:selectItem itemValue="all" itemLabel="" />                                               
-						<f:selectItems value="#{searchAuthorsBean.authors}" />
+						<f:selectItems value="#{manageBooksBean.authors}" />
 					</h:selectOneMenu>
 
 					<h:outputLabel rendered="true" value="Název 3. autora*"></h:outputLabel>
 					<h:selectOneMenu value="#{manageBooksBean.nazov_3_autora}" >                                               
 						<f:selectItem itemValue="all" itemLabel="" />                                               
-						<f:selectItems value="#{searchAuthorsBean.authors}" />
+						<f:selectItems value="#{manageBooksBean.authors}" />
 					</h:selectOneMenu>                                   
 					<h:outputLabel rendered="true" value="Název 4. autora*"></h:outputLabel>
 					<h:selectOneMenu value="#{manageBooksBean.nazov_4_autora}" >                                               
 						<f:selectItem itemValue="all" itemLabel="" />                                               
-						<f:selectItems value="#{searchAuthorsBean.authors}" />
+						<f:selectItems value="#{manageBooksBean.authors}" />
 					</h:selectOneMenu>
 
 					<h:outputLabel rendered="true" value="Rok:*"></h:outputLabel>
 					<h:inputText value="#{manageBooksBean.rok_vydania}" required="true"
-								 requiredMessage="Rok musí být vyplněn">                                
+								 requiredMessage="Rok musí být vyplněn"
+								 validatorMessage="Rok musí být ve tvaru YYYY">                                
+								<f:validateRegex pattern="^[1-2][0-9][0-9][0-9]$" />
 					</h:inputText>					
 					<h:outputLabel rendered="true" value="Počet strán:"></h:outputLabel>
 					<h:inputText value="#{manageBooksBean.book.pages}">
@@ -57,12 +59,12 @@
 					<h:outputLabel rendered="true" value="Žáner*"></h:outputLabel>
 					<h:selectOneMenu value="#{manageBooksBean.nazov_zanru}" required="true"
 									 requiredMessage="Žánr musí být zvolen">
-						<f:selectItems value="#{genreBean.genres}" />
+						<f:selectItems value="#{manageBooksBean.genres}" />
 					</h:selectOneMenu>                                      
 					<h:outputLabel rendered="true" value="Vydavatelství*"></h:outputLabel>
 					<h:selectOneMenu value="#{manageBooksBean.nazov_vydavatelstva}" required="true"
 									 requiredMessage="Nakladatelství musí být zvoleno">                                               
-						<f:selectItems value="#{publishersBean.publishers}" />
+						<f:selectItems value="#{manageBooksBean.publishers}" />
 					</h:selectOneMenu>                               
 					<h:outputLabel rendered="true" value="Kód*"></h:outputLabel>
 					<h:inputText value="#{manageBooksBean.book.code}" required="true"
