@@ -9,7 +9,7 @@
       xmlns:rich="http://richfaces.org/rich">
 
 
-    
+
 	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
 
@@ -17,42 +17,42 @@
 				<rich:dataTable value="#{searchBooksBean.books}" rows="25" id="catalogBookList" var="book" binding="#{searchBooksBean.listTable}" rowClasses="odd,even">
 					<rich:column>
 						<f:facet name="header">
-                                                        <h:outputText value=""/><br />
+							<h:outputText value=""/><br />
 							<h:outputText value="Jméno"/><br />
 							<h:inputText value="#{searchBooksBean.filter_name}"></h:inputText>
 						</f:facet>
 						<h:commandLink action="#{searchBooksBean.actionDetail}">
-									<h:outputText value="#{book.name}"></h:outputText>
+							<h:outputText value="#{book.name}"></h:outputText>
 						</h:commandLink>
 					</rich:column>
-                                    
-                            
-                                    
-                                        <rich:column>
+
+
+
+					<rich:column>
 						<f:facet name="header">
-                                                        <div><h:link value="Správa autorů" outcome="manage_authors"></h:link></div>
+							<div><h:link value="Správa autorů" outcome="manage_authors"></h:link></div>
 							<h:outputText value="Autor"/><br />
 							<h:inputText value="#{searchBooksBean.filter_author}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{book.authorCollection}">
-                                                        <f:converter converterId="authorConverter" />
-                                                </h:outputText>
+							<f:converter converterId="authorConverter" />
+						</h:outputText>
 					</rich:column>
-                                    
-                                    
+
+
 					<rich:column>
 						<f:facet name="header">
-                                                         <h:outputText value=""/><br />
+							<h:outputText value=""/><br />
 							<h:outputText value="Rok"/><br />
 							<h:inputText value="#{manageReadersBean.filter_forename}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{book.year}">
-                                                        <f:converter converterId="dateConverter" />
-                                                </h:outputText>
+							<f:converter converterId="dateConverter" />
+						</h:outputText>
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-                                                        <h:outputText value=""/><br />
+							<h:outputText value=""/><br />
 							<h:outputText value="Počet strán"/><br />
 							<h:inputText value="#{manageReadersBean.filter_surname}"></h:inputText>
 						</f:facet>
@@ -66,16 +66,16 @@
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-                                                        <h:outputText value=""/><br />
+							<h:outputText value=""/><br />
 							<h:outputText value="Město"/><br />
-                                                        <h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
+							<h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{book.place}"></h:outputText>
-                                                
+
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-                                                        <div><h:link value="Správa vydavatelství" outcome="manage_publishers"></h:link></div>
+							<div><h:link value="Správa vydavatelství" outcome="manage_publishers"></h:link></div>
 							<h:outputText value="Vydavatelství"/><br />
 							<h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
 						</f:facet>
@@ -83,7 +83,7 @@
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-                                                    
+
 							<h:outputText value="Žáner"/><br />
 						</f:facet>
 						<h:outputText value="#{book.genre}">
@@ -91,9 +91,9 @@
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-                                                        <h:outputText value=""/><br />
+							<h:outputText value=""/><br />
 							<h:outputText value="Kód"/><br />
-                                                        <h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
+							<h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{book.code}"></h:outputText>
 					</rich:column>
@@ -102,7 +102,7 @@
 							<h:outputText value="Akce" /><br />
 							<h:commandButton value="Filtruj" />
 						</f:facet>
-                                                <h:outputText value=" "></h:outputText>
+						<h:outputText value=" "></h:outputText>
 						<h:commandLink action="#{searchBooksBean.actionEdit}">
 							<h:outputText value="Upravit"></h:outputText>
 						</h:commandLink>
@@ -110,11 +110,11 @@
 						<h:commandLink action="#{searchBooksBean.actionDelete}">
 							<h:outputText value="Smazat"></h:outputText>
 						</h:commandLink>
-						
-						
+
+
 					</rich:column>
 				</rich:dataTable>
-				
+
 				<rich:dataScroller for="catalogBookList" maxPages="20" />
 				<h:commandLink action="#{searchBooksBean.actionCreateNew}">
 					<h:outputText value="Vložit nový záznam"></h:outputText>

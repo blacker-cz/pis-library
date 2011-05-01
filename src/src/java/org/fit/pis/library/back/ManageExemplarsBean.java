@@ -25,9 +25,9 @@ import org.richfaces.component.UIDataTable;
 @ManagedBean
 @SessionScoped
 public class ManageExemplarsBean {
+
 	@EJB
 	private ExemplarManager exemplarMgr;
-        
 	@EJB
 	private GenreManager genreMgr;
 	@EJB
@@ -36,56 +36,40 @@ public class ManageExemplarsBean {
 	private PublisherManager publisherMgr;
 	@EJB
 	private BorrowManager borrowMgr;
-        @EJB
+	@EJB
 	private AuthorManager authorMgr;
-        
 	private Exemplar exemplar;
 	private UIDataTable listTable;
 	private UIDataTable exemplarListTable;
 	private UIDataTable exemplaringListTable;
-	
-	@ManagedProperty(value="#{authenticationBean}")
+	@ManagedProperty(value = "#{authenticationBean}")
 	private AuthenticationBean authBean;
-	        
-        @ManagedProperty(value="#{searchBooksBean}")
-        private SearchBooksBean bookBean;
-        
-        
-       
-       
+	@ManagedProperty(value = "#{searchBooksBean}")
+	private SearchBooksBean bookBean;
 	// variables used for filtering table
-        private String nazov_zanru;
-        private String nazov_vydavatelstva;
-        private String rok_vydania;
-        private String rok_vydania2;
+	private String nazov_zanru;
+	private String nazov_vydavatelstva;
+	private String rok_vydania;
+	private String rok_vydania2;
 	private String filter_name;
 	private String filter_author;
-        private Genre exemplar_genre;
+	private Genre exemplar_genre;
 	private Author autor;
-        private Book book;
-        private Calendar filter_dateFrom;
+	private Book book;
+	private Calendar filter_dateFrom;
 	private Calendar filter_dateTo;
 	private String filter_genre;
 	private String filter_isbn_issn;
-        private String nazov_1_autora;
-        private String nazov_2_autora;
-        private String nazov_3_autora;
-        private String nazov_4_autora;
-        
-        private int a;
-        private String[] autori;
-        private Collection<Author> autorovia;
-	
-        
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ValueBinding vb = facesContext.getApplication().createValueBinding(" #{YourBean}");
-        ManageExemplarsBean beanObj = (ManageExemplarsBean) vb.getValue(facesContext); 
-        
-        
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy"); 
+	private String nazov_1_autora;
+	private String nazov_2_autora;
+	private String nazov_3_autora;
+	private String nazov_4_autora;
+	private String[] autori;
+	private Collection<Author> autorovia;
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
 	private int minExemplarYear;
 	private int maxExemplarYear;
-	
+
 	/** Creates a new instance of ManageUsersBean */
 	public ManageExemplarsBean() {
 		clearFilter();
@@ -95,7 +79,7 @@ public class ManageExemplarsBean {
 	 * Clear filter variables
 	 */
 	private void clearFilter() {
-		exemplar= new Exemplar();
+		exemplar = new Exemplar();
 
 		// set empty filtering
 		filter_name = "";
@@ -103,11 +87,11 @@ public class ManageExemplarsBean {
 		filter_genre = "";
 		filter_isbn_issn = "";
 		filter_dateFrom = Calendar.getInstance();
-		
+
 		filter_dateTo = Calendar.getInstance();
-		
+
 	}
-	
+
 	/**
 	 * Get user
 	 * @return 
@@ -121,10 +105,10 @@ public class ManageExemplarsBean {
 	 * @param user 
 	 */
 	public void setExemplar(Exemplar exemplar) {
-		this.exemplar= exemplar;
+		this.exemplar = exemplar;
 	}
 
-        /**
+	/**
 	 * Get user
 	 * @return 
 	 */
@@ -132,17 +116,15 @@ public class ManageExemplarsBean {
 		return book;
 	}
 
-        
 	/**
 	 * Set user
 	 * @param user 
 	 */
 	public void setBook(Book book) {
 		this.book = book;
-                
+
 	}
-        
-        
+
 	/**
 	 * Authentication bean setter
 	 * @param authBean 
@@ -150,24 +132,20 @@ public class ManageExemplarsBean {
 	public void setAuthBean(AuthenticationBean authBean) {
 		this.authBean = authBean;
 	}
-        
-        public void setBookBean(SearchBooksBean bookBean) {              
-		this.bookBean = bookBean;               
-	}
-        
- 
 
-        public String getRok_vydania() {
+	public void setBookBean(SearchBooksBean bookBean) {
+		this.bookBean = bookBean;
+	}
+
+	public String getRok_vydania() {
 		return rok_vydania;
 	}
-        
-        public void setrok_vydania(String rok_vydania) {
+
+	public void setrok_vydania(String rok_vydania) {
 		this.rok_vydania = rok_vydania;
 	}
-        
-       
-        
-        public String getFilter_name() {
+
+	public String getFilter_name() {
 		return filter_name;
 	}
 
@@ -183,7 +161,7 @@ public class ManageExemplarsBean {
 	public void setFilter_author(String filter_author) {
 		this.filter_author = filter_author;
 	}
-	
+
 	public String getFilter_isbn_issn() {
 		return filter_isbn_issn;
 	}
@@ -191,15 +169,15 @@ public class ManageExemplarsBean {
 	public void setFilter_isbn_issn(String filter_isbn_issn) {
 		this.filter_isbn_issn = filter_isbn_issn;
 	}
-	
+
 	public String getFilter_genre() {
 		return filter_genre;
 	}
-	
+
 	public void setFilter_genre(String genre) {
 		filter_genre = genre;
 	}
-	
+
 	public Date getFilter_dateFrom() {
 		return filter_dateFrom.getTime();
 	}
@@ -209,18 +187,19 @@ public class ManageExemplarsBean {
 	}
 
 	public String getFilter_yearFrom() {
-		if (filter_dateFrom == null)
+		if (filter_dateFrom == null) {
 			return "";
+		}
 
 		// format date
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy");
-        return dateformat.format(filter_dateFrom.getTime());
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy");
+		return dateformat.format(filter_dateFrom.getTime());
 	}
 
 	public int getMinExemplarYear() {
 		return minExemplarYear;
 	}
-	
+
 	public void setMinExemplarYear(int year) {
 		minExemplarYear = year;
 	}
@@ -228,23 +207,24 @@ public class ManageExemplarsBean {
 	public int getMaxExemplarYear() {
 		return maxExemplarYear;
 	}
-	
+
 	public void setMaxExemplarYear(int year) {
 		maxExemplarYear = year;
 	}
-	
+
 	public void setFilter_yearFrom(String yearFrom) {
 		int year = Integer.parseInt(yearFrom);
 		filter_dateFrom.set(year, Calendar.JANUARY, 1);
 	}
-	
+
 	public String getFilter_yearTo() {
-		if (filter_dateTo == null)
+		if (filter_dateTo == null) {
 			return "";
+		}
 
 		// format date
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy");
-        return dateformat.format(filter_dateTo.getTime());
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy");
+		return dateformat.format(filter_dateTo.getTime());
 	}
 
 	public void setFilter_yearTo(String yearFrom) {
@@ -252,33 +232,33 @@ public class ManageExemplarsBean {
 		filter_dateTo.set(year, Calendar.DECEMBER, 31);
 	}
 	// </editor-fold>
+
 	/**
 	 * Get list of users
 	 * @return 
 	 */
- 
 	public List<Exemplar> getExemplars() {
 		// switch dates
 		/*if (filter_dateFrom.compareTo(filter_dateTo) > 0) {
-			Calendar tmp = filter_dateFrom;
-			filter_dateFrom = filter_dateTo;
-			filter_dateTo = tmp;
+		Calendar tmp = filter_dateFrom;
+		filter_dateFrom = filter_dateTo;
+		filter_dateTo = tmp;
 		}
 		
 		Date yearFrom = filter_dateFrom.getTime();
 		Date yearTo = filter_dateTo.getTime();
-
-		// genre
-                */
-             //setSearchBooksBean(bookBean); 
-            bookBean.getA();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("a"+a));
-            
-            
-            
-            
-              //Integer idbook = book.getIdbook();
 		
+		// genre
+		 */
+		//setSearchBooksBean(bookBean); 
+		int a = bookBean.getA();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("a" + a));
+
+
+
+
+		//Integer idbook = book.getIdbook();
+
 		return exemplarMgr.findByIdbook(a);
 	}
 
@@ -302,8 +282,6 @@ public class ManageExemplarsBean {
 	 * Get records table
 	 * @return 
 	 */
-	
-	
 	/**
 	 * Get exemplaring table
 	 * @return 
@@ -319,9 +297,7 @@ public class ManageExemplarsBean {
 	public void setExemplaringListTable(UIDataTable table) {
 		this.exemplaringListTable = table;
 	}
-	
-	
-	
+
 	/**
 	 * Return exemplar collection
 	 * @param exemplar
@@ -330,7 +306,6 @@ public class ManageExemplarsBean {
 	//public List<Exemplar> getExemplarCollection(Exemplar exemplar) {
 	//	return exemplarMgr.findByExemplar(exemplar);
 	//}
-		
 	/**
 	 * Search exemplars
 	 * @return 
@@ -338,24 +313,24 @@ public class ManageExemplarsBean {
 	public String actionSearchExemplars() {
 		return "searchExemplars";
 	}
-	
+
 	/**
 	 * Just view catalog
 	 * @return 
 	 */
 	public String actionViewExemplars() {
 		clearFilter();
-		
+
 		return "viewExemplars";
 	}
-	
+
 	/**
 	 * Exemplar detail
 	 * @return 
 	 */
 	public String actionDetail() {
-            
-            
+
+
 		setBook((Book) listTable.getRowData());
 		return "detail";
 	}
@@ -365,54 +340,51 @@ public class ManageExemplarsBean {
 	 * @return 
 	 */
 	public String actionCancelDetail() {
-		exemplar= null;
-		
+		exemplar = null;
+
 		return "cancelDetail";
 	}
-	
-	
-	
+
 	/**
 	 * Edit user
 	 * @return "edit"
 	 */
 	public String actionEdit() {
 		setExemplar((Exemplar) listTable.getRowData());
-             
-                autorovia.size();                
-                int i = 0, size = autorovia.size();
-                for (Author a : autorovia) {
-                    if (i == 0) {
-                       this.nazov_1_autora = (String)a.getName().toString();                   
-                    }
-                    if (i == 1) {
-                       this.nazov_2_autora = (String)a.getName().toString();                     
-                    }
-                    if (i == 2) {
-                       this.nazov_3_autora = (String)a.getName().toString();                     
-                    }
-                    if (i == 3) {
-                       this.nazov_4_autora = (String)a.getName().toString();                                    
-                    }
-                    i++;
-              
-                }
-                //this.rok_vydania = (String)formatter.format(exemplar.getYear()) ;
-                return "edit";
+
+		autorovia.size();
+		int i = 0, size = autorovia.size();
+		for (Author a : autorovia) {
+			if (i == 0) {
+				this.nazov_1_autora = (String) a.getName().toString();
+			}
+			if (i == 1) {
+				this.nazov_2_autora = (String) a.getName().toString();
+			}
+			if (i == 2) {
+				this.nazov_3_autora = (String) a.getName().toString();
+			}
+			if (i == 3) {
+				this.nazov_4_autora = (String) a.getName().toString();
+			}
+			i++;
+
+		}
+		//this.rok_vydania = (String)formatter.format(exemplar.getYear()) ;
+		return "edit";
 	}
-        
-        
+
 	/**
 	 * Action for redirecting to new user page
 	 * @return 
 	 */
 	public String actionCreateNew() {
-                setExemplar(new Exemplar());
+		setExemplar(new Exemplar());
 		return "new";
 	}
-        
-        public String actionDelete() {
-                   
+
+	public String actionDelete() {
+
 		Exemplar selected = (Exemplar) listTable.getRowData();
 		try {
 			exemplarMgr.remove(selected);
@@ -425,12 +397,12 @@ public class ManageExemplarsBean {
 
 		return "";
 	}
-        
-        public String actionUpdate() throws ParseException {
-                        
-                //exemplar.setYear(formatter.parse(rok_vydania));
-            
-                try {
+
+	public String actionUpdate() throws ParseException {
+
+		//exemplar.setYear(formatter.parse(rok_vydania));
+
+		try {
 			exemplarMgr.save(exemplar);
 		} catch (javax.ejb.EJBException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit, zkuste to prosím později."));
@@ -440,36 +412,33 @@ public class ManageExemplarsBean {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny byly úspěšně uloženy."));
 
 		return "";
-        }
-                
-        
-        
+	}
 
 	public String actionInsert() throws ParseException {
-                Collection<Author> novy_autorovia ;
-                              
-               novy_autorovia = (authorMgr.find(nazov_1_autora));
-               
-              
-		
+		Collection<Author> novy_autorovia;
+
+		novy_autorovia = (authorMgr.find(nazov_1_autora));
+
+
+
 		try {
-			exemplarMgr.save(exemplar); 
-                        
-                        
-		} catch(javax.ejb.EJBException e) {
+			exemplarMgr.save(exemplar);
+
+
+		} catch (javax.ejb.EJBException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
 			return "";
 		}
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Title was successfully created."));
-		
-               
-               /* 
-                exemplarHasAuthor.setIdexemplar(exemplar.getIdexemplar());
-                exemplarHasAuthor.setIdauthor(autor.getIdauthor());
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+exemplarHasAuthor.getIdauthor();"+exemplarHasAuthor.getIdauthor()));
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+exemplarHasAuthor.getIdexemplar()));
-                */
+
+
+		/* 
+		exemplarHasAuthor.setIdexemplar(exemplar.getIdexemplar());
+		exemplarHasAuthor.setIdauthor(autor.getIdauthor());
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+exemplarHasAuthor.getIdauthor();"+exemplarHasAuthor.getIdauthor()));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+exemplarHasAuthor.getIdexemplar()));
+		 */
 		return "edit";
 	}
 }
