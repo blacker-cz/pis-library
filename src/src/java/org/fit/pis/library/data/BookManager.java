@@ -4,11 +4,16 @@
 
 package org.fit.pis.library.data;
 
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,9 +27,14 @@ public class BookManager {
     @PersistenceContext
     private EntityManager em;
 
+    Statement stmt = null;
+ResultSet rs = null;
+    private int id;
+    
     public void save(Book b)
     {
     	em.merge(b);
+        
     }
 	
     public void remove(Book b)
@@ -42,6 +52,9 @@ public class BookManager {
     {
     	return em.createQuery("SELECT b FROM Book b ORDER BY b.name ASC, b.year ASC").getResultList();
     }
+    
+    
+    
 	
 	/**
 	 * Find book by id
@@ -100,4 +113,15 @@ public class BookManager {
 		query.setParameter("yearTo", yearTo);
 		return (List<Book>) query.getResultList();
 	}
+        
+        public Integer new_id(){     
+       
+              
+        Query query = em.createQuery(
+                     "SELECT idbook FROM Book ORDER BY idbook DESC LIMIT 1").setMaxResults(1);
+        return (Integer) query.getSingleResult();
+   
+                        
+        }               
+        
 }

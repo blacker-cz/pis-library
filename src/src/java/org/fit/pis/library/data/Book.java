@@ -126,7 +126,7 @@ public class Book implements Serializable {
 	}
 
 	public Integer getIdbook() {
-		return idbook;
+		return this.idbook;
 	}
 
 	public void setIdbook(Integer idbook) {

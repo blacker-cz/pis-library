@@ -24,6 +24,9 @@ public class AuthorManager {
     {
     	em.merge(a);
     }
+    
+    
+    
 	
     public void remove(Author a)
     {
