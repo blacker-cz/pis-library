@@ -33,6 +33,14 @@ public class ExemplarManager {
 		em.flush();
 	}
 
+	/**
+	 * Refreah Exemplar
+	 */
+	public void refresh(Exemplar e) {
+		em.flush();
+		em.refresh(e);
+	}
+	
 	public Exemplar findByIdexemplar(Integer id) {
 		em.flush();
 		
@@ -51,15 +59,22 @@ public class ExemplarManager {
 	 * @return 
 	 */
 	public List<Exemplar> findByBook(Book book) {
-		em.flush();
+//		em.flush();
 		
-		try {
+//		try {
 			Query query = em.createNamedQuery("Exemplar.findByBook");
 			query.setParameter("book", book);
-			return query.getResultList();
-		} catch (Exception e) {
-			return null;
-		}
+			
+			// refresh info
+			List<Exemplar> exemplars = query.getResultList();
+			for (Exemplar e : exemplars) {
+				refresh(e);
+			}
+			
+			return exemplars;
+//		} catch (Exception e) {
+//			return null;
+//		}
 	}
 	
 	/**
