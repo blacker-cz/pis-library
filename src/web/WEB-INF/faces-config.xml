@@ -261,6 +261,10 @@
 			<from-outcome>newBorrowCatalog</from-outcome>
 			<to-view-id>/app/librarian/manage_borrows_add.xhtml</to-view-id>
 		</navigation-case>
+	 <navigation-case>
+	  <from-outcome>manageBookings</from-outcome>
+	  <to-view-id>/app/librarian/manage_bookings.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/librarian/manage_borrows_add.xhtml</from-view-id>
@@ -280,6 +284,14 @@
 			<from-outcome>displayReaders</from-outcome>
 			<to-view-id>/app/librarian/manage_readers.xhtml</to-view-id>
 		</navigation-case>
+	 <navigation-case>
+	  <from-outcome>manageBookings</from-outcome>
+	  <to-view-id>/app/librarian/manage_bookings.xhtml</to-view-id>
+	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>manageBorrows</from-outcome>
+	  <to-view-id>/app/librarian/manage_borrows.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/librarian/manage_borrows_book_detail.xhtml</from-view-id>
@@ -299,6 +311,14 @@
 			<from-outcome>newBorrow</from-outcome>
 			<to-view-id>/app/librarian/manage_borrows_book_detail.xhtml</to-view-id>
 		</navigation-case>
+	 <navigation-case>
+	  <from-outcome>manageBookings</from-outcome>
+	  <to-view-id>/app/librarian/manage_bookings.xhtml</to-view-id>
+	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>manageBorrows</from-outcome>
+	  <to-view-id>/app/librarian/manage_borrows.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/librarian/manage_bookings.xhtml</from-view-id>
@@ -314,6 +334,10 @@
 			<from-outcome>newBorrowCatalog</from-outcome>
 			<to-view-id>/app/librarian/manage_borrows_add.xhtml</to-view-id>
 		</navigation-case>
+	 <navigation-case>
+	  <from-outcome>manageBorrows</from-outcome>
+	  <to-view-id>/app/librarian/manage_borrows.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/librarian/edit_author.xhtml</from-view-id>
