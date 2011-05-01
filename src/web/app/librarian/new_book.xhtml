@@ -48,7 +48,9 @@
 								<f:validateRegex pattern="^[1-2][0-9][0-9][0-9]$" />
 					</h:inputText>					
 					<h:outputLabel rendered="true" value="Počet strán:"></h:outputLabel>
-					<h:inputText value="#{manageBooksBean.book.pages}">
+					<h:inputText value="#{manageBooksBean.book.pages}"
+								 validatorMessage="Rok musí být ve tvaru YYYY">                                
+								<f:validateRegex pattern="^[0-9]*$" />
 					</h:inputText>
 					<h:outputLabel rendered="true" value="Edice:"></h:outputLabel>
 					<h:inputText value="#{manageBooksBean.book.edition}">

@@ -74,19 +74,19 @@ public class ChangePasswordBean {
 					user.setPassword(newPassword1);
 					userMgr.Save(user);
 				} catch (javax.ejb.EJBException e) {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Password couldn't be changed. Please try again later."));
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Heslo se nepodařilo změnit, zkuste to prosím později."));
 					return "";
 				}
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("New passwords doesn't match."));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nová hesla nejsou stejná."));
 				return "";
 			}
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Old password doesn't match."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Špatně zadané staré heslo."));
 			return "";
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Password was successfully changed."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Heslo bylo úspěšně změněno."));
 		
 		return "";
 	}
