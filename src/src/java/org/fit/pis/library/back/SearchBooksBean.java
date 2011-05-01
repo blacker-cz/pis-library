@@ -27,6 +27,9 @@ import org.richfaces.component.UIDataTable;
 public class SearchBooksBean {
 	@EJB
 	private BookManager bookMgr;
+        @EJB
+	private BookHasAuthorManager bookHasAuthorMgr;
+        
 	@EJB
 	private GenreManager genreMgr;
 	@EJB
@@ -39,8 +42,11 @@ public class SearchBooksBean {
 	private PublisherManager publisherMgr;
 	@EJB
 	private BorrowManager borrowMgr;
+        @EJB
+	private AuthorManager authorMgr;
         
 	private Book book;
+        private BookHasAuthor bookHasAuthor;
 	private UIDataTable listTable;
 	private UIDataTable exemplarListTable;
 	private UIDataTable bookingListTable;
@@ -56,7 +62,8 @@ public class SearchBooksBean {
 	private String filter_name;
 	private String filter_author;
         private Genre book_genre;
-	private Calendar filter_dateFrom;
+	private Author autor;
+        private Calendar filter_dateFrom;
 	private Calendar filter_dateTo;
 	private String filter_genre;
 	private String filter_isbn_issn;
@@ -64,9 +71,11 @@ public class SearchBooksBean {
         private String nazov_2_autora;
         private String nazov_3_autora;
         private String nazov_4_autora;
+        
         private String[] autori;
         private Collection<Author> autorovia;
 	
+        
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy"); 
 	private int minBookYear;
 	private int maxBookYear;
@@ -693,10 +702,15 @@ public class SearchBooksBean {
 	}
         
         public String actionUpdate() throws ParseException {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("book_genre."+book_genre+"nazov_zanru"+nazov_zanru));
-
+               
+                bookMgr.new_id();
+            
                 book.setGenre(genreMgr.findByName(nazov_zanru));
                 book.setPublisher(publisherMgr.findByName(nazov_vydavatelstva));
+                
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("book.getIdbook()"+book.getIdbook()));
+                
+                
                 
                 
                 book.setYear(formatter.parse(rok_vydania));
@@ -717,15 +731,41 @@ public class SearchBooksBean {
         
 
 	public String actionInsert() throws ParseException {
-            
+                Collection<Author> novy_autorovia ;
+                
+                
                 book.setGenre(genreMgr.findByName(nazov_zanru));
                 book.setPublisher(publisherMgr.findByName(nazov_vydavatelstva));              
                 book.setYear(formatter.parse(rok_vydania));
                 book.setType("isbn");
 
+                bookHasAuthor = new BookHasAuthor();
+                autor = authorMgr.findByName(nazov_1_autora);
+               
+              
+               //bookHasAuthor.setIdauthor(autor.getIdauthor());
+               
+               //bookHasAuthor.setIdbook(book.getIdbook());
+               
+               //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+bookHasAuthor.getIdauthor();"+bookHasAuthor.getIdauthor()));
+               //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+bookHasAuthor.getIdbook()));
+          
+               //bookHasAuthorMgr.save(bookHasAuthor);
+               
+               
+               
+               novy_autorovia = (authorMgr.find(nazov_1_autora));
+               
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Title was successfully created."));
+               
+               
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+autor.toString()));
+
 		
 		try {
-			bookMgr.save(book);
+			bookMgr.save(book); 
+                        
+                        
 		} catch(javax.ejb.EJBException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
 			return "";
@@ -733,6 +773,13 @@ public class SearchBooksBean {
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Title was successfully created."));
 		
+               
+               /* 
+                bookHasAuthor.setIdbook(book.getIdbook());
+                bookHasAuthor.setIdauthor(autor.getIdauthor());
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+bookHasAuthor.getIdauthor();"+bookHasAuthor.getIdauthor()));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+bookHasAuthor.getIdbook()));
+                */
 		return "edit";
 	}
 }
