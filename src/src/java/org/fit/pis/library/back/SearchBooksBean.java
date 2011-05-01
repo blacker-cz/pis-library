@@ -2,7 +2,6 @@
  */
 package org.fit.pis.library.back;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -48,24 +47,16 @@ public class SearchBooksBean {
 	private UIDataTable bookingListTable;
 	@ManagedProperty(value = "#{authenticationBean}")
 	private AuthenticationBean authBean;
+	
 	// variables used for filtering table
 	private int a;
-//	private String nazov_zanru;
-//	private String nazov_vydavatelstva;
-//	private String rok_vydania;
 	private String filter_name;
 	private String filter_author;
-//	private Author autor;
 	private Calendar filter_dateFrom;
 	private Calendar filter_dateTo;
 	private String filter_genre;
 	private String filter_isbn_issn;
-//	private String nazov_1_autora;
-//	private String nazov_2_autora;
-//	private String nazov_3_autora;
-//	private String nazov_4_autora;
-//	private String[] autori;
-//	private Collection<Author> autorovia;
+
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
 	private int minBookYear;
 	private int maxBookYear;
@@ -136,62 +127,6 @@ public class SearchBooksBean {
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Filter getters and setters">
-//	public String getNazov_zanru() {
-//		return nazov_zanru;
-//	}
-//
-//	public void setNazov_zanru(String nazov_zanru) {
-//		this.nazov_zanru = nazov_zanru;
-//	}
-//
-//	public String getNazov_1_autora() {
-//		return nazov_1_autora;
-//	}
-//
-//	public void setNazov_1_autora(String nazov_1_autora) {
-//		this.nazov_1_autora = nazov_1_autora;
-//	}
-//
-//	public String getNazov_2_autora() {
-//		return nazov_2_autora;
-//	}
-//
-//	public void setNazov_2_autora(String nazov_2_autora) {
-//		this.nazov_2_autora = nazov_2_autora;
-//	}
-//
-//	public String getNazov_3_autora() {
-//		return nazov_3_autora;
-//	}
-//
-//	public void setNazov_3_autora(String nazov_3_autora) {
-//		this.nazov_3_autora = nazov_3_autora;
-//	}
-//
-//	public String getNazov_4_autora() {
-//		return nazov_4_autora;
-//	}
-//
-//	public void setNazov_4_autora(String nazov_4_autora) {
-//		this.nazov_4_autora = nazov_4_autora;
-//	}
-//
-//	public String getRok_vydania() {
-//		return rok_vydania;
-//	}
-//
-//	public void setrok_vydania(String rok_vydania) {
-//		this.rok_vydania = rok_vydania;
-//	}
-//
-//	public String getNazov_vydavatelstva() {
-//		return nazov_vydavatelstva;
-//	}
-//
-//	public void setNazov_vydavatelstva(String nazov_vydavatelstva) {
-//		this.nazov_vydavatelstva = nazov_vydavatelstva;
-//	}
-
 	public String getFilter_name() {
 		return filter_name;
 	}
@@ -689,142 +624,4 @@ public class SearchBooksBean {
 	public String actionEmptyAction() {
 		return "";
 	}
-	
-	/**
-	 * Edit user
-	 * @return "edit"
-	 */
-//	public String actionEdit() {
-//		setBook((Book) listTable.getRowData());
-//
-//		this.nazov_zanru = book.getGenre().toString();
-//
-//
-//		this.nazov_vydavatelstva = book.getPublisher().toString();
-//
-//
-//		this.autorovia = book.getAuthorCollection();
-//		autorovia.size();
-//		int i = 0, size = autorovia.size();
-//		for (Author a : autorovia) {
-//			if (i == 0) {
-//				this.nazov_1_autora = (String) a.getName().toString();
-//			}
-//			if (i == 1) {
-//				this.nazov_2_autora = (String) a.getName().toString();
-//			}
-//			if (i == 2) {
-//				this.nazov_3_autora = (String) a.getName().toString();
-//			}
-//			if (i == 3) {
-//				this.nazov_4_autora = (String) a.getName().toString();
-//			}
-//			i++;
-//
-//		}
-//		this.rok_vydania = (String) formatter.format(book.getYear());
-//		return "edit";
-//	}
-
-	/**
-	 * Action for redirecting to new user page
-	 * @return 
-	 */
-//	public String actionCreateNew() {
-//		setBook(new Book());
-//		return "new";
-//	}
-
-//	public String actionDelete() {
-//
-//		Book selected = (Book) listTable.getRowData();
-//		try {
-//			bookMgr.remove(selected);
-//		} catch (javax.ejb.EJBException e) {
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odstranit knihu, zkuste to prosím později."));
-//			return "";
-//		}
-//
-//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Kniha byla úspěšně odstraněna."));
-//
-//		return "";
-//	}
-
-//	public String actionUpdate() throws ParseException {
-//
-//		bookMgr.new_id();
-//
-//		book.setGenre(genreMgr.findByName(nazov_zanru));
-//		book.setPublisher(publisherMgr.findByName(nazov_vydavatelstva));
-//
-//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("book.getIdbook()" + book.getIdbook()));
-//
-//
-//
-//
-//		book.setYear(formatter.parse(rok_vydania));
-//
-//		try {
-//			bookMgr.save(book);
-//		} catch (javax.ejb.EJBException e) {
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit, zkuste to prosím později."));
-//			return "";
-//		}
-//
-//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny byly úspěšně uloženy."));
-//
-//		return "";
-//	}
-
-//	public String actionInsert() throws ParseException {
-//		Collection<Author> novy_autorovia;
-//
-//
-//		book.setGenre(genreMgr.findByName(nazov_zanru));
-//		book.setPublisher(publisherMgr.findByName(nazov_vydavatelstva));
-//		book.setYear(formatter.parse(rok_vydania));
-//		book.setType("isbn");
-//
-//		autor = authorMgr.findByName(nazov_1_autora);
-//
-//
-//		//bookHasAuthor.setIdauthor(autor.getIdauthor());
-//
-//		//bookHasAuthor.setIdbook(book.getIdbook());
-//
-//		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+bookHasAuthor.getIdauthor();"+bookHasAuthor.getIdauthor()));
-//		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+bookHasAuthor.getIdbook()));
-//
-//		//bookHasAuthorMgr.save(bookHasAuthor);
-//
-//
-//
-//		novy_autorovia = (authorMgr.find(nazov_1_autora));
-//
-//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Title was successfully created."));
-//
-//
-//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();" + autor.toString()));
-//
-//
-//		try {
-//			bookMgr.save(book);
-//
-//
-//		} catch (javax.ejb.EJBException e) {
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User wasn't created. Please try again later (or try to change permit number)."));
-//			return "";
-//		}
-//
-//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Title was successfully created."));
-//
-//
-//		/* 
-//		bookHasAuthor.setIdbook(book.getIdbook());
-//		bookHasAuthor.setIdauthor(autor.getIdauthor());
-//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+bookHasAuthor.getIdauthor();"+bookHasAuthor.getIdauthor()));
-//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+bookHasAuthor.getIdbook()));
-//		 */
-//		return "edit";
-//	}
 }

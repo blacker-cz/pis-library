@@ -265,6 +265,10 @@
 	  <from-outcome>manageBookings</from-outcome>
 	  <to-view-id>/app/librarian/manage_bookings.xhtml</to-view-id>
 	 </navigation-case>
+	 <navigation-case>
+	  <from-outcome>myBorrowsProlongate</from-outcome>
+	  <to-view-id>/app/librarian/manage_borrows.xhtml</to-view-id>
+	 </navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/app/librarian/manage_borrows_add.xhtml</from-view-id>
