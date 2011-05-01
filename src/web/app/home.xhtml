@@ -18,10 +18,15 @@
 						
 						<h:panelGrid columns="2">
 							<h:outputLabel rendered="true" value="Název knihy:"></h:outputLabel>
-							<h:inputText value="#{searchBooksBean.filter_name}"></h:inputText>
+							<h:inputText value="#{searchBooksBean.filter_name}">
+								<f:validateLength minimum="0" maximum="255" />
+							</h:inputText>
 
 							<h:outputLabel rendered="true" value="Autor:"></h:outputLabel>
-							<h:inputText value="#{searchBooksBean.filter_author}"></h:inputText>
+							<h:selectOneMenu value="#{searchBooksBean.filter_author}" required="true">                                               
+								<f:selectItem itemValue="all" itemLabel="" />                                               
+								<f:selectItems value="#{searchBooksBean.authors}" />
+							</h:selectOneMenu>
 
 							<h:outputLabel rendered="true" value="Žánr:"></h:outputLabel>
 							<h:selectOneMenu id="searchGenreList" value="#{searchBooksBean.filter_genre}">
@@ -40,7 +45,9 @@
 							</h:inputText>
 
 							<h:outputLabel rendered="true" value="ISBN/ISSN:"></h:outputLabel>
-							<h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
+							<h:inputText value="#{searchBooksBean.filter_isbn_issn}">
+								<f:validateLength minimum="0" maximum="255" />
+							</h:inputText>
 
 						</h:panelGrid>
 

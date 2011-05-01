@@ -54,7 +54,9 @@
 							<f:facet name="header">
 								<h:outputText value="Název"/>
 								<br />
-								<h:inputText value="#{searchBooksBean.filter_name}"></h:inputText>
+								<h:inputText value="#{searchBooksBean.filter_name}">
+									<f:validateLength minimum="0" maximum="255" />
+								</h:inputText>
 							</f:facet>
 							<h:commandLink action="#{searchBooksBean.actionDetail}">
 								<h:outputText value="#{book.name}"></h:outputText>
@@ -64,7 +66,10 @@
 							<f:facet name="header">
 								<h:outputText value="Autor"/>
 								<br />
-								<h:inputText value="#{searchBooksBean.filter_author}"></h:inputText>
+								<h:selectOneMenu value="#{searchBooksBean.filter_author}" required="true">                                               
+									<f:selectItem itemValue="all" itemLabel="" />                                               
+									<f:selectItems value="#{searchBooksBean.authors}" />
+								</h:selectOneMenu>
 							</f:facet>
 							<h:outputText value="#{book.authorCollection}">
 								<f:converter converterId="authorConverter" />
@@ -74,7 +79,9 @@
 							<f:facet name="header">
 								<h:outputText value="ISBN/ISSN"/>
 								<br />
-								<h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
+								<h:inputText value="#{searchBooksBean.filter_isbn_issn}">
+									<f:validateLength minimum="0" maximum="255" />
+								</h:inputText>
 							</f:facet>
 							<h:outputText value="#{book.code}"></h:outputText>
 						</rich:column>

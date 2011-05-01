@@ -56,6 +56,8 @@ public class BorrowManager {
 	 * @return 
 	 */
     public List<Borrow> find(User user) {
+		em.flush();
+		
     	Query query = em.createNamedQuery("Borrow.findByUser");
 		
 		query.setParameter("user", user);
