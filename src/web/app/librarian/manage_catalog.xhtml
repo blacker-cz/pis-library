@@ -21,8 +21,13 @@
 							<h:outputText value="Jméno"/><br />
 							<h:inputText value="#{searchBooksBean.filter_name}"></h:inputText>
 						</f:facet>
-						<h:outputText value="#{book.name}"></h:outputText>
+						<h:commandLink action="#{searchBooksBean.actionDetail}">
+									<h:outputText value="#{book.name}"></h:outputText>
+						</h:commandLink>
 					</rich:column>
+                                    
+                            
+                                    
                                         <rich:column>
 						<f:facet name="header">
                                                         <div><h:link value="Správa autorů" outcome="manage_authors"></h:link></div>

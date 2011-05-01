@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import org.fit.pis.library.data.*;
 import org.richfaces.component.UIDataTable;
 
@@ -23,21 +24,14 @@ import org.richfaces.component.UIDataTable;
  */
 @ManagedBean
 @SessionScoped
-
-public class SearchBooksBean {
+public class ManageExemplarsBean {
 	@EJB
-	private BookManager bookMgr;
-        @EJB
-	private BookHasAuthorManager bookHasAuthorMgr;
+	private ExemplarManager exemplarMgr;
         
 	@EJB
 	private GenreManager genreMgr;
 	@EJB
-	private BookingManager bookingMgr;
-	@EJB
 	private UserManager userMgr;
-	@EJB
-	private ExemplarManager exemplarMgr;
 	@EJB
 	private PublisherManager publisherMgr;
 	@EJB
@@ -45,15 +39,20 @@ public class SearchBooksBean {
         @EJB
 	private AuthorManager authorMgr;
         
-	private Book book;
-        private BookHasAuthor bookHasAuthor;
+	private Exemplar exemplar;
 	private UIDataTable listTable;
 	private UIDataTable exemplarListTable;
-	private UIDataTable bookingListTable;
+	private UIDataTable exemplaringListTable;
 	
 	@ManagedProperty(value="#{authenticationBean}")
 	private AuthenticationBean authBean;
-	
+	        
+        @ManagedProperty(value="#{searchBooksBean}")
+        private SearchBooksBean bookBean;
+        
+        
+       
+       
 	// variables used for filtering table
         private String nazov_zanru;
         private String nazov_vydavatelstva;
@@ -61,8 +60,9 @@ public class SearchBooksBean {
         private String rok_vydania2;
 	private String filter_name;
 	private String filter_author;
-        private Genre book_genre;
+        private Genre exemplar_genre;
 	private Author autor;
+        private Book book;
         private Calendar filter_dateFrom;
 	private Calendar filter_dateTo;
 	private String filter_genre;
@@ -72,16 +72,22 @@ public class SearchBooksBean {
         private String nazov_3_autora;
         private String nazov_4_autora;
         
+        private int a;
         private String[] autori;
         private Collection<Author> autorovia;
 	
         
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ValueBinding vb = facesContext.getApplication().createValueBinding(" #{YourBean}");
+        ManageExemplarsBean beanObj = (ManageExemplarsBean) vb.getValue(facesContext); 
+        
+        
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy"); 
-	private int minBookYear;
-	private int maxBookYear;
+	private int minExemplarYear;
+	private int maxExemplarYear;
 	
 	/** Creates a new instance of ManageUsersBean */
-	public SearchBooksBean() {
+	public ManageExemplarsBean() {
 		clearFilter();
 	}
 
@@ -89,7 +95,7 @@ public class SearchBooksBean {
 	 * Clear filter variables
 	 */
 	private void clearFilter() {
-		book = new Book();
+		exemplar= new Exemplar();
 
 		// set empty filtering
 		filter_name = "";
@@ -97,15 +103,28 @@ public class SearchBooksBean {
 		filter_genre = "";
 		filter_isbn_issn = "";
 		filter_dateFrom = Calendar.getInstance();
-		filter_dateFrom.set(Book.MIN_BOOK_YEAR, Calendar.JANUARY, 1);
-		filter_dateTo = Calendar.getInstance();
-		filter_dateTo.set(Book.MAX_BOOK_YEAR, Calendar.DECEMBER, 31);
 		
-		minBookYear = Book.MIN_BOOK_YEAR;
-		maxBookYear = Book.MAX_BOOK_YEAR;
+		filter_dateTo = Calendar.getInstance();
+		
 	}
 	
 	/**
+	 * Get user
+	 * @return 
+	 */
+	public Exemplar getExemplar() {
+		return exemplar;
+	}
+
+	/**
+	 * Set user
+	 * @param user 
+	 */
+	public void setExemplar(Exemplar exemplar) {
+		this.exemplar= exemplar;
+	}
+
+        /**
 	 * Get user
 	 * @return 
 	 */
@@ -113,14 +132,17 @@ public class SearchBooksBean {
 		return book;
 	}
 
+        
 	/**
 	 * Set user
 	 * @param user 
 	 */
 	public void setBook(Book book) {
 		this.book = book;
+                
 	}
-
+        
+        
 	/**
 	 * Authentication bean setter
 	 * @param authBean 
@@ -128,50 +150,13 @@ public class SearchBooksBean {
 	public void setAuthBean(AuthenticationBean authBean) {
 		this.authBean = authBean;
 	}
+        
+        public void setBookBean(SearchBooksBean bookBean) {              
+		this.bookBean = bookBean;               
+	}
+        
+ 
 
-	// <editor-fold defaultstate="collapsed" desc="Filter getters and setters">
-	public String getNazov_zanru() {
-		return nazov_zanru;
-	}
-        
-        public void setNazov_zanru(String nazov_zanru) {
-		this.nazov_zanru = nazov_zanru;
-	}
-        
-        public String getNazov_1_autora() {
-		return nazov_1_autora;
-	}
-        
-        public void setNazov_1_autora(String nazov_1_autora) {
-		this.nazov_1_autora = nazov_1_autora;
-	}
-        
-        public String getNazov_2_autora() {
-		return nazov_2_autora;
-	}
-        
-        public void setNazov_2_autora(String nazov_2_autora) {
-		this.nazov_2_autora = nazov_2_autora;
-	}
-        
-        public String getNazov_3_autora() {
-		return nazov_3_autora;
-	}
-        
-        public void setNazov_3_autora(String nazov_3_autora) {
-		this.nazov_3_autora = nazov_3_autora;
-	}
-        
-        public String getNazov_4_autora() {
-		return nazov_4_autora;
-	}
-        
-        public void setNazov_4_autora(String nazov_4_autora) {
-		this.nazov_4_autora = nazov_4_autora;
-	}
-        
-     
-        
         public String getRok_vydania() {
 		return rok_vydania;
 	}
@@ -180,17 +165,7 @@ public class SearchBooksBean {
 		this.rok_vydania = rok_vydania;
 	}
         
-        
-        public String getNazov_vydavatelstva() {
-		return nazov_vydavatelstva;
-	}
-        
-        public void setNazov_vydavatelstva(String nazov_vydavatelstva) {
-		this.nazov_vydavatelstva = nazov_vydavatelstva;
-	}
-        
-        
-        
+       
         
         public String getFilter_name() {
 		return filter_name;
@@ -242,20 +217,20 @@ public class SearchBooksBean {
         return dateformat.format(filter_dateFrom.getTime());
 	}
 
-	public int getMinBookYear() {
-		return minBookYear;
+	public int getMinExemplarYear() {
+		return minExemplarYear;
 	}
 	
-	public void setMinBookYear(int year) {
-		minBookYear = year;
+	public void setMinExemplarYear(int year) {
+		minExemplarYear = year;
 	}
 
-	public int getMaxBookYear() {
-		return maxBookYear;
+	public int getMaxExemplarYear() {
+		return maxExemplarYear;
 	}
 	
-	public void setMaxBookYear(int year) {
-		maxBookYear = year;
+	public void setMaxExemplarYear(int year) {
+		maxExemplarYear = year;
 	}
 	
 	public void setFilter_yearFrom(String yearFrom) {
@@ -281,9 +256,10 @@ public class SearchBooksBean {
 	 * Get list of users
 	 * @return 
 	 */
-	public List<Book> getBooks() {
+ 
+	public List<Exemplar> getExemplars() {
 		// switch dates
-		if (filter_dateFrom.compareTo(filter_dateTo) > 0) {
+		/*if (filter_dateFrom.compareTo(filter_dateTo) > 0) {
 			Calendar tmp = filter_dateFrom;
 			filter_dateFrom = filter_dateTo;
 			filter_dateTo = tmp;
@@ -293,15 +269,17 @@ public class SearchBooksBean {
 		Date yearTo = filter_dateTo.getTime();
 
 		// genre
-		Genre genre = null;
-		if (!filter_genre.isEmpty() && !filter_genre.equalsIgnoreCase("all")) {
-			genre = genreMgr.findByName(filter_genre);
-			if (genre == null) {
-				System.err.println("Badly working database encoding!");
-			}
-		}
+                */
+             //setSearchBooksBean(bookBean); 
+            bookBean.getA();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("a"+a));
+            
+            
+            
+            
+              //Integer idbook = book.getIdbook();
 		
-		return bookMgr.find(filter_name, filter_author, yearFrom, yearTo, genre, filter_isbn_issn);
+		return exemplarMgr.findByIdbook(a);
 	}
 
 	/**
@@ -324,336 +302,83 @@ public class SearchBooksBean {
 	 * Get records table
 	 * @return 
 	 */
-	public UIDataTable getExemplarListTable() {
+	
+	
+	/**
+	 * Get exemplaring table
+	 * @return 
+	 */
+	public UIDataTable getExemplaringListTable() {
 		return null;	// force rebuild of table
 	}
 
 	/**
-	 * Set records table
-	 * @param table 
+	 * Set exemplaring list table
+	 * @return 
 	 */
-	public void setExemplarListTable(UIDataTable table) {
-		this.exemplarListTable = table;
+	public void setExemplaringListTable(UIDataTable table) {
+		this.exemplaringListTable = table;
 	}
 	
-	/**
-	 * Get booking table
-	 * @return 
-	 */
-	public UIDataTable getBookingListTable() {
-		return null;	// force rebuild of table
-	}
-
-	/**
-	 * Set booking list table
-	 * @return 
-	 */
-	public void setBookingListTable(UIDataTable table) {
-		this.bookingListTable = table;
-	}
 	
-	/**
-	 * Count of curently free exemplars
-	 * @return 
-	 */
-	public int getCountExemplarsFree() {
-		if (book == null)
-			return 0;
-		
-		int freeCount = 0;
-		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
-		// list exemplars
-		for (Exemplar exemplar : exemplars) {
-			if (!exemplar.getIsBorrowed())
-				freeCount++;
-		}
-		
-		return freeCount;
-	}
-	
-	/**
-	 * Count of currently borrowed exemplars
-	 * @return 
-	 */
-	public int getCountExemplarsBorrowed() {
-		if (book == null)
-			return 0;
-		
-		int borrowedCount = 0;
-		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
-		// list exemplars
-		for (Exemplar exemplar : exemplars) {
-			if (exemplar.getIsBorrowed())
-				borrowedCount++;
-		}
-		
-		return borrowedCount;
-	}
-	
-	/**
-	 * REturn true if user can borrow book
-	 * @param user
-	 * @return 
-	 */
-	public boolean canBorrowBook(User user) {
-		if (book == null)
-			return false;
-		
-		// Zkontroluje, jestli náhodou nemám půjčený exemplář
-		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
-		if (!exemplars.isEmpty()) {
-			for (Exemplar e : exemplars) {
-				System.out.println(e);
-				// book is already borrowed or borrowed by user
-				if (e.getIsBorrowed() || e.isBorrowedByUser(user)) {
-					return false;
-				}
-			}
-		}
-		
-		List<Booking> booking = bookingMgr.find(book);
-		// no booking record
-		if (booking.isEmpty())
-			return true;
-		
-		// can borrow only if is first in list
-		if (booking.get(0).getUser().getIduser() == user.getIduser())
-			return true;
-		
-		return false;
-	}
 	
 	/**
 	 * Return exemplar collection
-	 * @param book
+	 * @param exemplar
 	 * @return 
 	 */
-	public List<Exemplar> getExemplarCollection(Book book) {
-		return exemplarMgr.findByBook(book);
-	}
-	
+	//public List<Exemplar> getExemplarCollection(Exemplar exemplar) {
+	//	return exemplarMgr.findByExemplar(exemplar);
+	//}
+		
 	/**
-	 * Return booking collection
-	 * @param book
+	 * Search exemplars
 	 * @return 
 	 */
-	public List<Booking> getBookingCollection(Book book) {
-		return bookingMgr.find(book);
-	}
-	
-	public boolean isBorrowLinkDisplayed(Exemplar exemplar, User user) {
-		return !exemplar.getIsBorrowed() && canBorrowBook(user);
-	}
-	
-	/**
-	 * Search books
-	 * @return 
-	 */
-	public String actionSearchBooks() {
-		return "searchBooks";
+	public String actionSearchExemplars() {
+		return "searchExemplars";
 	}
 	
 	/**
 	 * Just view catalog
 	 * @return 
 	 */
-	public String actionViewBooks() {
+	public String actionViewExemplars() {
 		clearFilter();
 		
-		return "viewBooks";
+		return "viewExemplars";
 	}
 	
 	/**
-	 * Book detail
+	 * Exemplar detail
 	 * @return 
 	 */
 	public String actionDetail() {
+            
+            
 		setBook((Book) listTable.getRowData());
 		return "detail";
 	}
 
 	/**
-	 * Book cancel detail
+	 * Exemplar cancel detail
 	 * @return 
 	 */
 	public String actionCancelDetail() {
-		book = null;
+		exemplar= null;
 		
 		return "cancelDetail";
 	}
 	
-	/**
-	 * Book booking ;-)
-	 * @return 
-	 */
-	public String actionBookBooking() {
-		// user
-		User user = userMgr.find(authBean.getIduser());
-		
-		return bookBooking(user);
-	}
 	
-	/**
-	 * Book booking ;-)
-	 * @return 
-	 */
-	public String actionBookBooking(User user) {
-		return bookBooking(user);
-	}
-	
-	/**
-	 * Book booking function
-	 * @param user
-	 * @return 
-	 */
-	private String bookBooking(User user) {
-		String action = "detailBookBooking";
-		
-		// check if user has already booked this title
-		Collection<Booking> colection = bookingMgr.find(user);
-		if (colection != null) {
-			for (Booking b : colection) {
-				// book is already booked
-				if (b.getBook().getIdbook() == book.getIdbook()) {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Book is already booked!"));
-					return action;
-				}
-			}
-		}
-		
-		// check borrowed
-		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
-		if (!exemplars.isEmpty()) {
-			for (Exemplar e : exemplars) {
-				// book is already borrowed
-				if (e.getIsBorrowed()) {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Can't book borrowed book!"));
-					return action;
-				}
-			}
-		}
-		
-		
-		// create new booking
-		Booking booking = new Booking();
-		booking.setBook(book);
-		booking.setState(0);
-		booking.setDate(new Date(System.currentTimeMillis()));
-		booking.setUser(user);
-		
-		try {
-			// save booking
-			bookingMgr.Save(booking);
-		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
-			return action;
-		}
-
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Book was successfully booked."));
-		
-		// reaload book
-		bookReload();
-		
-		return action;
-	}
-	
-	/**
-	 * Reload book info
-	 */
-	private void bookReload() {
-		book = bookMgr.findByIdbook(book.getIdbook());
-	}
-	
-	/**
-	 * Remove book booking
-	 * @return 
-	 */
-	public String actionBookingRemove() {
-		Booking selected = (Booking) bookingListTable.getRowData();
-		
-		try {
-			bookingMgr.Remove(selected);
-		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
-			return "viewMyBooking";
-		}
-
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Booking successfully removed."));
-		
-		// clear list table
-		bookingListTable = null;
-		
-		// reload book
-		bookReload();
-		
-		return "";
-	}
-	
-	/**
-	 * Borrow book
-	 * @return 
-	 */
-	public String actionBorrow(User user) {
-		// check 
-		if (!canBorrowBook(user)) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Can't borrow book!"));
-			return "";
-		}
-		
-		// check borrowed
-		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
-		if (!exemplars.isEmpty()) {
-			for (Exemplar e : exemplars) {
-				// book is already borrowed
-				if (e.getIsBorrowed()) {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Can't borrow borrowed book!"));
-					return "newBorrow";
-				}
-			}
-		}
-		
-		// check booking
-		List<Booking> bookings = bookingMgr.find(book);
-		
-		// has booking record
-		if (!bookings.isEmpty()) {
-			// get first booking
-			Booking booking = bookings.get(0);
-			// remove booking
-			bookingMgr.Remove(booking);
-		}
-		
-		// borrow
-		Borrow borrow = new Borrow();
-		borrow.setExemplar((Exemplar) exemplarListTable.getRowData());
-		borrow.setUser(user);
-		borrow.setBorrowed(new Date(System.currentTimeMillis()));
-		
-		try {
-			borrowMgr.Save(borrow);
-		} catch (javax.ejb.EJBException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Changes couldn't be saved. Please try again later."));
-			return "newBorrow";
-		}
-		
-		// add borrow
-		return "newBorrow";
-	}
 	
 	/**
 	 * Edit user
 	 * @return "edit"
 	 */
 	public String actionEdit() {
-		setBook((Book) listTable.getRowData());
-                
-                this.nazov_zanru = book.getGenre().toString();
-                this.book_genre = book.getGenre();
-                
-                this.nazov_vydavatelstva = book.getPublisher().toString();   
-               
-                
-                this.autorovia = book.getAuthorCollection();
+		setExemplar((Exemplar) listTable.getRowData());
+             
                 autorovia.size();                
                 int i = 0, size = autorovia.size();
                 for (Author a : autorovia) {
@@ -672,7 +397,7 @@ public class SearchBooksBean {
                     i++;
               
                 }
-                this.rok_vydania = (String)formatter.format(book.getYear()) ;
+                //this.rok_vydania = (String)formatter.format(exemplar.getYear()) ;
                 return "edit";
 	}
         
@@ -682,15 +407,15 @@ public class SearchBooksBean {
 	 * @return 
 	 */
 	public String actionCreateNew() {
-                setBook(new Book());
+                setExemplar(new Exemplar());
 		return "new";
 	}
         
         public String actionDelete() {
                    
-		Book selected = (Book) listTable.getRowData();
+		Exemplar selected = (Exemplar) listTable.getRowData();
 		try {
-			bookMgr.remove(selected);
+			exemplarMgr.remove(selected);
 		} catch (javax.ejb.EJBException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nepodařilo se odstranit knihu, zkuste to prosím později."));
 			return "";
@@ -702,21 +427,11 @@ public class SearchBooksBean {
 	}
         
         public String actionUpdate() throws ParseException {
-               
-                bookMgr.new_id();
-            
-                book.setGenre(genreMgr.findByName(nazov_zanru));
-                book.setPublisher(publisherMgr.findByName(nazov_vydavatelstva));
-                
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("book.getIdbook()"+book.getIdbook()));
-                
-                
-                
-                
-                book.setYear(formatter.parse(rok_vydania));
+                        
+                //exemplar.setYear(formatter.parse(rok_vydania));
             
                 try {
-			bookMgr.save(book);
+			exemplarMgr.save(exemplar);
 		} catch (javax.ejb.EJBException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Změny se nepodařilo uložit, zkuste to prosím později."));
 			return "";
@@ -732,38 +447,13 @@ public class SearchBooksBean {
 
 	public String actionInsert() throws ParseException {
                 Collection<Author> novy_autorovia ;
-                
-                
-                book.setGenre(genreMgr.findByName(nazov_zanru));
-                book.setPublisher(publisherMgr.findByName(nazov_vydavatelstva));              
-                book.setYear(formatter.parse(rok_vydania));
-                book.setType("isbn");
-
-                bookHasAuthor = new BookHasAuthor();
-                autor = authorMgr.findByName(nazov_1_autora);
-               
-              
-               //bookHasAuthor.setIdauthor(autor.getIdauthor());
-               
-               //bookHasAuthor.setIdbook(book.getIdbook());
-               
-               //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+bookHasAuthor.getIdauthor();"+bookHasAuthor.getIdauthor()));
-               //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+bookHasAuthor.getIdbook()));
-          
-               //bookHasAuthorMgr.save(bookHasAuthor);
-               
-               
-               
+                              
                novy_autorovia = (authorMgr.find(nazov_1_autora));
                
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Title was successfully created."));
-               
-               
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+autor.toString()));
-
+              
 		
 		try {
-			bookMgr.save(book); 
+			exemplarMgr.save(exemplar); 
                         
                         
 		} catch(javax.ejb.EJBException e) {
@@ -775,10 +465,10 @@ public class SearchBooksBean {
 		
                
                /* 
-                bookHasAuthor.setIdbook(book.getIdbook());
-                bookHasAuthor.setIdauthor(autor.getIdauthor());
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+bookHasAuthor.getIdauthor();"+bookHasAuthor.getIdauthor()));
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+bookHasAuthor.getIdbook()));
+                exemplarHasAuthor.setIdexemplar(exemplar.getIdexemplar());
+                exemplarHasAuthor.setIdauthor(autor.getIdauthor());
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("+exemplarHasAuthor.getIdauthor();"+exemplarHasAuthor.getIdauthor()));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("autor.toString();"+exemplarHasAuthor.getIdexemplar()));
                 */
 		return "edit";
 	}

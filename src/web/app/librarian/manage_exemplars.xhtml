@@ -9,64 +9,119 @@
       xmlns:rich="http://richfaces.org/rich">
 
 
-	<ui:composition template="template.xhtml">
+	<ui:composition template="../template.xhtml">
 		<ui:define name="content">
 
-			<h:form>
-				
-				<rich:tabPanel switchType="client">
-					<rich:tab header="Detail knihy">
-				
-						<h:panelGrid columns="2">
-							<h:outputText value="Název"></h:outputText>
-							<h:outputText value="#{searchBooksBean.book.name}"></h:outputText>
-
-							<h:outputText value="Autor"></h:outputText>
-							<h:outputText value="#{searchBooksBean.book.authorCollection}">
-								<f:converter converterId="authorConverter" />
-							</h:outputText>
-
-							<h:outputText value="Rok vydání"/>
-							<h:outputText value="#{searchBooksBean.book.year}">
-								<f:converter converterId="dateConverter" />
-							</h:outputText>
-
-							<h:outputText value="Žánr"></h:outputText>
-							<h:outputText value="#{searchBooksBean.book.genre}"></h:outputText>
-
-							<h:outputText value="Vydavatel"/>
-							<h:outputText value="#{searchBooksBean.book.publisher}"></h:outputText>
-
-							<h:outputText value="#{searchBooksBean.book.type.toUpperCase()}"/>
-							<h:outputText value="#{searchBooksBean.book.code}"></h:outputText>
-
-							<h:outputText value="Počet stran"/>
-							<h:outputText value="#{searchBooksBean.book.pages}"></h:outputText>
-
-							<h:outputText value="Vydání"/>
-							<h:outputText value="#{searchBooksBean.book.edition}. vydání"></h:outputText>
-
-							<h:outputText value="Místo vydání"/>
-							<h:outputText value="#{searchBooksBean.book.place}"></h:outputText>
-
-							<h:outputText value="Výtisky"/>
-							<h:outputText value="#{searchBooksBean.book.exemplarCollection.size()} celkem, #{searchBooksBean.countExemplarsBorrowed} vypůjčeno, #{searchBooksBean.countExemplarsFree} dostupných"></h:outputText>
-						</h:panelGrid>
-
-						<p>
-						<h:commandButton rendered='#{!authenticationBean.isInRole("guest")}' action="#{searchBooksBean.actionBookBooking}" value="Rezervovat knížku">
-						</h:commandButton>
-						<h:commandButton immediate="true" action="#{searchBooksBean.actionCancelDetail}" value="Zpět do katalogu">
-						</h:commandButton>
-						</p>
-
-					</rich:tab>
-				</rich:tabPanel>
+			<h:form id="usersForm" prependId="false">
+				<rich:dataTable value="#{manageExemplarsBean.exemplars}" rows="25" id="catalogExemplarList" var="exemplar" binding="#{searchBooksBean.exemplarListTable}" rowClasses="odd,even">
+					
+					<rich:column>
+						<f:facet name="header">
+                                                         
+							<h:outputText value="Pořízený"/><br />
+							
+						</f:facet>
+						<h:outputText value="#{book.year}">
+                                                        <f:converter converterId="dateConverter" />
+                                                </h:outputText>
+					</rich:column>
+					
+                                    
+                            
+                                    
+                                        <rich:column>
+						<f:facet name="header">
+                                                        
+							<h:outputText value="Autor"/><br />
 						
+						</f:facet>
+						<h:outputText value="#{book.authorCollection}">
+                                                        <f:converter converterId="authorConverter" />
+                                                </h:outputText>
+					</rich:column>
+                                    
+                                    
+					<rich:column>
+						<f:facet name="header">
+                                                         
+							<h:outputText value="Rok"/><br />
+							<h:inputText value="#{manageReadersBean.filter_forename}"></h:inputText>
+						</f:facet>
+						<h:outputText value="#{book.year}">
+                                                        <f:converter converterId="dateConverter" />
+                                                </h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+                                                       
+							<h:outputText value="Počet strán"/><br />
+							<h:inputText value="#{manageReadersBean.filter_surname}"></h:inputText>
+						</f:facet>
+						<h:outputText value="#{book.pages}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Edice"/>
+						</f:facet>
+						<h:outputText value="#{book.edition}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+                                                       
+							<h:outputText value="Město"/><br />
+                                                        <h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
+						</f:facet>
+						<h:outputText value="#{book.place}"></h:outputText>
+                                                
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+                                                       
+							<h:outputText value="Vydavatelství"/><br />
+							<h:inputText value="#{manageReadersBean.filter_email}"></h:inputText>
+						</f:facet>
+						<h:outputText value="#{book.publisher}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+                                                    
+							<h:outputText value="Žáner"/><br />
+						</f:facet>
+						<h:outputText value="#{book.genre}">
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+                                                       
+							<h:outputText value="Kód"/><br />
+                                                        <h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
+						</f:facet>
+						<h:outputText value="#{book.code}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Akce" /><br />
+							<h:commandButton value="Filtruj" />
+						</f:facet>
+                                                <h:outputText value=" "></h:outputText>
+						<h:commandLink action="#{searchBooksBean.actionEdit}">
+							<h:outputText value="Upravit"></h:outputText>
+						</h:commandLink>
+						<h:outputText value=" "></h:outputText>
+						<h:commandLink action="#{searchBooksBean.actionDelete}">
+							<h:outputText value="Smazat"></h:outputText>
+						</h:commandLink>
+						
+						
+					</rich:column>
+				</rich:dataTable>
+				
+				<rich:dataScroller for="catalogExemplarList" maxPages="20" />
+				<h:commandLink action="#{searchBooksBean.actionCreateNew}">
+					<h:outputText value="Vložit nový záznam"></h:outputText>
+				</h:commandLink>
 			</h:form>
-			
 		</ui:define>
 	</ui:composition>
-
 </html>
 

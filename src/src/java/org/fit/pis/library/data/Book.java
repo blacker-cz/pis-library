@@ -128,6 +128,7 @@ public class Book implements Serializable {
 	public Integer getIdbook() {
 		return this.idbook;
 	}
+        
 
 	public void setIdbook(Integer idbook) {
 		this.idbook = idbook;

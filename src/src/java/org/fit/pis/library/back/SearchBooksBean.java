@@ -46,6 +46,7 @@ public class SearchBooksBean {
 	private AuthorManager authorMgr;
         
 	private Book book;
+        private Exemplar exemplar;
         private BookHasAuthor bookHasAuthor;
 	private UIDataTable listTable;
 	private UIDataTable exemplarListTable;
@@ -53,15 +54,15 @@ public class SearchBooksBean {
 	
 	@ManagedProperty(value="#{authenticationBean}")
 	private AuthenticationBean authBean;
+        
 	
 	// variables used for filtering table
+        private int a;
         private String nazov_zanru;
         private String nazov_vydavatelstva;
         private String rok_vydania;
-        private String rok_vydania2;
 	private String filter_name;
 	private String filter_author;
-        private Genre book_genre;
 	private Author autor;
         private Calendar filter_dateFrom;
 	private Calendar filter_dateTo;
@@ -120,6 +121,22 @@ public class SearchBooksBean {
 	public void setBook(Book book) {
 		this.book = book;
 	}
+        
+        
+       
+	public Exemplar getExemplar() {
+		return exemplar;
+	}
+
+	/**
+	 * Set user
+	 * @param user 
+	 */
+	public void Exemplar(Exemplar exemplar) {
+		this.exemplar = exemplar;
+	}
+        
+        
 
 	/**
 	 * Authentication bean setter
@@ -242,6 +259,11 @@ public class SearchBooksBean {
         return dateformat.format(filter_dateFrom.getTime());
 	}
 
+        public int getA(){
+            return this.a;
+            
+        }
+        
 	public int getMinBookYear() {
 		return minBookYear;
 	}
@@ -468,7 +490,10 @@ public class SearchBooksBean {
 	 * @return 
 	 */
 	public String actionDetail() {
+            
 		setBook((Book) listTable.getRowData());
+                this.a = book.getIdbook();
+                
 		return "detail";
 	}
 
@@ -648,7 +673,7 @@ public class SearchBooksBean {
 		setBook((Book) listTable.getRowData());
                 
                 this.nazov_zanru = book.getGenre().toString();
-                this.book_genre = book.getGenre();
+                
                 
                 this.nazov_vydavatelstva = book.getPublisher().toString();   
                
