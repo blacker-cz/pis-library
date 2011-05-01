@@ -136,7 +136,7 @@ public class BookManager {
 		}
 
 		if (publisher != null) {
-			genreSQL = " AND b.publisher.idpublisher = :idpublisherFilter ";
+			publisherSQL = " AND b.publisher.idpublisher = :idpublisherFilter ";
 		}
 
 		Query query = em.createQuery(
