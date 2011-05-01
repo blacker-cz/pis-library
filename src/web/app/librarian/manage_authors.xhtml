@@ -15,7 +15,7 @@
 			<h2>Správa autorů</h2>
 
 			<h:form id="usersForm" prependId="false">
-				<rich:dataTable value="#{searchAuthorsBean.authors}" rows="25" id="catalogAuthorList" var="author" binding="#{searchAuthorsBean.listTable}" rowClasses="odd,even">
+				<rich:dataTable value="#{searchAuthorsBean.filteredAuthors}" rows="25" id="catalogAuthorList" var="author" binding="#{searchAuthorsBean.listTable}" rowClasses="odd,even">
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Jméno"/><br />

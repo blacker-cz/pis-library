@@ -49,9 +49,14 @@ public class GenreBean {
 		this.filter_name = filter_name;
 	}
 
-	public List<Genre> getGenres() {
+	public List<Genre> getFilteredGenres() {
 		// switch dates	
 		return genreMgr.find(filter_name);
+	}
+
+	public List<Genre> getGenres() {
+		// switch dates	
+		return genreMgr.findAll();
 	}
 
 	/**

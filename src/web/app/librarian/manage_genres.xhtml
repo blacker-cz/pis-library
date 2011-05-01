@@ -15,7 +15,7 @@
 			<h2>Správa žánrů</h2>
 
 			<h:form id="usersForm" prependId="false">
-				<rich:dataTable value="#{genreBean.genres}" rows="25" id="catalogGenreList" var="genre" binding="#{genreBean.listTable}" rowClasses="odd,even">
+				<rich:dataTable value="#{genreBean.filteredGenres}" rows="25" id="catalogGenreList" var="genre" binding="#{genreBean.listTable}" rowClasses="odd,even">
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Jméno"/><br />

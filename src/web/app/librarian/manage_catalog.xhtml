@@ -15,13 +15,13 @@
 			<h2>Správa titulů</h2>
 
 			<h:form id="usersForm" prependId="false">
-				<rich:dataTable value="#{searchBooksBean.books}" rows="25" id="catalogBookList" var="book" binding="#{searchBooksBean.listTable}" rowClasses="odd,even">
+				<rich:dataTable value="#{manageBooksBean.books}" rows="25" id="catalogBookList" var="book" binding="#{manageBooksBean.listTable}" rowClasses="odd,even">
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Jméno"/><br />
-							<h:inputText value="#{searchBooksBean.filter_name}"></h:inputText>
+							<h:inputText value="#{manageBooksBean.filter_name}"></h:inputText>
 						</f:facet>
-						<h:commandLink action="#{searchBooksBean.actionDetail}">
+						<h:commandLink action="#{manageBooksBean.actionDetail}">
 							<h:outputText value="#{book.name}"></h:outputText>
 						</h:commandLink>
 					</rich:column>
@@ -31,7 +31,7 @@
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Autor"/><br />
-							<h:inputText value="#{searchBooksBean.filter_author}"></h:inputText>
+							<h:inputText value="#{manageBooksBean.filter_author}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{book.authorCollection}">
 							<f:converter converterId="authorConverter" />
@@ -87,7 +87,7 @@
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Kód"/><br />
-							<h:inputText value="#{searchBooksBean.filter_isbn_issn}"></h:inputText>
+							<h:inputText value="#{manageBooksBean.filter_isbn_issn}"></h:inputText>
 						</f:facet>
 						<h:outputText value="#{book.code}"></h:outputText>
 					</rich:column>
@@ -97,11 +97,11 @@
 							<h:commandButton value="Filtruj" />
 						</f:facet>
 						<h:outputText value=" "></h:outputText>
-						<h:commandLink action="#{searchBooksBean.actionEdit}">
+						<h:commandLink action="#{manageBooksBean.actionEdit}">
 							<h:outputText value="Upravit"></h:outputText>
 						</h:commandLink>
 						<h:outputText value=" "></h:outputText>
-						<h:commandLink action="#{searchBooksBean.actionDelete}">
+						<h:commandLink action="#{manageBooksBean.actionDelete}">
 							<h:outputText value="Smazat"></h:outputText>
 						</h:commandLink>
 
@@ -110,7 +110,7 @@
 				</rich:dataTable>
 
 				<rich:dataScroller for="catalogBookList" maxPages="20" />
-				<h:commandLink action="#{searchBooksBean.actionCreateNew}">
+				<h:commandLink action="#{manageBooksBean.actionCreateNew}">
 					<h:outputText value="Vložit nový záznam"></h:outputText>
 				</h:commandLink>
 			</h:form>

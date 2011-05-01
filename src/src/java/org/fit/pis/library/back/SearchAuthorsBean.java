@@ -47,7 +47,6 @@ public class SearchAuthorsBean {
 		this.author = author;
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="Filter getters and setters">
 	public String getFilter_name() {
 		return filter_name;
 	}
@@ -56,13 +55,12 @@ public class SearchAuthorsBean {
 		this.filter_name = filter_name;
 	}
 
-	/**
-	 * Get list of users
-	 * @return 
-	 */
-	public List<Author> getAuthors() {
-		// switch dates	
+	public List<Author> getFilteredAuthors() {
 		return authorMgr.find(filter_name);
+	}
+
+	public List<Author> getAuthors() {
+		return authorMgr.findAll();
 	}
 
 	/**
