@@ -33,7 +33,6 @@
 						<f:selectItems value="#{manageBooksBean.authors}" />
 					</h:selectOneMenu>
 
-
 					<h:outputLabel rendered="true" value="Název 3. autora*"></h:outputLabel>
 					<h:selectOneMenu value="#{manageBooksBean.nazov_3_autora}" required="true">                                               
 						<f:selectItem itemValue="all" itemLabel="" />                                               
@@ -54,7 +53,9 @@
 					</h:inputText>
 
 					<h:outputLabel rendered="true" value="Počet strán:"></h:outputLabel>
-					<h:inputText value="#{manageBooksBean.book.pages}">
+					<h:inputText value="#{manageBooksBean.book.pages}"
+								 validatorMessage="Počet stran musí být číslo">                                
+								<f:validateRegex pattern="^[0-9]*$" />
 					</h:inputText>
 					<h:outputLabel rendered="true" value="Edice:"></h:outputLabel>
 					<h:inputText value="#{manageBooksBean.book.edition}">

@@ -46,6 +46,7 @@ public class XmlResponseServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/xml;charset=UTF-8");
+		response.setHeader("Content-Disposition", "attachment; filename=export.xml");
 		PrintWriter out = response.getWriter();
 		try {
 			DatabaseWrapper db = new DatabaseWrapper();
