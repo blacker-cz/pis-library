@@ -18,7 +18,7 @@
 						
 						<h:panelGrid columns="2">
 							<h:outputLabel rendered="true" value="Název knihy:"></h:outputLabel>
-							<h:inputText value="#{searchBooksBean.filter_name}">
+							<h:inputText value="#{searchBooksBean.filter_name}" validatorMessage="Maximální délka názvu knihy je omezena na 255 znaků">
 								<f:validateLength minimum="0" maximum="255" />
 							</h:inputText>
 
@@ -35,17 +35,17 @@
 							</h:selectOneMenu>
 
 							<h:outputLabel rendered="true" value="Rok vydání od"></h:outputLabel>
-							<h:inputText id="filter_yearFrom" value="#{searchBooksBean.filter_yearFrom}" required="false" converterMessage="Rok musí být v rozsahu #{Book.MIN_BOOK_YEAR} - #{Book.MAX_BOOK_YEAR}">
+							<h:inputText id="filter_yearFrom" value="#{searchBooksBean.filter_yearFrom}" required="false" validatorMessage="Rok musí být v rozsahu #{searchBooksBean.minBookYear} - #{searchBooksBean.maxBookYear}" maxlength="4">
 								<f:validateLongRange minimum="#{searchBooksBean.minBookYear}" maximum="#{searchBooksBean.maxBookYear}" />
 							</h:inputText>
 
 							<h:outputLabel rendered="true" value="Rok vydání do"></h:outputLabel>
-							<h:inputText id="filter_yearTo" value="#{searchBooksBean.filter_yearTo}" required="false" converterMessage="Rok musí být v rozsahu #{Book.MIN_BOOK_YEAR} - #{Book.MAX_BOOK_YEAR}">
+							<h:inputText id="filter_yearTo" value="#{searchBooksBean.filter_yearTo}" required="false" validatorMessage="Rok musí být v rozsahu #{searchBooksBean.minBookYear} - #{searchBooksBean.maxBookYear}" maxlength="4">
 								<f:validateLongRange minimum="#{searchBooksBean.minBookYear}" maximum="#{searchBooksBean.maxBookYear}" />
 							</h:inputText>
 
 							<h:outputLabel rendered="true" value="ISBN/ISSN:"></h:outputLabel>
-							<h:inputText value="#{searchBooksBean.filter_isbn_issn}">
+							<h:inputText value="#{searchBooksBean.filter_isbn_issn}" validatorMessage="Maximální délka ISBN/ISSN je omezena na 255 znaků">
 								<f:validateLength minimum="0" maximum="255" />
 							</h:inputText>
 
