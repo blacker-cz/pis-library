@@ -57,7 +57,11 @@ public class UserManager {
 	{
 		em.flush();
 	}
-	
+		
+	public void clear() {
+		em.clear();
+	}
+
 	/**
 	 * Get list of all users
 	 * @return List of all users

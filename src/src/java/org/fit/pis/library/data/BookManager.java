@@ -3,16 +3,12 @@
  */
 package org.fit.pis.library.data;
 
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -41,6 +37,10 @@ public class BookManager {
 
 	public void flush() {
 		em.flush();
+	}
+	
+	public void clear() {
+		em.clear();
 	}
 
 	@SuppressWarnings("unchecked")

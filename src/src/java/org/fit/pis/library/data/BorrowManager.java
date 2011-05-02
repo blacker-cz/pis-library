@@ -40,6 +40,10 @@ public class BorrowManager {
 	{
 		em.flush();
 	}
+	
+	public void clear() {
+		em.clear();
+	}
 
 	/**
 	 * Find all borrows

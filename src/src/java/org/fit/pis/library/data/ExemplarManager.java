@@ -2,7 +2,6 @@
  */
 package org.fit.pis.library.data;
 
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,6 +28,10 @@ public class ExemplarManager {
 
 	public void flush() {
 		em.flush();
+	}
+	
+	public void clear() {
+		em.clear();
 	}
 
 	/**

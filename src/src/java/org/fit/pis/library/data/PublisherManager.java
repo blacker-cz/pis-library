@@ -31,6 +31,10 @@ public class PublisherManager {
 	public void flush() {
 		em.flush();
 	}
+	
+	public void clear() {
+		em.clear();
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Publisher> findAll() {

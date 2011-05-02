@@ -59,6 +59,7 @@ public class XmlImportBean {
 		UploadedFile file = event.getUploadedFile();
 
 		try {
+
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(file.getInputStream());
@@ -72,6 +73,24 @@ public class XmlImportBean {
 			processExemplars(doc.getElementsByTagName("exemplars"));
 			processBookings(doc.getElementsByTagName("bookings"));
 			processBorrows(doc.getElementsByTagName("borrows"));
+
+			userMgr.flush();
+			bookMgr.flush();
+			authorMgr.flush();
+			bookingMgr.flush();
+			exemplarMgr.flush();
+			genreMgr.flush();
+			publisherMgr.flush();
+			borrowMgr.flush();
+
+			userMgr.clear();
+			bookMgr.clear();
+			authorMgr.clear();
+			bookingMgr.clear();
+			exemplarMgr.clear();
+			genreMgr.clear();
+			publisherMgr.clear();
+			borrowMgr.clear();
 
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Import se nezdařil."));
@@ -313,7 +332,7 @@ public class XmlImportBean {
 				Element bookingNode = (Element) bookings.item(i);
 
 				Booking booking = new Booking();
-				
+
 				booking.setIdbooking(Integer.parseInt(getTagValue("idbooking", bookingNode)));
 				booking.setState(Integer.parseInt(getTagValue("state", bookingNode)));
 				booking.setDate(DatatypeConverter.parseDateTime(getTagValue("date", bookingNode)).getTime());
@@ -322,16 +341,16 @@ public class XmlImportBean {
 				if (book == null) {
 					continue;
 				}
-				
+
 				booking.setBook(book);
-				
+
 				User user = userMgr.findByIduser(Integer.parseInt(getTagValue("user", bookingNode)));
-				if(user == null) {
+				if (user == null) {
 					continue;
 				}
-				
+
 				booking.setUser(user);
-				
+
 				try {
 					bookingMgr.Save(booking);
 				} catch (EJBException ex) {
@@ -355,31 +374,33 @@ public class XmlImportBean {
 				Element borrowNode = (Element) borrows.item(i);
 
 				Borrow borrow = new Borrow();
-				
+
 				borrow.setIdborrow(Integer.parseInt(getTagValue("idborrow", borrowNode)));
 				borrow.setProlongations(Integer.parseInt(getTagValue("prolongations", borrowNode)));
 				borrow.setBorrowed(DatatypeConverter.parseDateTime(getTagValue("borrowed", borrowNode)).getTime());
-				
+
 				// set returned date (can be null)
-				if(getTagValue("returned", borrowNode) == null)
-					borrow.setReturned(null);
-				else
-					borrow.setReturned(DatatypeConverter.parseDateTime(getTagValue("returned", borrowNode)).getTime());
-				
+				try {
+					if (getTagValue("returned", borrowNode) != null) {
+						borrow.setReturned(DatatypeConverter.parseDateTime(getTagValue("returned", borrowNode)).getTime());
+					}
+				} catch (NullPointerException e) {
+				}
+
 				User user = userMgr.findByIduser(Integer.parseInt(getTagValue("user", borrowNode)));
-				if(user == null) {
+				if (user == null) {
 					continue;
 				}
-				
+
 				borrow.setUser(user);
-				
+
 				Exemplar exemplar = exemplarMgr.findByIdexemplar(Integer.parseInt(getTagValue("exemplar", borrowNode)));
-				if(exemplar == null) {
+				if (exemplar == null) {
 					continue;
 				}
-				
+
 				borrow.setExemplar(exemplar);
-				
+
 				try {
 					borrowMgr.Save(borrow);
 				} catch (EJBException ex) {
@@ -389,7 +410,7 @@ public class XmlImportBean {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Get tag value
 	 * @param sTag

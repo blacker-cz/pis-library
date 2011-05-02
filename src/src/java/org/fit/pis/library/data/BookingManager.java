@@ -40,7 +40,11 @@ public class BookingManager {
 	{
 		em.flush();
 	}
-	
+		
+	public void clear() {
+		em.clear();
+	}
+
 	/**
 	 * Find all bookings
 	 * @return 

@@ -31,7 +31,11 @@ public class GenreManager {
     {
     	em.remove(em.merge(g));
     }
-    
+    	
+	public void clear() {
+		em.clear();
+	}
+
     @SuppressWarnings("unchecked")
     public List<Genre> findAll()
     {
