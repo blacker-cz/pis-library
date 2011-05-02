@@ -356,13 +356,18 @@ public class SearchBooksBean {
 		}
 
 		// Zkontroluje, jestli náhodou nemám půjčený exemplář
+		int freeExemplarsCount = 0;
 		List<Exemplar> exemplars = exemplarMgr.findByBook(book);
 		if (!exemplars.isEmpty()) {
 			for (Exemplar e : exemplars) {
 				System.out.println(e);
-				// book is already borrowed or borrowed by user
-				if (e.getIsBorrowed() || e.isBorrowedByUser(user)) {
+				// book is borrowed by user
+				if (e.isBorrowedByUser(user)) {
 					return false;
+				}
+				// is free
+				if (!e.getIsBorrowed()) {
+					freeExemplarsCount++;
 				}
 			}
 		}
@@ -373,8 +378,11 @@ public class SearchBooksBean {
 			return true;
 		}
 
-		// can borrow only if is first in list
+		// can borrow only if is first in book list
 		if (booking.get(0).getUser().getIduser() == user.getIduser()) {
+			return true;
+		// or booking list size is 
+		} else if (booking.size() < freeExemplarsCount) {
 			return true;
 		}
 
@@ -487,7 +495,7 @@ public class SearchBooksBean {
 		if (!exemplars.isEmpty()) {
 			for (Exemplar e : exemplars) {
 				// book is already borrowed
-				if (e.getIsBorrowed()) {
+				if (e.isBorrowedByUser(user)) {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Can't book borrowed book!"));
 					return action;
 				}
@@ -570,7 +578,7 @@ public class SearchBooksBean {
 		if (!exemplars.isEmpty()) {
 			for (Exemplar e : exemplars) {
 				// book is already borrowed
-				if (e.getIsBorrowed()) {
+				if (e.isBorrowedByUser(user)) {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Can't borrow borrowed book!"));
 					return "newBorrow";
 				}

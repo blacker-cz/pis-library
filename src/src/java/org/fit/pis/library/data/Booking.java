@@ -31,7 +31,7 @@ import org.fit.pis.library.back.converters.IntegerAdapter;
 @NamedQueries({
 	@NamedQuery(name = "Booking.findAll", query = "SELECT b FROM Booking b"),
 	@NamedQuery(name = "Booking.findByUser", query = "SELECT b FROM Booking b WHERE b.user = :user ORDER BY b.date ASC"),
-	@NamedQuery(name = "Booking.findByBook", query = "SELECT b FROM Booking b WHERE b.book = :book"),
+	@NamedQuery(name = "Booking.findByBook", query = "SELECT b FROM Booking b WHERE b.book = :book ORDER BY b.date ASC, b.idbooking DESC"),
 	@NamedQuery(name = "Booking.findByIdbooking", query = "SELECT b FROM Booking b WHERE b.idbooking = :idbooking"),
 	@NamedQuery(name = "Booking.findByDate", query = "SELECT b FROM Booking b WHERE b.date = :date"),
 	@NamedQuery(name = "Booking.findByState", query = "SELECT b FROM Booking b WHERE b.state = :state")})

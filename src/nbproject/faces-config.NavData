@@ -75,9 +75,10 @@
         <Node id="app/librarian/trespassers.xhtml" x="12551" y="32" zoom="true"/>
         <Node id="app/librarian/new_author.xhtml" x="7115" y="32" zoom="true"/>
         <Node id="access_denied.xhtml" x="6121" y="32" zoom="true"/>
+        <Node id="app/librarian/edit_exemplar.xhtml" x="400" y="150" zoom="true"/>
         <Node id="app/librarian/manage_exemplars.xhtml" x="462" y="32" zoom="true"/>
-        <Node id="app/reader/change_password.xhtml" x="9561" y="32" zoom="true"/>
         <Node id="app/librarian/manage_genres.xhtml" x="8280" y="32" zoom="true"/>
+        <Node id="app/reader/change_password.xhtml" x="9561" y="32" zoom="true"/>
         <Node id="app/admin/import.xhtml" x="2599" y="32" zoom="true"/>
         <Node id="app/librarian/edit_book.xhtml" x="1841" y="32" zoom="true"/>
         <Node id="app/librarian/manage_borrows_add.xhtml" x="8942" y="444" zoom="true"/>
@@ -87,19 +88,20 @@
         <Node id="app/librarian/edit_reader.xhtml" x="1450" y="32" zoom="true"/>
         <Node id="app/book_detail.xhtml" x="4574" y="32" zoom="true"/>
         <Node id="app/librarian/manage_borrows.xhtml" x="9189" y="215" zoom="true"/>
+        <Node id="app/librarian/new_exemplar.xhtml" x="150" y="150" zoom="true"/>
         <Node id="app/*" x="10368" y="32" zoom="false"/>
-        <Node id="app/catalog.xhtml" x="11354" y="32" zoom="true"/>
         <Node id="app/librarian/new_book.xhtml" x="12171" y="32" zoom="true"/>
+        <Node id="app/catalog.xhtml" x="11354" y="32" zoom="true"/>
         <Node id="app/admin/manage_users.xhtml" x="4179" y="32" zoom="true"/>
         <Node id="app/reader/my_booking.xhtml" x="2219" y="32" zoom="true"/>
         <Node id="app/home.xhtml" x="6831" y="32" zoom="true"/>
-        <Node id="app/librarian/manage_catalog.xhtml" x="5311" y="32" zoom="true"/>
-        <Node id="app/librarian/edit_publisher.xhtml" x="4901" y="32" zoom="true"/>
         <Node id="app/librarian/new_genre.xhtml" x="10967" y="32" zoom="true"/>
+        <Node id="app/librarian/edit_publisher.xhtml" x="4901" y="32" zoom="true"/>
+        <Node id="app/librarian/manage_catalog.xhtml" x="5311" y="32" zoom="true"/>
         <Node id="app/librarian/manage_bookings.xhtml" x="8702" y="216" zoom="true"/>
         <Node id="need_login.xhtml" x="907" y="32" zoom="true"/>
-        <Node id="app/admin/edit_user.xhtml" x="2937" y="32" zoom="true"/>
         <Node id="app/reader/my_borrows.xhtml" x="9986" y="32" zoom="true"/>
+        <Node id="app/admin/edit_user.xhtml" x="2937" y="32" zoom="true"/>
         <Node id="index.xhtml" x="1198" y="32" zoom="true"/>
         <Node id="app/librarian/manage_authors.xhtml" x="34" y="32" zoom="true"/>
         <Node id="app/librarian/manage_borrows_book_detail.xhtml" x="9253" y="347" zoom="true"/>
