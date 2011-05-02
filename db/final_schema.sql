@@ -213,4 +213,9 @@ ALTER TABLE `exemplar`
 
 DELETE FROM `user`;
 INSERT INTO `user` (`iduser`, `forename`, `surname`, `permitNumber`, `address`, `phone`, `email`, `registered`, `expire`, `password`, `level`) VALUES
-	(1, 'Admin', 'Admin', '1', '', NULL, 'admin@example.com', '2011-04-08', '2035-04-08', 'admin', 'admin');
+	(1, 'Admin', 'Admin', '1', '', NULL, 'admin@example.com', '2011-04-08', '2035-04-08', 'spravce', 'admin');
+INSERT INTO `user` (`iduser`, `forename`, `surname`, `permitNumber`, `address`, `phone`, `email`, `registered`, `expire`, `password`, `level`) VALUES
+	(2, 'Karel', 'Knihovník', '2', '', NULL, 'librarian@example.com', '2011-04-08', '2035-04-08', 'knihovnik', 'librarian');
+INSERT INTO `user` (`iduser`, `forename`, `surname`, `permitNumber`, `address`, `phone`, `email`, `registered`, `expire`, `password`, `level`) VALUES
+	(3, 'Petr', 'Čtenář', '3', '', NULL, 'reader@example.com', '2011-04-08', '2035-04-08', 'ctenar', 'reader');
+	
